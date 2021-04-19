@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+
+.wrapper{
+	width: 100%;
+	height: calc(100vh - 72px);
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+.tabs{
+	align-self: center;
+}
