@@ -11,11 +11,10 @@ import javax.sql.DataSource;
 
 import kr.or.team3.dto.member.Member;
 
-public class RegisterDao {
+public class MemberDao {
+DataSource ds = null;
 	
-	DataSource ds = null;
-	
-	public RegisterDao() throws NamingException {
+	public MemberDao() throws NamingException {
 		Context context = new InitialContext();
 		ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
 	}
