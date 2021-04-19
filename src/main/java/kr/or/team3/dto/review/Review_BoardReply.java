@@ -1,18 +1,18 @@
-package kr.or.team3.dto.QnABoard;
+package kr.or.team3.dto.review;
 
 import java.sql.Date;
 
-public class QnA_BoardReply {
+public class Review_BoardReply {
 	private int re_num;      //댓글번호
 	private String content;  //내용
 	private Date writedate;  //작성일
 	private int num;         //글번호(참조)
 	private String email;    //이메일(참조)
 	
-	public QnA_BoardReply() {
+	public Review_BoardReply() {
 	}
 	
-	public QnA_BoardReply(int re_num, String content, Date writedate, int num, String email) {
+	public Review_BoardReply(int re_num, String content, Date writedate, int num, String email) {
 		super();
 		this.re_num = re_num;
 		this.content = content;

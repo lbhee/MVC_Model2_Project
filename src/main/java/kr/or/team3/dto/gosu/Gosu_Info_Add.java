@@ -1,5 +1,45 @@
 package kr.or.team3.dto.gosu;
 
 public class Gosu_Info_Add {
+	
+	private int g_code;      //고수고유코드(참조)
+	private int turn;        //순번
+	private String career;   //경력
+	private String license;  //자격증
+	
+	public Gosu_Info_Add() {
+	}
 
+	public Gosu_Info_Add(int g_code, int turn, String career, String license) {
+		super();
+		this.g_code = g_code;
+		this.turn = turn;
+		this.career = career;
+		this.license = license;
+	}
+
+	public int getG_code() {
+		return g_code;
+	}
+	public void setG_code(int g_code) {
+		this.g_code = g_code;
+	}
+	public int getTurn() {
+		return turn;
+	}
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+	public String getCareer() {
+		return career;
+	}
+	public void setCareer(String career) {
+		this.career = career;
+	}
+	public String getLicense() {
+		return license;
+	}
+	public void setLicense(String license) {
+		this.license = license;
+	}
 }
