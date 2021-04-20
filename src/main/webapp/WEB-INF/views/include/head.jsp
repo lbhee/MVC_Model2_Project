@@ -124,7 +124,7 @@
 				<div class="collapse navbar-collapse" id="navbars-host">
 					<ul class="navbar-nav ml-auto">
 						<li><a href="<%= request.getContextPath() %>/Join.go">회원가입</a></li>
-						<li class="nav-item active"><a class="nav-link" href="domain.html">로그인</a></li>
+						<li><a href="<%= request.getContextPath() %>/Login.go">로그인</a></li>
 					</ul>
 				</div>
 			</div>

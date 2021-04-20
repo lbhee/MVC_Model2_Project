@@ -11,14 +11,16 @@ public class RQ_Form {
 	private Date hopedate;   //수업희망날짜
 	private int done;		 //요청완료 유무 default = 0 >> 요청미완료, 1 >> 요청완료
 	private String phone;    //핸드폰번호
-	private String email;    //이메일(참조)
-	private int g_code;      //고수고유코드(참조)
+	private String m_email;    //요청자이메일
+	private String g_email;    //고수이메일
+	private int g_code;      //고수고유코드
 	
 	public RQ_Form() {
 	}
 
-	public RQ_Form(int num, String title, String content, Date writedate, Date hopedate, int done, String phone, String email,
-			int g_code) {
+	public RQ_Form(int num, String title, String content, Date writedate, Date hopedate, int done, String phone, String m_email,
+			String g_email, int g_code) {
+		
 		super();
 		this.num = num;
 		this.title = title;
@@ -27,10 +29,25 @@ public class RQ_Form {
 		this.hopedate = hopedate;
 		this.done = done;
 		this.phone = phone;
-		this.email = email;
+		this.m_email = m_email;
+		this.g_email = g_email;
 		this.g_code = g_code;
+		
 	}
-
+	
+	
+	public String getM_email() {
+		return m_email;
+	}
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
+	}
+	public String getG_email() {
+		return g_email;
+	}
+	public void setG_email(String g_email) {
+		this.g_email = g_email;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -66,12 +83,6 @@ public class RQ_Form {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public int getG_code() {
 		return g_code;

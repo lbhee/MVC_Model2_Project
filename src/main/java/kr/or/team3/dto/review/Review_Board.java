@@ -3,6 +3,7 @@ package kr.or.team3.dto.review;
 import java.sql.Date;
 
 public class Review_Board {
+	
 	private int num;         //글번호
     private String title;    //글제목
     private String content;  //글내용
@@ -12,13 +13,16 @@ public class Review_Board {
     private int refer;
     private int depth;
     private int step; 
-    private String email;    //이메일(참조)
+    private String m_email;    //요청자이메일
+    private String g_email;    //고수이메일
+    private int g_code;   	   //고수고유코드
    
 	public Review_Board() {
 	}
 	
 	public Review_Board(int num, String title, String content, Date writedate, int grade, int count, int refer, int depth,
-			int step, String email) {
+			int step, String m_email, String g_email, int g_code) {
+		
 		super();
 		this.num = num;
 		this.title = title;
@@ -29,7 +33,10 @@ public class Review_Board {
 		this.refer = refer;
 		this.depth = depth;
 		this.step = step;
-		this.email = email;
+		this.m_email = m_email;
+		this.g_email = g_email;
+		this.g_code = g_code;
+		
 	}
 	
 	public int getNum() {
@@ -86,12 +93,23 @@ public class Review_Board {
 	public void setStep(int step) {
 		this.step = step;
 	}
-	public String getEmail() {
-		return email;
+	public String getM_email() {
+		return m_email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
-	   
-  
+	public String getG_email() {
+		return g_email;
+	}
+	public void setG_email(String g_email) {
+		this.g_email = g_email;
+	}
+	public int getG_code() {
+		return g_code;
+	}
+	public void setG_code(int g_code) {
+		this.g_code = g_code;
+	}
+	
 }
