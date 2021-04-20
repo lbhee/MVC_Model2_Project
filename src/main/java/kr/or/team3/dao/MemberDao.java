@@ -9,6 +9,8 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import kr.or.team3.dto.member.Member;
@@ -20,6 +22,7 @@ DataSource ds = null;
 	public MemberDao() throws NamingException {
 		Context context = new InitialContext();
 		ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		
 	}
 	
 	
@@ -58,13 +61,16 @@ DataSource ds = null;
 	}
 	
     // 로그인
-	public String loginOk(Member memberdata) {
+	public boolean loginOk(Member memberdata, HttpServletRequest request) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		ResultSet rs = null;
-		String name = null;
+		
+		HttpSession session = request.getSession();
+
+		
 		try {
 			conn = ds.getConnection();
 			String sql = "select name,pwd from member where email = ?";
@@ -73,15 +79,16 @@ DataSource ds = null;
 			pstmt.setString(1, memberdata.getEmail());
 			rs = pstmt.executeQuery();
 			
-			
 			if(rs.next()) {
 				if(rs.getString("pwd").equals(memberdata.getPwd())) {
+					session.setAttribute("ID", memberdata.getEmail());
+					session.setAttribute("Name", rs.getString("name"));
 					result = true;
-					name = rs.getString("name");
 				} else {
 					result = false;
 				}
 			}
+		
 		} catch(Exception e) {
 			e.getMessage();
 		} finally {
@@ -93,7 +100,7 @@ DataSource ds = null;
 				
 			}
 		}
-		return name;
+		return result;
 		
 	}
 	

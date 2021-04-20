@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
 import kr.or.team3.service.Member_JoinOk_Service;
-import kr.or.team3.service.Member_LoginOk_Service;
 
 @WebServlet("*.go")
 public class gosuController extends HttpServlet {
@@ -49,11 +48,8 @@ public class gosuController extends HttpServlet {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
     		
-    	} else if(URL.equals("/Loginok.go")) {
-    		action = new Member_LoginOk_Service();
-    		actionForward = action.excute(request, response);
-    		
     	}
+    		
     	
     	
     	

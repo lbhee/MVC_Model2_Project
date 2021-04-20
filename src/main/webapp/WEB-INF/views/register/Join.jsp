@@ -59,7 +59,6 @@ $('#pwd').blur(
 		function() {
 			if (passwoercheck.test($('#pwd').val())
 					&& $("#pwd").val().length >= 8) {
-				console.log("일치" + $('#userPass').val());
 				$('.tdpw').html("");
 				passck = true;
 			} else if (!passwoercheck.test($('#userPass').val())) {

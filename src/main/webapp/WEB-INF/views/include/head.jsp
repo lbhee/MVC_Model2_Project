@@ -57,7 +57,14 @@
 								<li class="nav-item active"><a class="nav-link" href="${ path }/Login.go">로그인</a></li>
 				 			</c:when>
 				 			<c:otherwise>
-				 				<li class="nav-item active"><a class="nav-link" href="#">${ name } 고객님</a></li>
+				 				<li class="nav-item active"><a class="nav-link" href="#">${ name } 고객님</a>
+				 				<div class="user_info" style="display:none">
+				 					<h4 class="head_userName">안녕하세요, ${ name }</h4>
+				 					<div class="mypage"><a href="#">마이페이지</a></div>
+				 					<div class="gosu_register"><a href="#">고수로 가입하기</a></div>
+				 					<div class="logout"><a href="#">로그아웃</a></div>
+				 				</div>
+				 				</li>
 				 			</c:otherwise>
 				 		</c:choose>
 				 		
@@ -81,5 +88,33 @@
 			verticalStartPosition: 'left',
 			visibleItems: 4
 		}); 
+		
+		// 회원 정보
+		$('.nav-link').click(function() {
+			var toggle = $('.user_info').attr('style');
+			
+			if(toggle == "display:none"){
+				$('.user_info').attr('style','');
+			}else {
+				$('.user_info').attr('style','display:none');
+			}
+		})
+		
+		//로그아웃
+		$('.logout').click(function(){
+			$.ajax({
+				   url:"LogOut_Ajax", 
+				   dataType:"html",
+				   success:function(data){
+					   if(data == "true"){
+				   		   location.href = "main.jsp";
+					   }
+				   },
+				   error:function(xhr){
+					   alert(xhr.status);
+				   }
+				
+			})
+		})
 	</script>
 <link rel="stylesheet" href="css/Team3.css">

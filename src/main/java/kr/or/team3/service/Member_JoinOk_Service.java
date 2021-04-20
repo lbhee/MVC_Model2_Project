@@ -18,6 +18,7 @@ public class Member_JoinOk_Service implements Action {
 		String adr = request.getParameter("adr");
 		
 		
+		
 		Member member = new Member(email,name,pwd,adr);
 		
 		ActionForward actionForward = new ActionForward();

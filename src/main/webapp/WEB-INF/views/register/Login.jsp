@@ -6,7 +6,7 @@
 <body>
 	<div class="container loginForm">
 		<div class="loginForm">
-			<form action="<%= request.getContextPath() %>/Loginok.go" method="post" id="Login">
+			<form action="" method="post" id="Login">
 				<h2 style="text-align: center"><b>로그인</b></h2>
 				
 				<div class="regidiv">
@@ -49,16 +49,13 @@ $('#email').blur(function() {
 })		
 
 //비밀번호 체크   
-var passwoercheck = /^([A-Za-z])+([0-9])+([~!@#$%^&*()_+|<>?:{}])+$/;
 var passck = false;
 $('#pwd').blur(
 		function() {
-			if (passwoercheck.test($('#pwd').val())
-					&& $("#pwd").val().length >= 8) {
-				console.log("일치" + $('#userPass').val());
+			if ($("#pwd").val().length >= 3) {
 				$('.tdpw').html("");
 				passck = true;
-			} else if (!passwoercheck.test($('#userPass').val())) {
+			} else {
 				$('.tdpw').attr("style", "color:red; font-size:3px");
 				$('.tdpw').html("비밀번호를 입력해주세요.");
 				passck = false;
@@ -69,15 +66,32 @@ $('#pwd').blur(
 		
 		
 // 버튼 선택 
-$('.button').click(
-		function() {
-			if (passck == false || emailck == false) {
-				alert("형식이 맞지 않습니다.");
-				return;
-			} else {
-				$('#Login').submit();
-			}
-		})
+$('.button').click(function() {
+		if (passck == false || emailck == false) {
+			alert("빈칸을 모두 채워주세요.");
+			return;
+		} else {
+			$.ajax({
+				   url:"Member_LoginOk_Service", 
+				   data:{
+					   email:$('#email').val(),
+					   pwd:$('#pwd').val()	
+				   },
+				   dataType:"html",
+				   success:function(data){
+					   if(data == "true"){
+				   		   location.href = "main.jsp";
+					   }else{
+						   alert("아이디 또는 비밀번호를 확인해주세요")
+					   }
+				   },
+				   error:function(xhr){
+					   alert(xhr.status);
+				   }
+				})
+		}		
+			
+	})
 		
 </script>
 </html>
