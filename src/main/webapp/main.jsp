@@ -15,8 +15,8 @@
 			<div class="tabs">
 				<div class="tab_select">
 					<ul class="script_ul">
-					<li><a class="sevice_btn" href="#">서비스 찾기</a></li>
-					<li><a class="gosu_btn" href="#">고수 찾기</a></li>
+					<li><a class="tab_selected" href="#">서비스 찾기</a></li>
+					<li><a class="" href="#">고수 찾기</a></li>
 					</ul>
 				</div>
 				<!-- 서비스 찾기 화면  -->
@@ -95,11 +95,11 @@
 		$('.sevice_btn').attr('class','tab_selected');
 	})
 	 */
-	console.log($('script_ul > li'));
 	
-	$('script_ul').children("li").click(function(){
-		console.log("클");
+	$('.script_ul > li >a').click(function(){
+		$('.script_ul > li >a').attr('class','');
 		$(this).attr('class','tab_selected');
+		
 	})
 	
 </script>
