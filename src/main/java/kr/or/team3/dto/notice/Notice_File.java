@@ -3,14 +3,14 @@ package kr.or.team3.dto.notice;
 public class Notice_File {
 
 	private String filename;   //파일명
-	private String filesize;   //파일크기
+	private int filesize;      //파일크기
 	private String filepath;   //파일경로
 	private int num;           //글번호(참조)
 	
 	public Notice_File() {
 	}
 
-	public Notice_File(String filename, String filesize, String filepath, int num) {
+	public Notice_File(String filename, int filesize, String filepath, int num) {
 		super();
 		this.filename = filename;
 		this.filesize = filesize;
@@ -24,10 +24,10 @@ public class Notice_File {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public String getFilesize() {
+	public int getFilesize() {
 		return filesize;
 	}
-	public void setFilesize(String filesize) {
+	public void setFilesize(int filesize) {
 		this.filesize = filesize;
 	}
 	public String getFilepath() {

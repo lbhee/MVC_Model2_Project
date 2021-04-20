@@ -9,11 +9,12 @@ public class Notice {
 	private Date writedate; //작성일
 	private int count;      //조회수
 	private String email;   //이메일(참조)
+	private int g_number;	//고수고유코드
 	
 	public Notice() {
 	}
 	
-	public Notice(int num, String title, String content, Date writedate, int count, String email) {
+	public Notice(int num, String title, String content, Date writedate, int count, String email, int g_number) {
 		super();
 		this.num = num;
 		this.title = title;
@@ -21,6 +22,7 @@ public class Notice {
 		this.writedate = writedate;
 		this.count = count;
 		this.email = email;
+		this.g_number = g_number;
 	}
 	
 	public int getNum() {
@@ -59,4 +61,11 @@ public class Notice {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public int getG_number() {
+		return g_number;
+	}
+	public void setG_number(int g_number) {
+		this.g_number = g_number;
+	}
+	
 }

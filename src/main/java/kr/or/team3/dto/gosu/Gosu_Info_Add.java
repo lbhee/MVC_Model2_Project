@@ -9,6 +9,7 @@ public class Gosu_Info_Add {
 	private String license;  //자격증
 	
 	public Gosu_Info_Add() {
+		
 	}
 
 	public Gosu_Info_Add(String email, int g_code, int turn, String career, String license) {
