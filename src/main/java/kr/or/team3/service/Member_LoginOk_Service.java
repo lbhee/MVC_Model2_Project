@@ -16,7 +16,7 @@ public class Member_LoginOk_Service implements Action {
 		String pwd=request.getParameter("pwd");
 		
 		//Member member = new Member(email,pwd, pwd, pwd);
-		
+		//rr
 		ActionForward actionForward = new ActionForward();
 		
 		try {
