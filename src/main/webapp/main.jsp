@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <!-- header -->
-<jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <body>
 	<div class="container">
 		<div class="wrapper">
@@ -22,30 +22,38 @@
 					</h2>
 
 					<div class="input-group">
-						<input type="text" placeholder="서비스를 검색하세요">
+						<input type="text" placeholder="서비스를 검색하세요" id="search">
 						<div class="input-search">
 							<img src="images/search.svg">
 						</div>
 					</div>
+					<!-- 검색결과 화면 -->
+					<div>
+						<div>
+							<h1 id = "resultresearch"></h1>
+						</div>
+							<h2><a id="resultmove"></a></h2>
+					</div>
+					
 				</div>
 				<ul class="category">
 					<li><a href="#"> <img src="images/lesson.svg">
-						<p>레슨1</p>
+						<p>코딩</p>
 					</a></li>
 					<li><a href="#"> <img src="images/design-development.svg">
-						<p>레슨1</p>
+						<p>요리</p>
 					</a></li>
 					<li><a href="#"> <img src="images/part-time-job.svg">
-						<p>레슨1</p>
+						<p>댄스</p>
 					</a></li>
 					<li><a href="#"> <img src="images/event.svg">
-						<p>레슨1</p>
+						<p>음악</p>
 					</a></li>
 					<li><a href="#"> <img src="images/health-beauty.svg">
-						<p>레슨1</p>
+						<p>운동</p>
 					</a></li>
 					<li><a href="#"> <img src="images/business.svg">
-						<p>레슨1</p>
+						<p>영어</p>
 					</a></li>
 				</ul>
 			</div>

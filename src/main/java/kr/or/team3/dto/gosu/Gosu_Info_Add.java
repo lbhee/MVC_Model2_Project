@@ -2,20 +2,31 @@ package kr.or.team3.dto.gosu;
 
 public class Gosu_Info_Add {
 	
+	private String email;	 //고수이메일
 	private int g_code;      //고수고유코드(참조)
 	private int turn;        //순번
 	private String career;   //경력
 	private String license;  //자격증
 	
 	public Gosu_Info_Add() {
+		
 	}
 
-	public Gosu_Info_Add(int g_code, int turn, String career, String license) {
+	public Gosu_Info_Add(String email, int g_code, int turn, String career, String license) {
 		super();
+		this.email = email;
 		this.g_code = g_code;
 		this.turn = turn;
 		this.career = career;
 		this.license = license;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getG_code() {

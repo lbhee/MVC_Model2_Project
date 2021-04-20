@@ -14,8 +14,14 @@
     <link rel="stylesheet" href="css/boot.css">
     <!-- Site CSS -->
     <link rel="stylesheet" href="css/style.css">
-  
- 
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">  
+    <!-- Modernizer for Portfolio -->
+    <script src="js/modernizer.js"></script>
 
 
 </head>
