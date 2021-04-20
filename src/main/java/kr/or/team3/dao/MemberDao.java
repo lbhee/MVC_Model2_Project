@@ -57,6 +57,49 @@ DataSource ds = null;
 		return row;
 	}
 	
+    // 로그인
+	public String loginOk(Member memberdata) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		ResultSet rs = null;
+		String name = null;
+		try {
+			conn = ds.getConnection();
+			String sql = "select name,pwd from member where email = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberdata.getEmail());
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				if(rs.getString("pwd").equals(memberdata.getPwd())) {
+					result = true;
+					name = rs.getString("name");
+				} else {
+					result = false;
+				}
+			}
+		} catch(Exception e) {
+			e.getMessage();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				
+			}
+		}
+		return name;
+		
+	}
+	
+	
+	
+	
 	//요청서 보내기 by 안승주 21.04.19
 	public int sendRQ_Form(RQ_Form RQdata) {
 		Connection conn = null;

@@ -72,16 +72,10 @@ $('#pwd').blur(
 $('.button').click(
 		function() {
 			if (passck == false || emailck == false) {
-				alert("빈칸을 모두 채워주세요.");
+				alert("형식이 맞지 않습니다.");
 				return;
 			} else {
-				var cek = confirm("가입하시겠습니까?");
-				if(cek == true){
-					$('#Login').submit();
-				}else{
-					return;
-				}
-
+				$('#Login').submit();
 			}
 		})
 		
