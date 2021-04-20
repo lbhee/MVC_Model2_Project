@@ -93,7 +93,7 @@ DataSource ds = null;
 		
 		return row;
 	}
-	//해당 고수에게 보낸 요청서 가져오기 by 안승주 21.04.19
+	//해당 고수에게 보낸 요청서 가져오기 by 안승주 21.04.20
 	public List<RQ_Form> getRQ_Form(int cpage, int pagesize, int G_code) {
 		
 		Connection conn = null;
