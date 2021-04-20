@@ -1,3 +1,4 @@
+<%@page import="org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -113,7 +114,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.jsp">
+				<a class="navbar-brand" href="main.jsp">
 					<img src="images/soomgo_logo.svg" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,16 +124,16 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-host">
 					<ul class="navbar-nav ml-auto">
-						<li><a href="<%= request.getContextPath() %>/Join.go">회원가입</a></li>
-						<li class="nav-item active"><a class="nav-link" href="domain.html">로그인</a></li>
+						<li class="nav-item active"><a class="nav-link" href="<%= request.getContextPath() %>/Join.go">회원가입</a></li>
+						<li class="nav-item active"><a class="nav-link" href="<%= request.getContextPath() %>/Login.go">로그인</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</header>
 	<!-- End header -->
-    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
-
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- ALL JS FILES -->
     <script src="js/all.js"></script>
     <!-- ALL PLUGINS -->
@@ -146,5 +147,4 @@
 			visibleItems: 4
 		}); 
 	</script>
-</body>
-</html>
+<link rel="stylesheet" href="css/Team3.css">
