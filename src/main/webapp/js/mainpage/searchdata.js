@@ -11,23 +11,28 @@ var searchservice = {
 }
 
 var searchbar = document.getElementById("search"); //검색어 입력
-var searchlist = document.getElementById("searchresult"); //검색된 분야
+var searchlist = document.getElementById("resultmove"); //검색된 분야이동
+var searchresult = document.getElementById("searchresult"); //검색결과
 
-$(function(){
+
+$(function() {
 	searchdata();
 });
 
 
-function searchdata(){
-	$('#search').keyup(function(){
+function searchdata() {
+	$('#search').keyup(function() {
 		for(i = 0; i < searchservice.data.length; i++) {
-			if(searchservice.data[i].keyword.indexOf(searchbar.value) > -1) {
-				//$('.dd')[i].style.display = "";
-				searchlist.innerHTML = searchservice.data[i].name;
+		
+			if(searchservice.data[i].keyword.indexOf(searchbar.value) > -1 ) {
+				$('#resultmove').empty();	
+				$('#resultmove').append(searchservice.data[i].name);
 				searchlist.setAttribute("href" , searchservice.data[i].link);
-			}else {
-				//$('.dd')[i].style.display = "none";
-			}	
+			}
+			
+		    if(searchbar.value == "") {
+				$('#resultmove').empty();
+			}		
 		}
 	});
 };
