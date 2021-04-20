@@ -2,7 +2,11 @@ package kr.or.team3.dto.gosu;
 
 public class Gosu_Info_Add {
 	
+<<<<<<< HEAD
 	private String email;	 //이메일
+=======
+	private String email;	 //고수이메일
+>>>>>>> 871714e32a06625d73bf7430fc0d0b8058fbb3ad
 	private int g_code;      //고수고유코드(참조)
 	private int turn;        //순번
 	private String career;   //경력
@@ -23,9 +27,17 @@ public class Gosu_Info_Add {
 	public String getEmail() {
 		return email;
 	}
+<<<<<<< HEAD
 	public void setEmail(String email) {
 		this.email = email;
 	}
+=======
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+>>>>>>> 871714e32a06625d73bf7430fc0d0b8058fbb3ad
 	public int getG_code() {
 		return g_code;
 	}

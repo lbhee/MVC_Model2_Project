@@ -1,5 +1,6 @@
 package kr.or.team3.dto.gosu;
 
+<<<<<<< HEAD
 public class Gosu_Register{
 	
 	private String email; //이메일
@@ -7,8 +8,20 @@ public class Gosu_Register{
 	private String pr;    //자기소개
 	private String photo; //프로필사진
 	private int d_code;   //상세서비스코드
+=======
+public class Gosu_Register {
+	
+	private String email; //고수이메일
+	private int g_code;   //고수고유코드
+	private String pr;    //자기소개
+	private String photo; //프로필사진
+	private int d_code;   //상세서비스코드(참조)
+	
+	
+>>>>>>> 871714e32a06625d73bf7430fc0d0b8058fbb3ad
 	
 	public Gosu_Register() {
+		
 	}
 
 	public Gosu_Register(String email, int g_code, String pr, String photo, int d_code) {
@@ -25,9 +38,11 @@ public class Gosu_Register{
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public int getG_code() {
 		return g_code;
 	}
