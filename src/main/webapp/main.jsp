@@ -36,14 +36,3 @@
 	<script src="js/mainpage/searchdata.js"></script>
 </body>
 </html>
-
-<!-- 
-<ul>
-							<li class="dd"><a href = "#">프로그래밍 코딩 레슨</a></li>
-							<li class="dd"><a href = "#">보컬 레슨</a></li>
-							<li class="dd"><a href = "#">퍼스널트레이닝</a></li>
-							<li class="dd"><a href = "#">요리/조리 레슨</a></li>
-							<li class="dd"><a href = "#">댄스 레슨</a></li>
-							<li class="dd"><a href = "#">영어과외</a></li>
-						</ul>
- -->
