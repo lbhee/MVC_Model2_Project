@@ -9,7 +9,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
-<jsp:include page="WEB-INF/views/include/head.html"></jsp:include>
+<jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
 <link rel="stylesheet" href="css/Team3.css">
 <body>
 	<div class="container">

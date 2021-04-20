@@ -1,7 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<head>
 
- 	<meta charset="UTF-8">
+
+
+<meta charset="UTF-8">
     <title>숨고 : 고수를찾아서</title>  
  
     <!-- Bootstrap CSS -->
@@ -118,7 +123,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-host">
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="index.html">회원가입</a></li>
+						<li><a href="<%= request.getContextPath() %>/Join.go">회원가입</a></li>
 						<li class="nav-item active"><a class="nav-link" href="domain.html">로그인</a></li>
 					</ul>
 				</div>
@@ -139,7 +144,7 @@
 			mode: 'horizontal',
 			verticalStartPosition: 'left',
 			visibleItems: 4
-		});
+		}); 
 	</script>
 </body>
 </html>
