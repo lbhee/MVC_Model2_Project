@@ -51,4 +51,9 @@ public class GosuDao {
 		
 		return row;
 	}
+	
+	public int insertGosuInfo() {
+		
+		return 0;
+	}
 }
