@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- header -->
-<jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <body>
 	<div class="container">
 		<div class="wrapper">
