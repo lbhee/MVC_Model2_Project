@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<jsp:include page="WEB-INF/views/include/head.html"></jsp:include>
+<jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
 <link rel="stylesheet" href="css/Team3.css">
 <body>
 	<div class="container">
