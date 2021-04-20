@@ -191,3 +191,11 @@ body{
 
 }
 
+.regidiv > p:last-child {
+	text-align: center;
+    font-size: 0.75em;
+    color: #737373;
+    margin: 10px 0 0 0;
+}
+
+
