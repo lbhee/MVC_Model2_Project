@@ -75,7 +75,7 @@ DataSource ds = null;
 			pstmt.setString(2, RQdata.getContent());
 			pstmt.setDate(3, RQdata.getHopedate());
 			pstmt.setString(4,RQdata.getPhone());
-			pstmt.setString(5, RQdata.getEmail());
+			//pstmt.setString(5, RQdata.getEmail());
 			pstmt.setInt(6, RQdata.getG_code());
 			
 			row = pstmt.executeUpdate();
@@ -127,7 +127,7 @@ DataSource ds = null;
 				rq_Form.setWritedate(rs.getDate("writedate"));
 				rq_Form.setHopedate(rs.getDate("hopedate"));
 				rq_Form.setDone(rs.getInt("done"));
-				rq_Form.setEmail(rs.getString("email"));
+				//rq_Form.setEmail(rs.getString("email"));
 				rq_Form.setG_code(rs.getInt("G_code"));
 				
 				list.add(rq_Form);
