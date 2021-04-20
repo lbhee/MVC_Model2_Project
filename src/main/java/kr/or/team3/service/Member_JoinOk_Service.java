@@ -12,12 +12,13 @@ public class Member_JoinOk_Service implements Action {
 
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response) {
-		String email=request.getParameter("email");
-		String adr =request.getParameter("adr");
-		String name=request.getParameter("name");
-		String pwd=request.getParameter("pwd");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String pwd = request.getParameter("pwd");
+		String adr = request.getParameter("adr");
 		
-		Member member = new Member(email,adr,name,pwd);
+		
+		Member member = new Member(email,name,pwd,adr);
 		
 		ActionForward actionForward = new ActionForward();
 		
@@ -28,15 +29,13 @@ public class Member_JoinOk_Service implements Action {
 			String msg="";
 			String url="";
 			
-			
-			
 			if(result > 0 ) {
-				msg="insert success";
+				msg="가입 완료";
 				url="/main.jsp";
 				
 			}else {
-				msg="insert fail";
-				url="/WEB-INF/views/register/Join.jsp";
+				msg="가입 실패";
+				url="/Join.go";
 			}
 			
 			request.setAttribute("member_msg", msg);

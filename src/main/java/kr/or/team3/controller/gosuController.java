@@ -40,11 +40,22 @@ public class gosuController extends HttpServlet {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Join.jsp");
     		
-    	} else if(URL.equals("/JoinOk.go")) {
+    	} else if(URL.equals("/Joinok.go")) {
     		action = new Member_JoinOk_Service();
     		actionForward = action.excute(request, response);
     		
+    	} else if(URL.equals("/Login.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
+    		
     	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	if(actionForward != null) {
             RequestDispatcher dis = request.getRequestDispatcher(actionForward.getPath());
@@ -53,6 +64,9 @@ public class gosuController extends HttpServlet {
     	
     	
   
+    	
+    	
+    	
     	
     	
 	}
