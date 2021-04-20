@@ -3,9 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>Insert title here</title>
+
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <jsp:include page="WEB-INF/views/include/head.html"></jsp:include>
 <link rel="stylesheet" href="css/Team3.css">
@@ -14,11 +16,24 @@
 		<div class="wrapper">
 			<div class="tabs">
 				<div class="tab_select">
+
 					<ul class="script_ul">
 					<li><a class="sevice_btn" href="#">서비스 찾기</a></li>
 					<li><a class="gosu_btn" href="#">고수 찾기</a></li>
+
 					</ul>
+					<div>
+						<input type="text" id="search"><br>
+						<a id="searchresult"></a>
+					</div>
 				</div>
+			</div>
+			<div class="main_image">
+				<div class="image_upload">
+				<img src="#" id="main_img">
+				
+				</div>
+
 				<!-- 서비스 찾기 화면  -->
 				<div class="service_search">
 				<h2 class="tab-title"><b>어떤 서비스가 <br>
@@ -73,9 +88,12 @@
 			<!-- 메인화면 사진  -->
 			<div class="main_image">
 				<img id="main_img" src="images/3.png">
+
 			</div>
 		</div>
 	</div>
+	<script src="js/mainpage/main_image.js"></script>
+	<script src="js/mainpage/searchdata.js"></script>
 </body>
 <script type="text/javascript">
 
