@@ -1,11 +1,16 @@
+<%@page import="kr.or.team3.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	MemberDao memberDao = new MemberDao();
+	String id = (String)session.getAttribute("ID");
+%>
 <c:set var="id" value="${ sessionScope.ID }" />
-<c:set var="name" value="${ sessionScope.Name }" />
+<c:set var="member" value="<%= memberDao.getContent(id) %>" />
 <c:set var="path" value="<%= request.getContextPath() %>" />
 <meta charset="UTF-8">
     <title>숨고 : 고수를찾아서</title>  
@@ -20,7 +25,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">  
- 
 
 
 </head>
@@ -56,10 +60,10 @@
 								<li class="nav-item active"><a class="nav-link" href="${ path }/Login.go">로그인</a></li>
 				 			</c:when>
 				 			<c:otherwise>
-				 				<li class="nav-item active"><a class="nav-link" href="#">${ name } 고객님</a>
+				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고객님</a>
 				 				<div class="user_info" style="display:none">
-				 					<h4 class="head_userName">안녕하세요, ${ name }</h4>
-				 					<div class="mypage"><a href="#">마이페이지</a></div>
+				 					<h4 class="head_userName">안녕하세요, ${ member.name }</h4>
+				 					<div class="mypage"><a href="${ path }/Mypage.go">마이페이지</a></div>
 				 					<div class="gosu_register"><a href="#">고수로 가입하기</a></div>
 				 					<div class="logout"><a href="#">로그아웃</a></div>
 				 				</div>
@@ -115,5 +119,7 @@
 				
 			})
 		})
+		
+		
 	</script>
 <link rel="stylesheet" href="css/Team3.css">

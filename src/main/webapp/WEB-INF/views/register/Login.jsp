@@ -3,6 +3,18 @@
 
 <!-- header -->
 <jsp:include page="../include/head.jsp"></jsp:include>
+
+<%
+
+	String id = (String)session.getAttribute("ID");
+
+	if(id != null){
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
+
+%>
+
 <body>
 	<div class="container loginForm">
 		<div class="loginForm">
