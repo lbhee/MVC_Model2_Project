@@ -17,8 +17,7 @@
 				<!-- 서비스 찾기 화면  -->
 				<div class="service_search">
 					<h2 class="tab-title">
-						<b>어떤 서비스가 <br> 필요하세요?
-						</b>
+						<b>어떤 서비스가 <br> 필요하세요?</b>
 					</h2>
 
 					<div class="input-group">

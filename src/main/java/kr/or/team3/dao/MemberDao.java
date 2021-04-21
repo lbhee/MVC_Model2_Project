@@ -82,7 +82,6 @@ DataSource ds = null;
 			if(rs.next()) {
 				if(rs.getString("pwd").equals(memberdata.getPwd())) {
 					session.setAttribute("ID", memberdata.getEmail());
-					session.setAttribute("Name", rs.getString("name"));
 					result = true;
 				} else {
 					result = false;
@@ -269,29 +268,34 @@ DataSource ds = null;
 		}
 		
 		//회원정보 수정
-		public boolean memberEdit(String email) {
+		public int memberEdit(Member member, String change) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
-			boolean result = false;
+			
+			
+	
+			int row = 0;
 			
 			try {
 				conn = ds.getConnection();
-				String sql = "update member set name = ? , pwd = ? , addr = ? , where email = ?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,"name");
-				pstmt.setString(2,"pwd");
-				pstmt.setString(3,"addr");
-				pstmt.setString(4,email);
 				
-				int row = pstmt.executeUpdate();
-				
-				if(row > 0) {
-					result = true;
-				} else {
-					result = false;
+				if(change.equals("userinfo")) {
+					String sql = "update member set name=?, adr=? where email = ?";
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1,member.getName());
+					pstmt.setString(2,member.getAdr());
+					pstmt.setString(3,member.getEmail());
+				}else if(change.equals("pwd")) {
+					String sql = "update member set pwd=? where email = ?";
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1,member.getPwd());
+					pstmt.setString(2,member.getEmail());
 				}
 				
+				row = pstmt.executeUpdate();
 				
 			} catch(Exception e) {
 				e.getMessage();
@@ -304,8 +308,45 @@ DataSource ds = null;
 				}
 			}
 			
-			
-			return result;
+			return row;
 		}
-	
+		
+		// 해당 이메일에 맞는 회원 정보 가져오기 
+		public Member getContent(String Email) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Member member = null;
+			
+			try {
+				conn = ds.getConnection();
+				String sql="select email,name,pwd,adr from member where email=?"; //* 하지 말자
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, Email);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					String name = rs.getString("name");
+					String email = rs.getString("email");
+					String pwd = rs.getString("pwd");
+					String adr = rs.getString("adr");
+					
+					
+					member = new Member(email, name, pwd, adr);
+				}
+				
+			} catch (Exception e) {
+				System.out.println("content: " + e.getMessage());
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					
+				}
+			}
+			
+			return member;
+		}
 }

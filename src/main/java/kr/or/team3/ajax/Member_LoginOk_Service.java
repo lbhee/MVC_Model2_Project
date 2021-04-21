@@ -37,8 +37,6 @@ public class Member_LoginOk_Service extends HttpServlet {
 			// 로그인완료시 세션 날려줄려고 받음
 			boolean result = memberDao.loginOk(member,request);
 			
-			System.out.println(result);
-			
 			if(result == true) {
 				out.print("true");
 				

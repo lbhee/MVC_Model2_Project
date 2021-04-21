@@ -6,7 +6,6 @@
   String url = (String)request.getAttribute("member_url");
   
   
-  
   if(msg != null && url != null){
 %>
 	<script>

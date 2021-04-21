@@ -3,6 +3,16 @@
 
 <!-- header -->
 <jsp:include page="../include/head.jsp"></jsp:include>
+<%
+
+	String id = (String)session.getAttribute("ID");
+
+	if(id != null){
+		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		return;
+	}
+
+%>
 <body>
 	<div class="container loginForm">
 		<div class="loginForm">
@@ -11,19 +21,19 @@
 				
 				<div class="regidiv">
 				<p>이름</p>
-				<input type="text" maxlength="20" id="name" name="name" placeholder="이름(실명)을 입력해주세요">
+				<input type="text" maxlength="10" id="name" name="name" placeholder="이름(실명)을 입력해주세요">
 				<p class="tdname"></p>
 				
 				<p>이메일</p>
-				<input type="text" maxlength="50" id="email" name="email" placeholder="bit@soomgo.com">
+				<input type="text" maxlength="20" id="email" name="email" placeholder="bit@soomgo.com">
 				<p class="tdmail"></p>
 				
 				<p>비밀번호</p>
-				<input type="password" maxlength="16" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요">
+				<input type="password" maxlength="15" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요">
 				<p class="tdpw"></p>
 				
 				<p>주소</p>
-				<input type="text" maxlength="20" size="45" id="adr" name="adr" placeholder="주소(클릭하세요)"> <br>
+				<input type="text" maxlength="50" id="adr" name="adr" placeholder="주소(클릭하세요)"> <br>
 				<p></p>
 				
 				
