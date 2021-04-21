@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
+
+import kr.or.team3.service.Gosuregister_Service;
+
 import kr.or.team3.service.Member_EditOk_Service;
+
 import kr.or.team3.service.Member_JoinOk_Service;
 
 @WebServlet("*.go")
@@ -51,6 +55,18 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/Login.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
+
+    		
+    	} else if(URL.equals("/Gosuregister.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/register/Gosuregister.jsp");
+    		
+    	} else if(URL.equals("/GosuregisterOk.go")) {
+    		action = new Gosuregister_Service();
+    		actionForward = action.excute(request, response);
+    	}
+    		
+
     	
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
