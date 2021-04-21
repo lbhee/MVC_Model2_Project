@@ -60,7 +60,7 @@
 				 				<div class="user_info" style="display:none">
 				 					<h4 class="head_userName">안녕하세요, ${ name }</h4>
 				 					<div class="mypage"><a href="#">마이페이지</a></div>
-				 					<div class="gosu_register"><a href="#">고수로 가입하기</a></div>
+				 					<div class="gosu_register"><a href="${ path }/Gosuregister.go">고수로 가입하기</a></div>
 				 					<div class="logout"><a href="#">로그아웃</a></div>
 				 				</div>
 				 				</li>
