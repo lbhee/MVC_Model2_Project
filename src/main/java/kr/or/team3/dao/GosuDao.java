@@ -2,7 +2,10 @@ package kr.or.team3.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,14 +15,17 @@ import javax.sql.DataSource;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
+import kr.or.team3.dto.member.RQ_Form;
 
 public class GosuDao {
 	DataSource ds = null;
 	
 	public GosuDao() throws NamingException {
+		
 		Context context = new InitialContext();
-		ds = (DataSource) context.lookup("java:comp/enb/jdbc/oracle");
+		ds = (DataSource) context.lookup("java:comp/env/jdbc/oracle");
 	}
+	
 	//고객이 고수로 가입하기 by 안승주 21.04.19
 	public int joinGosuOk(Gosu_Register gosudata) {
 		Connection conn = null;
@@ -30,7 +36,7 @@ public class GosuDao {
 			conn = ds.getConnection();
 			//conn.setAutoCommit(false);
 			
-			String sql = "insert into G_registe(email, G_code, pr, photo, D_code) values(?,g_codenum.nextval,?,?,?)";
+			String sql = "insert into G_registe(email, G_code, pr, photo, D_code) values(?,100000,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, gosudata.getEmail());
@@ -130,7 +136,35 @@ public class GosuDao {
 		
 		return row;
 	}
-	
+	//고수가 받은 고객의 미완료 요청서목록 by 안승주 21.04.21
+	public List<RQ_Form> getGosuRQ(String g_email, int g_code){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RQ_Form> list = null;
+		
+		try {
+			conn = ds.getConnection();
+			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
+					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
+					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
+					+ "ORDER BY r.num desc;";
+			pstmt = conn.prepareStatement(spl);
+			
+			pstmt.setString(1, g_email);
+			pstmt.setInt(2, g_code);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<RQ_Form>();
+			
+			while(rs.next()) {
+				RQ_Form rq_form = new RQ_Form();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 	
 }
 
