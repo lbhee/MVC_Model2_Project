@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
@@ -142,7 +143,7 @@ DataSource ds = null;
 		
 		return row;
 	}
-	//해당 고수에게 보낸 요청서 가져오기 by 안승주 21.04.19
+	//고객이 고수에게 보낸 요청서 가져오기 by 안승주 21.04.19 수정 21.04.21
 	public List<RQ_Form> getRQ_Form(int cpage, int pagesize, int G_code) {
 		
 		Connection conn = null;
@@ -153,7 +154,7 @@ DataSource ds = null;
 		try {
 			conn = ds.getConnection();
 			String sql = 	"select * from (select rownum rn, num, title, content, writedate, hopedate, done, email, G_code from "  +
-							"(select * from RQ_Form order by num asc where G_code = ? and done = 0)" +
+							"(select * from RQ_F borm order by num asc where G_code = ? and done = 0)" +
 							"where rownum <= ?)" + 	//end row
 							"where rn >=?";			//start row
 			
@@ -166,6 +167,8 @@ DataSource ds = null;
 			pstmt.setInt(2, end);
 			pstmt.setInt(3, start);
 			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<RQ_Form>();
 			while(rs.next()) {
 				RQ_Form rq_Form = new RQ_Form();
 				rq_Form.setNum(rs.getInt("num"));

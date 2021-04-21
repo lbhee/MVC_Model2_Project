@@ -2,7 +2,7 @@ package kr.or.team3.dto.gosu;
 
 public class Gosu_Register {
 	
-	private String email; //고수이메일
+	private String email; //이메일(참조)
 	private int g_code;   //고수고유코드
 	private String pr;    //자기소개
 	private String photo; //프로필사진
