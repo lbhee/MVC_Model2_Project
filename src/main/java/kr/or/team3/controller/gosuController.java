@@ -64,10 +64,8 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/GosuregisterOk.go")) {
     		action = new Gosuregister_Service();
     		actionForward = action.excute(request, response);
-    	}
-    		
+    
 
-    	
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
     		actionForward = new ActionForward();

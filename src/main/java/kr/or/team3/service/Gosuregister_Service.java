@@ -44,7 +44,7 @@ public class Gosuregister_Service implements Action {
 			 request.setAttribute("member_msg", msg);
 			 request.setAttribute("member_url", url);
 			 
-			 actionForward.setPath("/member/redirect.jsp");
+			 actionForward.setPath("/WEB-INF/views/include/redirect.jsp");
 			 
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
