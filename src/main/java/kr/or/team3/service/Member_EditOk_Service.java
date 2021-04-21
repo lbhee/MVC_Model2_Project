@@ -8,16 +8,19 @@ import kr.or.team3.action.ActionForward;
 import kr.or.team3.dao.MemberDao;
 import kr.or.team3.dto.member.Member;
 
-public class Member_JoinOk_Service implements Action {
+public class Member_EditOk_Service implements Action {
 
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response) {
-		String name = request.getParameter("name");
+		
+		
 		String email = request.getParameter("email");
-		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
 		String adr = request.getParameter("adr");
+		String pwd = request.getParameter("new_pwd");
+		String change = request.getParameter("change");
 		
-		
+		System.out.println(change);
 		
 		Member member = new Member(email,name,pwd,adr);
 		
@@ -25,18 +28,18 @@ public class Member_JoinOk_Service implements Action {
 		
 		try {
 			MemberDao memberDao = new MemberDao();
-			int result = memberDao.registerOk(member);
+			int result = memberDao.memberEdit(member,change);
 			
 			String msg="";
 			String url="";
 			
 			if(result > 0 ) {
-				msg="가입 완료";
+				msg="변경 완료";
 				url="/main.jsp";
 				
 			}else {
-				msg="가입 실패";
-				url="/Join.go";
+				msg="변경 실패";
+				url="/Mypage.go";
 			}
 			
 			request.setAttribute("member_msg", msg);
@@ -50,6 +53,5 @@ public class Member_JoinOk_Service implements Action {
 		
 		return actionForward;
 	}
-	
-	
+
 }
