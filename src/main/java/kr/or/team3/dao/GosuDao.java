@@ -152,10 +152,7 @@ public class GosuDao {
 		
 		try {
 			conn = ds.getConnection();
-			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
-					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
-					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
-					+ "ORDER BY r.num desc;";
+			String spl = "SELECT * FROM RQ_FORM WHERE G_EMAIL = ? AND G_CODE = ? AND done = 1 ORDER BY num desc;";
 			pstmt = conn.prepareStatement(spl);
 			
 			pstmt.setString(1, g_email);
