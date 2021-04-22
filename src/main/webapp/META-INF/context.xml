@@ -17,7 +17,7 @@
 		maxIdle="20" 
 		maxActive="100"
 		password="1004" 
-		username="TEAM3"
+		username="TEAM_3"
 		url="jdbc:oracle:thin:@ehdrms519.iptime.org:1521:XE"
 		driverClassName="oracle.jdbc.OracleDriver" 
 		type="javax.sql.DataSource"

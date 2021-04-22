@@ -7,11 +7,13 @@ public class Gosu_Info_Basic {
 	private String calltime; 	// 연락가능시간
 	private int g_code; 		// 고수고유코드(참조)
 	private String email;		// 고수이메일
+	private String pohoto;
+	
 
 	public Gosu_Info_Basic() {
 	}
 
-	public Gosu_Info_Basic(String payment, String area, int hire_num, String calltime, int g_code, String email) {
+	public Gosu_Info_Basic(String email, int g_code, String payment, String area, int hire_num, String calltime, String pohoto ) {
 		super();
 		this.payment = payment;
 		this.area = area;
@@ -67,5 +69,12 @@ public class Gosu_Info_Basic {
 
 	public void setG_code(int g_code) {
 		this.g_code = g_code;
+	}
+	public String getPohoto() {
+		return pohoto;
+	}
+
+	public void setPohoto(String pohoto) {
+		this.pohoto = pohoto;
 	}
 }
