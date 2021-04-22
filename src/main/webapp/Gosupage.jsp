@@ -4,12 +4,14 @@
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 
 
-	
+	<body>
     <div id="overviews" class="section lb">
         <div class="container">
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
-                	<img src = "images/1.png" style = "height: 120px; width: 120px">
+                	<!--  <img src = "images/1.png" style = "height: 120px; width: 120px">-->
+                	
+                	<input type = "file" id = "image" name = "image"  accept = "image/*">
                     <h3>고수이름</h3>
                     <p class="lead"> 자기 소개</p>
                 </div>
@@ -37,3 +39,21 @@
             </div><!-- end row -->
         </div><!-- end container -->
     </div><!-- end section -->
+    </body>
+    <script type="text/javascript">
+	$('#image').click(function() {
+		$.ajax({
+			url : "#0",
+			type : "post",
+			data : {
+				filename : $('#filename').val()
+			},
+			success : function(data) {
+				
+			}
+		})
+	});
+	</script>
+    </html>
+    
+    

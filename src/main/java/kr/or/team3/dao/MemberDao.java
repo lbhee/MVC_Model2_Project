@@ -115,16 +115,17 @@ DataSource ds = null;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into RQ_Form(num, title, content, writedate, hopedate, phone, done, email, G_code) "
-					+ "values(0,?,?,sysdate,?,?,0,?,?)";
+			String sql = "insert into RQ_Form(num, title, content, writedate, hopedate, phone, done, m_email, g_email, G_code) "
+					+ "values(rqnum.nextval,?,?,sysdate,?,?,0,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, RQdata.getTitle());
 			pstmt.setString(2, RQdata.getContent());
 			pstmt.setDate(3, RQdata.getHopedate());
 			pstmt.setString(4,RQdata.getPhone());
-			//pstmt.setString(5, RQdata.getEmail());
-			pstmt.setInt(6, RQdata.getG_code());
+			pstmt.setString(5, RQdata.getM_mail());
+			pstmt.setString(6, RQdata.getG_email());
+			pstmt.setInt(7, RQdata.getG_code());
 			
 			row = pstmt.executeUpdate();
 			

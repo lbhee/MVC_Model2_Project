@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
+import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 
@@ -156,10 +157,7 @@ public class GosuDao {
 		
 		try {
 			conn = ds.getConnection();
-			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
-					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
-					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
-					+ "ORDER BY r.num desc;";
+			String spl = "SELECT * FROM RQ_FORM WHERE G_EMAIL = ? AND G_CODE = ? AND done = 1 ORDER BY num desc;";
 			pstmt = conn.prepareStatement(spl);
 			
 			pstmt.setString(1, g_email);
@@ -177,6 +175,7 @@ public class GosuDao {
 		return null;
 	}
 	
+< // 이거 수정할것 
 	public List<RQ_Form> dds(String g_email, int g_code){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -206,6 +205,45 @@ public class GosuDao {
 		return null;
 	}
 	
+// ------------------------------------------------------------------
+	public List<Gosu_Register> searchgosu(String d_code){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Gosu_Register> gosulist = null;
+	    Member member = new Member();
+		try {
+			conn = ds.getConnection();
+			String sql = "select g_register.pr, member.name from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
+			
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			gosulist = new ArrayList<Gosu_Register>();
+
+			while(rs.next()) {
+				String pr = rs.getString("pr");
+				String name = rs.getString("name");
+				Gosu_Register gosuregister = new Gosu_Register(pr, name);
+				gosulist.add(gosuregister);
+				System.out.println(gosulist);
+			
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return gosulist;
+	}
+	
+// --------------- 이
 }
 
 

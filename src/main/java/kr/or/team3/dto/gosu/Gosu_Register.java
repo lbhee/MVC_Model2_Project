@@ -6,15 +6,22 @@ public class Gosu_Register {
 	private int g_code;   //고수확인코드
 	private String pr;    //자기소개
 	private int d_code;   //상세서비스코드(참조)
-	
-	
+	private String name;  //이름
+	 
 	
 	public Gosu_Register() {
 		
 	}
+	
 
-	
-	
+	public Gosu_Register(String pr, String name) {
+		super();
+		this.pr = pr;
+		this.name = name;
+	}
+
+
+
 	public Gosu_Register(String email, String pr, int d_code) {
 		super();
 		this.email = email;
@@ -61,6 +68,23 @@ public class Gosu_Register {
 	}
 	public void setD_code(int d_code) {
 		this.d_code = d_code;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Gosu_Register [email=" + email + ", g_code=" + g_code + ", pr=" + pr + ", d_code=" + d_code + "]";
 	}
 	
 	
