@@ -4,11 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	MemberDao memberDao = new MemberDao();
 	String memberid = (String)session.getAttribute("ID");
 %>
+
+<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="id" value="${ sessionScope.ID }" />
 <c:set var="member" value="<%= memberDao.getContent(memberid) %>" />
 <c:set var="path" value="<%= request.getContextPath() %>" />

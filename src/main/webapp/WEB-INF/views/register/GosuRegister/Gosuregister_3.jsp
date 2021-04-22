@@ -29,7 +29,7 @@
 					
 					<div class="gosu_register">
 					<p><b>이름</b></p>
-					<input type="text" name="email" value="${ member.name }" readonly><br>
+					<input type="text" name="name" value="${ member.name }" readonly><br>
 					</div>
 					
 					<div class="gosu_register">
@@ -49,7 +49,7 @@
 					
 					<div class="gosu_register">	
 					<p><b>선택한 서비스분야</b></p>
-					<input type="text" name="pr" id="pr" value="${ code }" readonly><br>
+					<input type="text" name="d_code" id="d_code" value="${ code }" readonly><br>
 					</div>	
 					<div class="gosu_register3_buttonbox">
 					<input type="button" value="이전" class="gosu_button" id="gosu_Previous_button"> 

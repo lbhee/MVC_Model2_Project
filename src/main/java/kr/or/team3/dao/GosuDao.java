@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
+import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 
@@ -170,44 +171,40 @@ public class GosuDao {
 		return null;
 	}
 	
-	public List<Gosu_Register> searchgosu(){
+	public List<Gosu_Register> searchgosu(String d_code){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Gosu_Register> gosulist = null;
-	
+	    Member member = new Member();
 		try {
 			conn = ds.getConnection();
-			String sql = "select * from g_register where d_code like '1%'";
-			System.out.println("ddddd");
+			String sql = "select g_register.pr, member.name from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
 			
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
 			gosulist = new ArrayList<Gosu_Register>();
-			System.out.println(gosulist);
-			System.out.println("dBH");
+
 			while(rs.next()) {
-				
 				String pr = rs.getString("pr");
-				String d_code = rs.getString("d_code");
-				
-				Gosu_Register gosuregister = new Gosu_Register(pr, d_code);
-				System.out.println("dsssssd");
+				String name = rs.getString("name");
+				Gosu_Register gosuregister = new Gosu_Register(pr, name);
 				gosulist.add(gosuregister);
 				System.out.println(gosulist);
-			}
-		} catch (SQLException e) {
+			
+		}
+		} catch (Exception e) {
 			e.printStackTrace();
-		} //finally {
-//			try {
-//				pstmt.close();
-//				rs.close();
-//				conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return gosulist;
 	}
 	
