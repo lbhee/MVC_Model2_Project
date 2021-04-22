@@ -152,10 +152,7 @@ public class GosuDao {
 		
 		try {
 			conn = ds.getConnection();
-			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
-					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
-					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
-					+ "ORDER BY r.num desc;";
+			String spl = "SELECT * FROM RQ_FORM WHERE G_EMAIL = ? AND G_CODE = ? AND done = 1 ORDER BY num desc;";
 			pstmt = conn.prepareStatement(spl);
 			
 			pstmt.setString(1, g_email);
@@ -172,6 +169,48 @@ public class GosuDao {
 		}
 		return null;
 	}
+	
+	public List<Gosu_Register> searchgosu(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Gosu_Register> gosulist = null;
+	
+		try {
+			conn = ds.getConnection();
+			String sql = "select * from g_register where d_code like '1%'";
+			System.out.println("ddddd");
+			
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			gosulist = new ArrayList<Gosu_Register>();
+			System.out.println(gosulist);
+			System.out.println("dBH");
+			while(rs.next()) {
+				
+				String pr = rs.getString("pr");
+				String d_code = rs.getString("d_code");
+				
+				Gosu_Register gosuregister = new Gosu_Register(pr, d_code);
+				System.out.println("dsssssd");
+				gosulist.add(gosuregister);
+				System.out.println(gosulist);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} //finally {
+//			try {
+//				pstmt.close();
+//				rs.close();
+//				conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		return gosulist;
+	}
+	
 	
 }
 

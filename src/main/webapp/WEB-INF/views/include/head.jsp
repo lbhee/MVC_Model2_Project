@@ -7,10 +7,10 @@
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	MemberDao memberDao = new MemberDao();
-	String id = (String)session.getAttribute("ID");
+	String memberid = (String)session.getAttribute("ID");
 %>
 <c:set var="id" value="${ sessionScope.ID }" />
-<c:set var="member" value="<%= memberDao.getContent(id) %>" />
+<c:set var="member" value="<%= memberDao.getContent(memberid) %>" />
 <c:set var="path" value="<%= request.getContextPath() %>" />
 <meta charset="UTF-8">
     <title>숨고 : 고수를찾아서</title>  
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">  
-
+	
 
 </head>
 <body class="host_version"> 
@@ -45,7 +45,9 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="main.jsp">
+
 					<img src="images/logo.jpg" alt="" />
+
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar"></span>
