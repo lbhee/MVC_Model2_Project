@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
+
+import kr.or.team3.service.Gosuregister_Service;
+
 import kr.or.team3.service.Member_EditOk_Service;
+
 import kr.or.team3.service.Member_JoinOk_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
 
@@ -52,7 +56,17 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/Login.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
-    	
+
+    	// 고수가입
+    	} else if(URL.equals("/Gosuregister.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/register/Gosuregister.jsp");
+    		
+    	// 고수가입 확인	
+    	} else if(URL.equals("/GosuregisterOk.go")) {
+    		action = new Gosuregister_Service();
+    		actionForward = action.excute(request, response);
+
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
     		actionForward = new ActionForward();
@@ -62,12 +76,14 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/EditOk.go")) {
     		action = new Member_EditOk_Service();
     		actionForward = action.excute(request, response);
+
     	// 요청서 작성 by 안승주
     	}else if(URL.equals("/SendRQOk.go")) {
     		action = new RQ_Form_WriteOk_Service();
     		actionForward = action.excute(request, response);
     	}
     	
+
     	
     	
     	

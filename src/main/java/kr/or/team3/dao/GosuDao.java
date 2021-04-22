@@ -2,20 +2,24 @@ package kr.or.team3.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
 import kr.or.team3.dto.member.RQ_Form;
+
 
 public class GosuDao {
 	DataSource ds = null;
@@ -36,13 +40,15 @@ public class GosuDao {
 			conn = ds.getConnection();
 			//conn.setAutoCommit(false);
 			
-			String sql = "insert into G_registe(email, G_code, pr, photo, D_code) values(?,100000,?,?,?)";
+
+			String sql = "insert into G_register(email, g_code, pr, D_code) values(?, 10000,?,?)";
+
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, gosudata.getEmail());
 			pstmt.setString(2, gosudata.getPr());
-			pstmt.setString(3, gosudata.getPhoto());
-			pstmt.setInt(4, gosudata.getD_code());
+			pstmt.setInt(3, gosudata.getD_code());
+
 			
 			row = pstmt.executeUpdate();
 			
@@ -65,6 +71,7 @@ public class GosuDao {
 		return row;
 	}
 	
+
 	//고객이 고수로 가입할때 작성하는 기본정보 by 안승주 21.04.21
 	public int insertGosuInfo_B(Gosu_Info_Basic gosuinfo_B_data) {
 		Connection conn = null;
@@ -163,7 +170,50 @@ public class GosuDao {
 		return null;
 	}
 	
+	public List<Gosu_Register> searchgosu(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Gosu_Register> gosulist = null;
+	
+		try {
+			conn = ds.getConnection();
+			String sql = "select * from g_register where d_code like '1%'";
+			System.out.println("ddddd");
+			
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			gosulist = new ArrayList<Gosu_Register>();
+			System.out.println(gosulist);
+			System.out.println("dBH");
+			while(rs.next()) {
+				
+				String pr = rs.getString("pr");
+				String d_code = rs.getString("d_code");
+				
+				Gosu_Register gosuregister = new Gosu_Register(pr, d_code);
+				System.out.println("dsssssd");
+				gosulist.add(gosuregister);
+				System.out.println(gosulist);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} //finally {
+//			try {
+//				pstmt.close();
+//				rs.close();
+//				conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		return gosulist;
+	}
+	
+	
 }
+
 
 
 
