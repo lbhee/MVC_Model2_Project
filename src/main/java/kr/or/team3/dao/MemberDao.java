@@ -145,7 +145,7 @@ DataSource ds = null;
 		return row;
 	}
 	//고객이 고수에게 보낸 요청서 가져오기 by 안승주 21.04.19 수정 21.04.21
-	public List<RQ_Form> getRQ_Form(int cpage, int pagesize, int G_code) {
+	public List<RQ_Form> getRQ_Form_Member(int cpage, int pagesize, String M_email) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -154,17 +154,24 @@ DataSource ds = null;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = 	"select * from (select rownum rn, num, title, content, writedate, hopedate, done, email, G_code from "  +
-							"(select * from RQ_F borm order by num asc where G_code = ? and done = 0)" +
-							"where rownum <= ?)" + 	//end row
-							"where rn >=?";			//start row
+			String sql = 	"SELECT *" +
+					"FROM (" +
+							"SELECT rownum AS rnum, rq.*" +
+							"FROM (" +
+									"SELECT * " +
+									"FROM RQ_FORM " +
+									"WHERE done = 0 AND M_EMAIL = ?" +
+									"ORDER BY num DESC) rq " +
+									"WHERE rownum <= ?" +//end
+						") n WHERE rnum >= ?"; //start
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			int start = cpage * pagesize - (pagesize -1); 	// 1 * 5 - (5 - 1 ) >> 1 
 			int end = cpage * pagesize; 					// 1 * 5 >> 5
 			
-			pstmt.setInt(1, G_code);
+			
+			pstmt.setString(1,M_email);
 			pstmt.setInt(2, end);
 			pstmt.setInt(3, start);
 			
@@ -177,8 +184,10 @@ DataSource ds = null;
 				rq_Form.setContent(rs.getString("content"));
 				rq_Form.setWritedate(rs.getDate("writedate"));
 				rq_Form.setHopedate(rs.getDate("hopedate"));
+				rq_Form.setPhone(rs.getString("phone"));
 				rq_Form.setDone(rs.getInt("done"));
-				//rq_Form.setEmail(rs.getString("email"));
+				rq_Form.setM_mail(rs.getString("M_email"));
+				rq_Form.setG_email(rs.getString("G_email"));
 				rq_Form.setG_code(rs.getInt("G_code"));
 				
 				list.add(rq_Form);

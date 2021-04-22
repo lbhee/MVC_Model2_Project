@@ -85,11 +85,20 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/EditOk.go")) {
     		action = new Member_EditOk_Service();
     		actionForward = action.excute(request, response);
-
-    	// 요청서 작성 by 안승주
+    	
+    	// 요청서 작성완료 by 안승주
     	}else if(URL.equals("/SendRQOk.go")) {
     		action = new RQ_Form_WriteOk_Service();
     		actionForward = action.excute(request, response);
+    	// 요청서 작성하기 by 안승주
+    	}else if(URL.equals("/WriteRQ.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("RQ_Member_write.jsp");
+    	// 요청서 가져오기 by 안승주
+    	}else if(URL.equals("/RQList.go")) {
+    		System.out.println("요청서 가져오기");
+    		actionForward = new ActionForward();
+    		actionForward.setPath("RQ_List.jsp");
     	}
     	
 

@@ -62,6 +62,8 @@
 								<li class="nav-item active"><a class="nav-link" href="${ path }/Login.go">로그인</a></li>
 				 			</c:when>
 				 			<c:otherwise>
+				 				<li class="nav-item active"><a class="" href="WriteRQ.go">요청서쓰기</a>
+				 				<li class="nav-item active"><a class="" href="RQList.go">요청서리스트</a>
 				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고객님</a>
 				 				<div class="user_info" style="display:none">
 
