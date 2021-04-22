@@ -34,9 +34,9 @@ public class RQ_Form_WriteOk_Service implements Action {
 		Date hopedate = new Date(rq_hopedate_util.getTime());
 		System.out.println("try 밖 hope date: " + hopedate);
 		String phone = request.getParameter("phone");
-		String M_email = request.getParameter("m_email");
-		//섹션의 아이디값을 넣기로 함
-		//String M_email = (String)request.getSession().getAttribute("email");
+		//String M_email = request.getParameter("m_email");
+		
+		String M_email = (String)request.getSession().getAttribute("ID");
 		String G_email = request.getParameter("g_email");
 		int G_code = Integer.parseInt(request.getParameter("g_code"));
 		System.out.println("요청중");

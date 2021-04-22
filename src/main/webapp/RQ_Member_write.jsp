@@ -4,9 +4,10 @@
   
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 
+
+
+
 <script type="text/javascript">
-	$(function(){
-	});
 </script>
 <div class = "container">
 	<div class = "row text-center">
