@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
 import kr.or.team3.dao.GosuDao;
+import kr.or.team3.dao.MemberDao;
+import kr.or.team3.dto.gosu.Gosu_Info_Add;
+import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
+import kr.or.team3.dto.member.Member;
 
 public class Gosuregister_Service implements Action {
 
@@ -19,21 +23,44 @@ public class Gosuregister_Service implements Action {
 		String pr = request.getParameter("pr");
 		int d_code = Integer.parseInt(request.getParameter("d_code"));
 		
-		Gosu_Register g_register = new Gosu_Register(email, pr, d_code);
 		
+		Gosu_Register gosu_register = null;
+		Gosu_Info_Basic gosu_info_basic = null;
+		Gosu_Info_Add gosu_info_add = null;
+			
 		ActionForward actionForward = new ActionForward();
 		GosuDao gosudao = null;
 		int row = 0;
+		
 		try {
-			gosudao = new GosuDao();
-			 row = gosudao.joinGosuOk(g_register);
+			
+			 MemberDao memberDao = new MemberDao();
+			 Member member = memberDao.getContent(email);
+			 
+			 // 고수 가입정보
+			 gosu_register = new Gosu_Register(email, pr, d_code);
+			 // 고수 기본정보
+			 gosu_info_basic = new Gosu_Info_Basic(member.getEmail(), 10000, "카드", member.getAdr(), 0, "10시", "gosu.jpg");
+			 // 고수 추가정보
+		  	 gosu_info_add = new Gosu_Info_Add(member.getEmail(), 10000, null, null, null);
+		  	 
+		  	 
+			 gosudao = new GosuDao();
+			 // 고수 가입정보
+			 row = gosudao.joinGosuOk(gosu_register);
+			 // 고수 기본정보
+			 int basic = gosudao.insertGosuInfo_B(gosu_info_basic);
+			 // 고수 추가정보
+			 int add = gosudao.insertGosuInfo_A(gosu_info_add);
+			 
+			 System.out.println(basic + "/ " + add);
 			 
 			 String msg="";
 			 String url="";
 			 
 			 if(row > 0) {
 				 msg = "고수 가입 완료";
-				 url = "/main.jsp";
+				 url = "/Gosuregister_Info.go";
 			 }else {
 				 msg = "이미 고수로 가입된 회원입니다.";
 				 url = "/main.jsp";

@@ -32,7 +32,7 @@ public class Member_JoinOk_Service implements Action {
 			
 			if(result > 0 ) {
 				msg="가입 완료";
-				url="/main.jsp";
+				url="/Login.go";
 				
 			}else {
 				msg="가입 실패";
