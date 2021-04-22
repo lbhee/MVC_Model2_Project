@@ -195,12 +195,40 @@ body{
 	cursor: pointer;
 }
 
+/*============================ main ===============================================*/
+.searchBox{
+  	position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(-12%,-55%);
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    width: 90%;
+    overflow: visible;
+    font-size: 12px;
+    z-index: 1;
+}
+.searchBox > div{
+	border: 1px solid #e1e1e1;
+	padding: 10px;
+}
+.searchBox > div >h1{
+	padding: 0;
+}
 
+.searchBox >h2{
+	padding: 15px;
+	margin-bottom: 30px;
+}
 
+.searchbar{
+	color: #00c7ae;;
+}
 /*============================= 회원가입, 로그인 , 계정설정 =============================*/
 .loginForm{
     padding: 4rem 0 1rem 0;
-    
+   	
 }
 
 .regidiv{
@@ -273,3 +301,151 @@ body{
     z-index: 1;
 }
 
+/*===================== 고수 가입 ======================*/
+.Gosu_image{
+	height: 24.375rem;
+    position: relative;
+    text-align: center;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.3),rgba(50,50,50,.6) 65%),
+    					url(../images/GosuRegister.jpg);
+    background-size: cover;
+    background-position: center 36%;
+    padding: 10px;
+    
+}
+.Gosu_contaniner{
+	position: absolute;
+    bottom: 0;
+    right: 0;
+    transform:translate(-12%,-40%);
+    border: none;
+    padding: 1.3125rem;
+    width: 80%;
+    height: 60%;
+    overflow: visible;
+    font-size: 12px;
+}
+ 
+
+.Gosu_contaniner >h1{
+	font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.28;
+    letter-spacing: normal;
+    margin-bottom: 1.25rem;
+    text-align: left;
+    color: #fff;
+}
+
+.Gosu_contaniner >p{
+	font-size: 1.125rem;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+}
+.gosu_register_box{
+	display: block;
+	border-radius: .625rem;
+    box-shadow: 0 0 1.25rem 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+    padding: 1.75rem 2.8125rem;
+}
+
+.gosu_register_box > h3{
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    margin: 0;
+}	
+
+.gosu_register_category{
+    padding-top: 1.75rem;
+    margin: 0 -.5rem;
+    padding-left: 0;
+    list-style: none;
+}
+
+.gosu_register_category > li{
+	display: inline-block;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    width: 16%;
+}
+
+.gosu_register2_category{
+    max-width: 600px;
+    margin: 50px auto 123px;
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #f2f2f2;
+}
+
+.gosu_code2{
+	color: #4d4d4d;
+    background: #fff;
+    border-color: #f2f2f2;
+    padding: .75rem 1rem;	
+    width: 100%;
+    background: #fff;
+    border: 1px solid #f2f2f2; 
+    
+}
+.code_select{
+	cursor: pointer;
+	width: 95%;
+	margin: 0;
+}
+
+.gosu_code2 > input{
+	font-size: 16px;
+    text-indent: 36px;
+    position: relative;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+
+.gosu_button {
+	margin-top: 13px;
+	background-color: #00c7ae;;
+	color: white;
+	border: 1px;
+	width: 49.5%;
+	height: 51px;
+	font-size: 15px;
+	
+}
+
+.gosu_button:hover{
+	background-color: #46c7b7;
+	color: white;
+
+}
+
+
+.gosu_register{
+	width: 80%;
+    padding: 18px 0;
+    border-bottom: 1px solid #f2f2f2;
+    
+}
+
+.gosu_register >p {
+	margin: 0 0 10px 0;
+}
+
+.gosu_register >input{
+	border: none;
+	width: 100%;
+	outline:none;
+}
+
+.gosu_register3_buttonbox{
+	max-width: 80%;
+    border: none;
+}

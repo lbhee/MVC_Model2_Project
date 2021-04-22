@@ -27,9 +27,9 @@
 						</div>
 					</div>
 					<!-- 검색결과 화면 -->
-					<div>
+					<div class="searchBox" style="display: none">
 						<div>
-							<h1 id = "resultresearch"></h1>
+							<h1 id ="resultresearch"></h1>
 						</div>
 							<h2><a id="resultmove"></a></h2>
 					</div>
