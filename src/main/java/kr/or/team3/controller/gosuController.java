@@ -56,17 +56,26 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/Login.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
-
-    	// 고수가입
-    	} else if(URL.equals("/Gosuregister.go")) {
-    		actionForward = new ActionForward();
-    		actionForward.setPath("/WEB-INF/views/register/Gosuregister.jsp");
     		
-    	// 고수가입 확인	
+    	// ==================================================================================	
+    	// 고수가입하기_1 화면	
+    	} else if(URL.equals("/Gosuregister_1.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/register/GosuRegister/Gosuregister_1.jsp");
+    	// 고수가입하기_2 화면	
+    	} else if(URL.equals("/Gosuregister_2.go")) {
+			actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/register/GosuRegister/Gosuregister_2.jsp");
+   		// 고수가입하기_3 화면	
+    	}else if(URL.equals("/Gosuregister_3.go")) {
+			actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/register/GosuRegister/Gosuregister_3.jsp");
+    	// 고수가입완료
     	} else if(URL.equals("/GosuregisterOk.go")) {
     		action = new Gosuregister_Service();
     		actionForward = action.excute(request, response);
-
+    	// ==================================================================================
+    		
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
     		actionForward = new ActionForward();
@@ -84,7 +93,6 @@ public class gosuController extends HttpServlet {
     	}
     	
 
-    	
     	
     	
     	

@@ -65,7 +65,7 @@
  					<p class="tdpwch"></p>
  					<p></p>
  					<input type="button" value="비밀번호변경" class="pwd_Change_btn"> 
- 					<p class="last_p"><a href="#" class="">창을 닫을려면 토글을 접으세요.</a></p>
+ 					<p class="last_p"><a href="#" class="pwdChange_btn">창을 닫을려면 클릭하세요.</a></p>
  					</div>
  					</form>	
  				</div>
@@ -169,6 +169,16 @@ $('#adr').click(function() {
 // ===============================================================================
 // 비밀번호 변경폼 온오프
 $('.pwdChange').click(function() {
+	var toggle = $('.userInfo_pwdChange').attr('style');
+	
+	if(toggle == "display:none"){
+		$('.userInfo_pwdChange').attr('style','');
+	}else {
+		$('.userInfo_pwdChange').attr('style','display:none');
+	}
+})
+
+$('.pwdChange_btn').click(function() {
 	var toggle = $('.userInfo_pwdChange').attr('style');
 	
 	if(toggle == "display:none"){
