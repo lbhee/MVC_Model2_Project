@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Register;
+import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 
@@ -41,8 +42,8 @@ public class GosuDao {
 			//conn.setAutoCommit(false);
 			
 
-			String sql = "insert into G_register(email, g_code, pr, D_code) values(?, 10000,?,?)";
-
+			String sql = "insert into G_REGISTER(email, G_code, pr, D_code) values(?, 10000,?,?)";
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, gosudata.getEmail());
@@ -52,9 +53,9 @@ public class GosuDao {
 			
 			row = pstmt.executeUpdate();
 			
+
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			e.getMessage();
 		}finally {
@@ -62,7 +63,6 @@ public class GosuDao {
 				pstmt.close();
 				conn.close();
 			} catch (Exception e2) {
-				// TODO: handle exception
 				e2.printStackTrace();
 				e2.getMessage();
 			}
@@ -73,7 +73,7 @@ public class GosuDao {
 	
 
 	//고객이 고수로 가입할때 작성하는 기본정보 by 안승주 21.04.21
-	public int insertGosuInfo_B(Gosu_Info_Basic gosuinfo_B_data) {
+	public int insertGosuInfo_B(Gosu_Info_Basic gosu_info_basic) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
@@ -81,14 +81,18 @@ public class GosuDao {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into G_INFO_BASIC(email, G_code, payment, area, hire_num, calltime) values(?,?,?,?,0,?)";
-			pstmt = conn.prepareStatement(sql);
+			String gosu_info_basic_sql = "INSERT INTO G_INFO_BASIC(EMAIL, G_CODE, PAYMENT, AREA, HIRE_NUM, CALLTIME, PHOTO)" + 
+										 "values(?,10000,?,?,?,?,?)";
 			
-			pstmt.setString(1, gosuinfo_B_data.getEmail());
-			pstmt.setInt(2, gosuinfo_B_data.getG_code());
-			pstmt.setString(3, gosuinfo_B_data.getPayment());
-			pstmt.setString(3, gosuinfo_B_data.getArea());
-			pstmt.setString(4, gosuinfo_B_data.getCalltime());
+			pstmt = conn.prepareStatement(gosu_info_basic_sql);
+			pstmt.setString(1, gosu_info_basic.getEmail());
+			pstmt.setString(2, gosu_info_basic.getPayment());			
+			pstmt.setString(3, gosu_info_basic.getArea());
+			pstmt.setInt(4, gosu_info_basic.getHire_num());
+			pstmt.setString(5, gosu_info_basic.getCalltime());
+			pstmt.setString(6, gosu_info_basic.getPohoto());
+			
+			pstmt.executeUpdate();
 			
 			row = pstmt.executeUpdate();
 			
@@ -110,7 +114,7 @@ public class GosuDao {
 	}
 	
 	//고객이 고수로 가입할 때 입력하는 추가정보 by 안승주 21.04.21
-	public int insertGosuInfo_A(Gosu_Info_Add gosuinfo_A_data) {
+	public int insertGosuInfo_A(Gosu_Info_Add gosu_info_add) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int row = 0;
@@ -118,13 +122,14 @@ public class GosuDao {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = "insert into G_INFO_ADD(email, G_code, turn, career, license) values(?,?,turnnum.nextval,?,?)";
-			pstmt = conn.prepareStatement(sql);
+			String gosu_info_add_sql = "INSERT INTO G_INFO_ADD(EMAIL,G_CODE,TURN,CAREER,LICENCE)" + 
+										"values(?,10000,NO_INFO_ADD.nextval,?,?)";
 			
-			pstmt.setString(1, gosuinfo_A_data.getEmail());
-			pstmt.setInt(2, gosuinfo_A_data.getG_code());
-			pstmt.setString(3, gosuinfo_A_data.getCareer());
-			pstmt.setString(4, gosuinfo_A_data.getLicense());
+			pstmt = conn.prepareStatement(gosu_info_add_sql);
+		
+			pstmt.setString(1, gosu_info_add.getEmail());
+			pstmt.setString(2, gosu_info_add.getCareer());
+			pstmt.setString(3, gosu_info_add.getLicense());
 			
 			row = pstmt.executeUpdate();
 			
@@ -170,48 +175,75 @@ public class GosuDao {
 		return null;
 	}
 	
-	public List<Gosu_Register> searchgosu(){
+< // 이거 수정할것 
+	public List<RQ_Form> dds(String g_email, int g_code){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RQ_Form> list = null;
+		
+		try {
+			conn = ds.getConnection();
+			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
+					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
+					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
+					+ "ORDER BY r.num desc;";
+			pstmt = conn.prepareStatement(spl);
+			
+			pstmt.setString(1, g_email);
+			pstmt.setInt(2, g_code);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<RQ_Form>();
+			
+			while(rs.next()) {
+				RQ_Form rq_form = new RQ_Form();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+// ------------------------------------------------------------------
+	public List<Gosu_Register> searchgosu(String d_code){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Gosu_Register> gosulist = null;
-	
+	    Member member = new Member();
 		try {
 			conn = ds.getConnection();
-			String sql = "select * from g_register where d_code like '1%'";
-			System.out.println("ddddd");
+			String sql = "select g_register.pr, member.name from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
 			
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
 			gosulist = new ArrayList<Gosu_Register>();
-			System.out.println(gosulist);
-			System.out.println("dBH");
+
 			while(rs.next()) {
-				
 				String pr = rs.getString("pr");
-				String d_code = rs.getString("d_code");
-				
-				Gosu_Register gosuregister = new Gosu_Register(pr, d_code);
-				System.out.println("dsssssd");
+				String name = rs.getString("name");
+				Gosu_Register gosuregister = new Gosu_Register(pr, name);
 				gosulist.add(gosuregister);
 				System.out.println(gosulist);
-			}
-		} catch (SQLException e) {
+			
+		}
+		} catch (Exception e) {
 			e.printStackTrace();
-		} //finally {
-//			try {
-//				pstmt.close();
-//				rs.close();
-//				conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return gosulist;
 	}
 	
-	
+// --------------- 이
 }
 
 

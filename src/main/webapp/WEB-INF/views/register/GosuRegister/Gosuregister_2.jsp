@@ -28,7 +28,7 @@
 		<c:set var="code_1" value="스트릿댄스"></c:set>
 		<c:set var="code_2" value="폴댄스"></c:set>
 	</c:when>
-	<c:when test="${fn:substring(code,0,1)==6}">
+	<c:when test="${fn:substring(code,0,1)==61}">
 		<c:set var="code_1" value="한식"></c:set>
 		<c:set var="code_2" value="양식"></c:set>
 	</c:when>
@@ -49,7 +49,6 @@
 						<input type="radio" name="code" value="${code + 2}" id="code_2">
 						<label class="code_select" for="code_2">${code_2}</label>
 					</div>
-					<input type="button" value="이전" class="gosu_button" id="gosu_Previous_button"> 
 					<input type="button" value="다음" class="gosu_button" id="gosu_next_button"> 
 					</form>
 				</div>
@@ -60,11 +59,6 @@
 </body>
 <script type="text/javascript">
 	
-	// 이전 버튼
-	$('#gosu_Previous_button').click(function(){
-			location.href="Gosuregister_1.go";
-	});
-
 	// 다음 버튼
 	$('#gosu_next_button').click(function(){
 		var code = $('input[name=code]:checked').val();

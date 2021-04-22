@@ -245,40 +245,6 @@ DataSource ds = null;
 	}
 	
 	
-	// 로그인 완료 했을때 함수 
-		public boolean loginOk(String email , String pwd) {
-			
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			boolean result = false;
-			ResultSet rs = null;
-			try {
-				conn = ds.getConnection();
-				String sql = "select pwd from member where email = ? ";
-				pstmt.setString(1, email);
-				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					if(rs.getString("pwd").equals(pwd)) {
-						result = true;
-					} else {
-						result = false;
-					}
-				}
-			} catch(Exception e) {
-				e.getMessage();
-			} finally {
-				try {
-					rs.close();
-					pstmt.close();
-					conn.close();
-				} catch(Exception e2) {
-					
-				}
-			}
-			return result;
-			
-		}
 		
 		//회원정보 수정
 		public int memberEdit(Member member, String change) {
