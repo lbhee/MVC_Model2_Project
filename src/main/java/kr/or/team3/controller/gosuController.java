@@ -13,6 +13,7 @@ import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
 import kr.or.team3.service.Member_EditOk_Service;
 import kr.or.team3.service.Member_JoinOk_Service;
+import kr.or.team3.service.RQ_Form_WriteOk_Service;
 
 @WebServlet("*.go")
 public class gosuController extends HttpServlet {
@@ -61,8 +62,12 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/EditOk.go")) {
     		action = new Member_EditOk_Service();
     		actionForward = action.excute(request, response);
+    	// 요청서 작성 by 안승주
+    	}else if(URL.equals("/SendRQOk.go")) {
+    		action = new RQ_Form_WriteOk_Service();
+    		actionForward = action.excute(request, response);
     	}
-    		
+    	
     	
     	
     	

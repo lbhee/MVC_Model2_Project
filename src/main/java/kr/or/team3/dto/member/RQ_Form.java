@@ -32,6 +32,15 @@ public class RQ_Form {
 		this.g_email = g_email;
 		this.g_code = g_code;
 	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "RQ_Form [num=" + num + ", title=" + title + ", content=" + content + ", writedate=" + writedate
+				+ ", hopedate=" + hopedate + ", done=" + done + ", phone=" + phone + ", m_mail=" + m_mail + ", g_email="
+				+ g_email + ", g_code=" + g_code + "]";
+	}
 
 	public int getNum() {
 		return num;
