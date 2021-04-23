@@ -126,6 +126,7 @@ body.host_version .checkdomain-wrapper .btn {
 
 body.host_version .icon-wrapper {
     text-align: left;
+    height : 180px;
 }
 
 body.host_version .checkdomain-wrapper .checkbox {
@@ -271,4 +272,3 @@ body.host_version .first-section .lead {
 body.host_version .stat-wrap .alignleft {
     margin-right: 30px;
 }
-

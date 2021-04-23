@@ -175,7 +175,7 @@ public class GosuDao {
 		return null;
 	}
 	
-< // 이거 수정할것 
+ // 이거 수정할것 
 	public List<RQ_Form> dds(String g_email, int g_code){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -244,6 +244,43 @@ public class GosuDao {
 	}
 	
 // --------------- 이
+	//
+	public List<Member> gosumap(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> gosumaplist = null;
+		Member member = null;
+	    
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT m.ADR , gd.D_NAME  FROM G_REGISTER g JOIN MEMBER m ON g.EMAIL = m.EMAIL JOIN G_DETAIL gd ON g.D_CODE = gd.D_CODE ";
+		
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			gosumaplist = new ArrayList<Member>();
+
+			while(rs.next()) {
+				String adr = rs.getString("adr");
+				String d_name = rs.getString("d_name");
+				member = new Member(adr, d_name);
+				gosumaplist.add(member);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return gosumaplist;
+	}
+	
 }
 
 

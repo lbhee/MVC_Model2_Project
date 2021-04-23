@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
-
+import kr.or.team3.service.GosuMap_Service;
 import kr.or.team3.service.Gosuregister_Service;
 
 import kr.or.team3.service.Member_EditOk_Service;
@@ -103,14 +103,13 @@ public class gosuController extends HttpServlet {
     		System.out.println("요청서 가져오기");
     		actionForward = new ActionForward();
     		actionForward.setPath("RQ_List.jsp");
+    	//고수위치	
+    	} else if(URL.equals("/gosumap.go")) {
+    		action = new GosuMap_Service();
+    		actionForward = action.excute(request, response);
+    				
     	}
-    	
-
-    	
-    	
-    	
-    	
-    	
+ 	
     	// 결과 forward
     	if(actionForward != null) {
             RequestDispatcher dis = request.getRequestDispatcher(actionForward.getPath());

@@ -27,6 +27,7 @@ public class SearchGosu_Ajax extends HttpServlet {
     	
     	PrintWriter out = response.getWriter();
     	String d_code = request.getParameter("d_code");
+    	String name = request.getParameter("name");
     	Gosu_Register gosu = null;
     	
     
@@ -39,12 +40,12 @@ public class SearchGosu_Ajax extends HttpServlet {
 			for(Gosu_Register list : gosulist ) {
 				
 				div += "<div class='col-md-4 col-sm-6 col-xs-12' >";
-				div += "<div class='icon-wrapper wow fadeIn' data-wow-duration='1s' data-wow-delay='0.2s' style = 'text-align : center'; 'border : 1px'>";
-				div += "<img src = 'images/smile.png' style = 'width : 50px'>";
-				
-				div += "<p>" + list.getName()+ "</p>";
-				div += "<p>" + list.getPr() + "</p>"; 
-				div += "<a href ='Gosupage.jsp'>개인 페이지 이동</a>";
+				div += "<div class='icon-wrapper wow fadeIn' data-wow-duration='1s' data-wow-delay='0.2s' style = 'text-align : center' , 'height : 180 px ';>";
+	
+				div += "<h1>" + list.getName()+ " 선생님 </h1>";
+				div += "<hr><br>";
+				div += "<h3>" + list.getPr() + "</h3>"; 
+				div += "<a href ='Gosupage.jsp'><h>개인 페이지 이동</h2></a>";
 				
 				
 				div += "</div> </div>  ";
@@ -53,6 +54,8 @@ public class SearchGosu_Ajax extends HttpServlet {
 			}
 				div += "</div>";
 				out.print(div);
+				
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

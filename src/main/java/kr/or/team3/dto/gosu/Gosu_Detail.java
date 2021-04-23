@@ -34,4 +34,11 @@ public class Gosu_Detail {
 	public void setS_code(int s_code) {
 		this.s_code = s_code;
 	}
+
+	@Override
+	public String toString() {
+		return "Gosu_Detail [d_code=" + d_code + ", d_name=" + d_name + ", s_code=" + s_code + "]";
+	}
+	
+	
 }

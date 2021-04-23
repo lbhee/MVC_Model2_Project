@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="WEB-INF/views/include/head.jsp"></jsp:include>
+ 
+   <link rel="stylesheet" href="css/versions.css">
+   <link rel="stylesheet" href="css/style.css">
 <body class="host_version"> 
 <script src="js/mainpage/searchdata.js"></script>
 	
