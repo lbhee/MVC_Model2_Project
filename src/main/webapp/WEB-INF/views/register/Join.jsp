@@ -3,6 +3,7 @@
 
 <!-- header -->
 <jsp:include page="../include/head.jsp"></jsp:include>
+<script src="js/mainpage/main_event.js"></script>
 <%
 
 	String id = (String)session.getAttribute("ID");
@@ -21,19 +22,19 @@
 				
 				<div class="regidiv">
 				<p>이름</p>
-				<input type="text" maxlength="10" id="name" name="name" placeholder="이름(실명)을 입력해주세요">
+				<input type="text" maxlength="10" id="name" name="name" placeholder="이름(실명)을 입력해주세요" onkeyup="enterkey()">
 				<p class="tdname"></p>
 				
 				<p>이메일</p>
-				<input type="text" maxlength="20" id="email" name="email" placeholder="bit@soomgo.com">
+				<input type="text" maxlength="20" id="email" name="email" placeholder="bit@soomgo.com" onkeyup="enterkey()">
 				<p class="tdmail"></p>
 				
 				<p>비밀번호</p>
-				<input type="password" maxlength="15" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요">
+				<input type="password" maxlength="15" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요" onkeyup="enterkey()">
 				<p class="tdpw"></p>
 				
 				<p>주소</p>
-				<input type="text" maxlength="50" id="adr" name="adr" placeholder="주소(클릭하세요)"> <br>
+				<input type="text" maxlength="50" id="adr" name="adr" placeholder="주소(클릭하세요)" onkeyup="enterkey()"> <br>
 				<p></p>
 				
 				
@@ -45,10 +46,11 @@
 		</div>
 	</div>
 </body>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 //이름 체크
-var namecheck = /^[가-힣]{2,3}$/;
+var namecheck = /^[가-힣]{1,5}$/;
 var nameck = false;
 $('#name').blur(function() {
 	if (namecheck.test($('#name').val())) {
@@ -95,22 +97,34 @@ $('#email').blur(function() {
 })		
 
 // 버튼 선택 
-$('.button').click(
-		function() {
-			if (nameck == false || passck == false || emailck == false) {
-				alert("빈칸을 모두 채워주세요.");
-				return;
-			} else {
-				var cek = confirm("가입하시겠습니까?");
-				if(cek == true){
-					$('#join').submit();
-				}else{
-					return;
-				}
+function btnclick(){
+	if (nameck == false || passck == false || emailck == false) {
+		alert("빈칸을 모두 채워주세요.");
+		return;
+	} else {
+		var cek = confirm("가입하시겠습니까?");
+		if(cek == true){
+			$('#join').submit();
+		}else{
+			return;
+		}
 
-			}
-		})
+	}
+}
+
+
+$('.button').click(function() {
+	btnclick();
+})
+
 		
+function enterkey() { 
+	if (window.event.keyCode == 13) { 
+		
+		btnclick();
+	
+	} 	
+}		
 	//우편번호로 주소찾기
 	function sample4_execDaumPostcode() {
 		new daum.Postcode(
@@ -154,8 +168,10 @@ $('.button').click(
 					}
 				}).open();
 	}		
-	$('#adr').click(function() {
+	$('#adr').focus(function() {
 		sample4_execDaumPostcode();
+		$('#adr').blur();
 	})
+	
 </script>
 </html>

@@ -80,7 +80,7 @@
 var pwd = "${ member.pwd }";
 
 //이름 체크
-var namecheck = /^[가-힣]{2,3}$/;
+var namecheck = /^[가-힣]{1,5}$/;
 $('#name').change(function() {
 	if (namecheck.test($('#name').val())) {
 		$(".tdname").html("");
