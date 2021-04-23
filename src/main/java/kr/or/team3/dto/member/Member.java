@@ -2,26 +2,21 @@ package kr.or.team3.dto.member;
 
 public class Member {
 
-	private String email; //이메일
-	private String name;  //이름
-	private String pwd;   //비밀번호
-	private String adr;   //주소
-	private String d_name; // 상세 서비스 코드
+	private String email;  //이메일
+	private String name;   //이름
+	private String pwd;    //비밀번호
+	private String adr;    //주소
+	private String d_name; //상세 서비스
+	private String s_name; //서비스
 	
 	public Member() {
 	}
-	
-	public Member(String email, String name, String pwd, String adr) {
-		super();
-		this.email = email;
-		this.name = name;
-		this.pwd = pwd;
-		this.adr = adr;
-	}
-	
-	public Member(String adr, String d_name) {
+
+	public Member(String adr, String d_name, String name, String s_name) {
 		this.adr = adr;
 		this.d_name = d_name;
+		this.name = name;
+		this.s_name = s_name;
 	}
 	public String getEmail() {
 		return email;
@@ -56,12 +51,12 @@ public class Member {
 		this.d_name = d_name;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [email=" + email + ", name=" + name + ", pwd=" + pwd + ", adr=" + adr + ", d_name=" + d_name
-				+ "]";
+	public String getS_name() {
+		return s_name;
 	}
-	
-	
-	
+
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
+	}
+
 }

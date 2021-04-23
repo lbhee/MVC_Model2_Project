@@ -505,7 +505,7 @@ public class GosuDao {
 	}
 	
 
-	//
+	//고수찾기(지도)
 	public List<Member> gosumap(){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -515,17 +515,22 @@ public class GosuDao {
 	    
 		try {
 			conn = ds.getConnection();
-			String sql = "SELECT m.ADR , gd.D_NAME  FROM G_REGISTER g JOIN MEMBER m ON g.EMAIL = m.EMAIL JOIN G_DETAIL gd ON g.D_CODE = gd.D_CODE ";
+			String sql = "select m.adr, gd.d_name, m.name, gs.s_name from g_register g join member m on g.email = m.email "
+					   + "join g_detail gd on g.d_code = gd.d_code join g_service gs on gs.s_code = gd.s_code";
 		
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
+			
 			gosumaplist = new ArrayList<Member>();
 
 			while(rs.next()) {
-				String adr = rs.getString("adr");
-				String d_name = rs.getString("d_name");
-				member = new Member(adr, d_name);
+				String adr = rs.getString("adr"); //고수주소
+				String d_name = rs.getString("d_name"); //상세서비스
+				String name = rs.getString("name"); //고수이름
+				String s_name = rs.getString("s_name"); //서비스
+				
+				member = new Member(adr, d_name, name, s_name);
 				gosumaplist.add(member);
 		}
 		} catch (Exception e) {
