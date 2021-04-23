@@ -23,11 +23,11 @@
 				
 				<div class="regidiv">
 				<p>이메일</p>
-				<input type="text" maxlength="50" id="email" name="email" placeholder="bit@soomgo.com">
+				<input type="text" maxlength="50" id="email" name="email" placeholder="bit@soomgo.com" onkeyup="enterkey()">
 				<p class="tdmail"></p>
 				
 				<p>비밀번호</p>
-				<input type="password" maxlength="16" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
+				<input type="password" maxlength="16" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요" onkeyup="enterkey()">
 				<p class="tdpw"></p>
 				
 				
@@ -62,7 +62,7 @@ $('#email').blur(function() {
 
 //비밀번호 체크   
 var passck = false;
-$('#pwd').blur(
+$('#pwd').change(
 		function() {
 			if ($("#pwd").val().length >= 3) {
 				$('.tdpw').html("");
@@ -75,35 +75,46 @@ $('#pwd').blur(
 			}
 		})
 		
+
+function btnclick(){
+	if (passck == false || emailck == false) {
+		alert("빈칸을 모두 채워주세요.");
+		return;
+	} else {
+		$.ajax({
+			   url:"Member_LoginOk_Service", 
+			   data:{
+				   email:$('#email').val(),
+				   pwd:$('#pwd').val()	
+			   },
+			   dataType:"html",
+			   success:function(data){
+				   if(data == "true"){
+			   		   location.href = "main.jsp";
+				   }else{
+					   alert("아이디 또는 비밀번호를 확인해주세요")
+				   }
+			   },
+			   error:function(xhr){
+				   alert(xhr.status);
+			   }
+			})
+	}
+}		
 		
 		
 // 버튼 선택 
 $('.button').click(function() {
-		if (passck == false || emailck == false) {
-			alert("빈칸을 모두 채워주세요.");
-			return;
-		} else {
-			$.ajax({
-				   url:"Member_LoginOk_Service", 
-				   data:{
-					   email:$('#email').val(),
-					   pwd:$('#pwd').val()	
-				   },
-				   dataType:"html",
-				   success:function(data){
-					   if(data == "true"){
-				   		   location.href = "main.jsp";
-					   }else{
-						   alert("아이디 또는 비밀번호를 확인해주세요")
-					   }
-				   },
-				   error:function(xhr){
-					   alert(xhr.status);
-				   }
-				})
-		}		
-			
-	})
+	btnclick();		
+})
+
+
+function enterkey() { 
+	if (window.event.keyCode == 13) { 
 		
+		btnclick();
+	
+	} 	
+}			
 </script>
 </html>

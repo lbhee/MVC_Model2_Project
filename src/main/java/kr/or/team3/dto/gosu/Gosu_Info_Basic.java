@@ -7,7 +7,7 @@ public class Gosu_Info_Basic {
 	private String calltime; 	// 연락가능시간
 	private int g_code; 		// 고수고유코드(참조)
 	private String email;		// 고수이메일
-	private String pohoto;
+	private String photo;
 	
 
 	public Gosu_Info_Basic() {
@@ -70,11 +70,11 @@ public class Gosu_Info_Basic {
 	public void setG_code(int g_code) {
 		this.g_code = g_code;
 	}
-	public String getPohoto() {
-		return pohoto;
+	public String getPhoto() {
+		return photo;
 	}
 
-	public void setPohoto(String pohoto) {
-		this.pohoto = pohoto;
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 }

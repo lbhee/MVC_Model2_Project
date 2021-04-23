@@ -83,10 +83,6 @@
 	}
 	setInterval(changeimg, 5000);
 	
-	/* $(".sevice_btn").click(function(){
-		$('.sevice_btn').attr('class','tab_selected');
-	})
-	 */
 	
 	$('.script_ul > li >a').click(function(){
 		$('.script_ul > li >a').attr('class','');
