@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+
+	String M_email = (String)session.getAttribute("ID");
+
+%>
+<c:set var = "M_email" value = "<%=M_email%>"/>
+
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 
 
@@ -39,18 +47,18 @@
 				<br>
 				<div class = "checkdomain-wrapper" style = " display :none">
 					<div class = "form-group">
-						<input type = "text" class = "form-control" id = "g_email" name = "g_email" value = "daum">
+						<input type = "text" class = "form-control" id = "g_email" name = "g_email" value = "sj@naver.com">
 					</div>
 				</div>
 				<br>
 				<div class = "checkdomain-wrapper" style = " display :none">
 					<div class = "form-group">
-						<input type = "text" class = "form-control" id = "g_code" name = "g_code" value = "100">
+						<input type = "text" class = "form-control" id = "g_code" name = "g_code" value = "10000">
 					</div>
 				</div>
 				<div class = "checkdomain-wrapper" style = " display :none">
 					<div class = "form-group">
-						<input type = "text" class = "form-control" id = "m_email" name = "m_email" value = "naver">
+						<input type = "text" class = "form-control" id = "m_email" name = "m_email" value = "${M_email}">
 					</div>
 				</div>
 				<br>
