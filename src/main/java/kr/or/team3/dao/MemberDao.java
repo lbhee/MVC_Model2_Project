@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import kr.or.team3.dto.member.Member;
+import kr.or.team3.dto.member.RQ_Content_Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 public class MemberDao {
@@ -107,6 +108,8 @@ DataSource ds = null;
 	
 	
 	
+	
+	
 	//요청서 보내기 by 안승주 21.04.19
 	public int sendRQ_Form(RQ_Form RQdata) {
 		Connection conn = null;
@@ -144,7 +147,7 @@ DataSource ds = null;
 		
 		return row;
 	}
-	//고객이 고수에게 보낸 요청서 가져오기 by 안승주 21.04.19 수정 21.04.21
+	//고객이 고수에게 보낸 요청서리스트 가져오기 by 안승주 21.04.19 수정 21.04.21
 	public List<RQ_Form> getRQ_Form_Member(int cpage, int pagesize, String M_email) {
 		
 		Connection conn = null;
@@ -209,8 +212,8 @@ DataSource ds = null;
 		return list;
 	}
 	
-	//고객이나 고수가 요청완료 요청시
-	public boolean completeRQ(int G_code) {
+	//고객이 요청취소시 by 안승주 21.04.23
+	public boolean cancel_RQ_Member(int G_code, String G_email, String M_email) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -218,10 +221,12 @@ DataSource ds = null;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "update RQ_Form set done = 1 where G_code = ?";
+			String sql = "update RQ_Form set done = 3 where G_code = ? and G_email = ? and M_email = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, G_code);
+			pstmt.setString(2, G_email);
+			pstmt.setString(3, M_email);
 			
 			int row = pstmt.executeUpdate();
 			if(row > 0) {
@@ -328,4 +333,193 @@ DataSource ds = null;
 			
 			return member;
 		}
+		
+		//가입된 총 회원 수 by 안승주 21.04.23
+		public int totalMemberCount() {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalmembercount = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "select count(*) cnt from member";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					totalmembercount = rs.getInt("cnt");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getMessage();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.getMessage();
+				}
+			}
+			return totalmembercount;
+		}
+		
+		//고객이 쓴 요청서 건수 by 안승주 21.04.23
+		public int totalRQMemberCount(String M_email) {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalrqmembercount = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "select count(*) cnt from RQ_Form where m_email = ? and done = 0";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, M_email);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					totalrqmembercount = rs.getInt("cnt");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getMessage();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.getMessage();
+				}
+			}
+			
+			
+			return totalrqmembercount;
+		}
+		
+		//요청서에서 고객의 이름 가져오기 by 안승주
+//		public String getMemberName(int num) {
+//			Connection conn = null;
+//			PreparedStatement pstmt = null;
+//			ResultSet rs = null;
+//			String memberName = null;
+//			
+//			try {
+//				conn = ds.getConnection();
+//				String sql = "SELECT m.NAME FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
+//				pstmt = conn.prepareStatement(sql);
+//				
+//				pstmt.setInt(1, num);
+//				
+//				rs = pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					memberName = rs.getString("name");
+//				}
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				e.getMessage();
+//			}finally {
+//				try {
+//					pstmt.close();
+//					rs.close();
+//					conn.close();
+//					
+//				} catch (Exception e2) {
+//					// TODO: handle exception
+//					e2.getMessage();
+//				}
+//			}
+//			return memberName;
+//		}
+		
+		// 고객이 고수에게 보낸 요청서 콘텐츠 가져오기 by 안승주 21.04.23
+		@SuppressWarnings("resource")
+		public RQ_Content_Member getRQContent_Member(int num) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			RQ_Content_Member content = null;
+			
+			try {
+				content = new RQ_Content_Member();
+				conn = ds.getConnection();
+				String sql1 = "SELECT rf.NUM ,rf.TITLE , rf.CONTENT , rf.WRITEDATE ,rf.HOPEDATE, m.NAME, rf.G_EMAIL FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
+				String sql2 = "SELECT m.name , m.ADR FROM RQ_FORM rf JOIN MEMBER m ON rf.G_EMAIL = m.EMAIL WHERE rf.NUM = ?";
+				String sql3 = "SELECT gs.S_NAME ,gd.D_NAME FROM RQ_FORM rf JOIN G_REGISTER gr ON rf.G_EMAIL = gr.EMAIL JOIN G_DETAIL gd ON gr.D_CODE = gd.D_CODE JOIN G_SERVICE gs ON gd.S_CODE = gs.S_CODE WHERE rf.num = ?";
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setInt(1,num);
+				System.out.println("4");
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					content.setNum(rs.getInt("num"));
+					content.setTitle(rs.getString("title"));
+					content.setContent(rs.getString("content"));
+					content.setWritedate(rs.getDate("writedate"));
+					content.setHopedate(rs.getDate("hopedate"));
+					content.setMemberName(rs.getString("name"));
+					content.setG_email(rs.getString("G_email"));
+				}
+				System.out.println("1");
+				pstmt = conn.prepareStatement(sql2);
+				System.out.println("2");
+				pstmt.setInt(1, num);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					System.out.println(rs.getString("name"));
+					content.setGosuName(rs.getString("name"));
+					content.setAdr(rs.getString("adr"));
+				}
+				pstmt = conn.prepareStatement(sql3);
+				pstmt.setInt(1, num);
+				rs = pstmt.executeQuery();
+				if(rs.next()){
+					String sname = rs.getString("s_name");//운동
+					String dname = rs.getString("d_name");//유산소
+					System.out.println(sname);
+					System.out.println(dname);
+					String subject = sname + "/" + dname;
+					content.setSubject(subject);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				e.getMessage();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					e2.getMessage();
+				}
+			}
+			return content;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }

@@ -20,8 +20,8 @@ public class Gosuregister_Service implements Action {
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)  {
 		
 		String email = request.getParameter("email");
-		String pr = request.getParameter("pr");
-		int d_code = Integer.parseInt(request.getParameter("d_code"));
+		String pr = null;
+		int d_code = Integer.parseInt(request.getParameter("code"));
 		
 		
 		Gosu_Register gosu_register = null;
@@ -49,17 +49,15 @@ public class Gosuregister_Service implements Action {
 			 // 고수 가입정보
 			 row = gosudao.joinGosuOk(gosu_register);
 			 // 고수 기본정보
-			 int basic = gosudao.insertGosuInfo_B(gosu_info_basic);
+			 gosudao.insertGosuInfo_B(gosu_info_basic);
 			 // 고수 추가정보
-			 int add = gosudao.insertGosuInfo_A(gosu_info_add);
-			 
-			 System.out.println(basic + "/ " + add);
-			 
+			 gosudao.insertGosuInfo_A(gosu_info_add);
+			 			 
 			 String msg="";
 			 String url="";
 			 
 			 if(row > 0) {
-				 msg = "고수 가입 완료";
+				 msg = "고수 가입을 환영합니다~";
 				 url = "/Gosuregister_Info.go";
 			 }else {
 				 msg = "이미 고수로 가입된 회원입니다.";

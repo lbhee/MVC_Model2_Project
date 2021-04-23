@@ -1,3 +1,4 @@
+<%@page import="kr.or.team3.dao.GosuDao"%>
 <%@page import="kr.or.team3.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,12 +8,17 @@
 
 <%
 	MemberDao memberDao = new MemberDao();
-	String memberid = (String)session.getAttribute("ID");
+
+	GosuDao gosuDao = new GosuDao();
+	String id = (String)session.getAttribute("ID");
+
 %>
 
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="id" value="${ sessionScope.ID }" />
-<c:set var="member" value="<%= memberDao.getContent(memberid) %>" />
+<c:set var="member" value="<%= memberDao.getContent(id) %>" />
+<c:set var="gosu" value="<%= gosuDao.getRegister(id) %>" />
+
 <c:set var="path" value="<%= request.getContextPath() %>" />
 <meta charset="UTF-8">
     <title>숨고 : 고수를찾아서</title>  
@@ -57,22 +63,40 @@
                     <span class="icon-bar"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-host">
+					<ul class="gosu_menu">
+					
+					
+					</ul>
 					<ul class="navbar-nav ml-auto">
-						<c:choose>
+							<c:choose>
 				 			<c:when test="${id==null}">
 				 				<li class="nav-item active"><a class="nav-link" href="${ path }/Join.go">회원가입</a></li>
 								<li class="nav-item active"><a class="nav-link" href="${ path }/Login.go">로그인</a></li>
 				 			</c:when>
 				 			<c:otherwise>
+
+				 				<c:if test="${gosu>0}">
+				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고수님</a>
+				 				</c:if>
+				 				<c:if test="${gosu==0}">
+                  
 				 				<li class="nav-item active"><a class="" href="WriteRQ.go">요청서쓰기</a>
 				 				<li class="nav-item active"><a class="" href="RQList.go">요청서리스트</a>
 				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고객님</a>
+                  
+				 				</c:if>
 				 				<div class="user_info" style="display:none">
 
 				 					<h4 class="head_userName">안녕하세요, ${ member.name }</h4>
 				 					<div class="mypage"><a href="${ path }/Mypage.go">마이페이지</a></div>
+				 					
+				 					
+				 					<c:if test="${gosu==0}">
 				 					<div class="gosu_register"><a href="${ path }/Gosuregister_1.go">고수로 가입하기</a></div>
-
+									</c:if>
+									<c:if test="${gosu>0}">
+				 					<div class="gosu_register"><a href="${ path }/Gosuregister_Info.go">고수 프로필가기</a></div>
+									</c:if>
 				 					<div class="logout"><a href="#">로그아웃</a></div>
 				 				</div>
 				 				</li>

@@ -6,6 +6,7 @@
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="code" value='<%=request.getParameter("code")%>'></c:set>
+<c:set var="id" value='<%=session.getAttribute("ID")%>' ></c:set>
 <body>
 <c:choose>
 	<c:when test="${fn:substring(code,0,1)==1}">
@@ -28,7 +29,7 @@
 		<c:set var="code_1" value="스트릿댄스"></c:set>
 		<c:set var="code_2" value="폴댄스"></c:set>
 	</c:when>
-	<c:when test="${fn:substring(code,0,1)==61}">
+	<c:when test="${fn:substring(code,0,1)==6}">
 		<c:set var="code_1" value="한식"></c:set>
 		<c:set var="code_2" value="양식"></c:set>
 	</c:when>
@@ -40,7 +41,8 @@
 				<p></p>
 				<h3>어떤 서비스를 제공할 수 있나요?</h3>
 				<div class="gosu_register2_category">
-					<form action="" method= "post" >
+					<form action="<%= request.getContextPath() %>/GosuregisterOk.go" method= "post" id="gosujoin" >
+					<input type="text" maxlength="20" id="email" name="email" value="${id}" hidden>
 					<div class="gosu_code2">
 						<input type="radio" name="code" value="${code + 1}" id="code_1">
 						<label class="code_select" for="code_1">${code_1}</label>
@@ -64,7 +66,14 @@
 		var code = $('input[name=code]:checked').val();
 		console.log(code);
 		if($('#code_1').is(':checked') || $('#code_2').is(':checked')){
-			location.href="Gosuregister_3.go?code=" + code;
+			var cek = confirm("해당 고수로 등록하시겠습니까?\n등록후엔 변경이 불가능합니다.");
+			
+			if(cek == true){
+				$('#gosujoin').submit();
+			}else{
+				return;
+			}
+			
 		}else{
 			alert("제공 할 서비스를 선택해주세요.");
 		}
