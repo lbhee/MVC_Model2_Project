@@ -25,42 +25,37 @@ public class GosuMap_Ajax extends HttpServlet {
 	
     public GosuMap_Ajax() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html;charset=UTF-8");
-		
 		PrintWriter out = response.getWriter();
-		
 		List<Member> gosumap = null;
+		
 		try {
 
 			GosuDao gosudao = new GosuDao();
 			gosumap = gosudao.gosumap();
-			
-			
+
 			JSONArray jsonarr = new JSONArray();
 			
 			for(int i=0; i < gosumap.size(); i++) {
 				JSONObject jsonobj = new JSONObject();
 				jsonobj.put("adr", gosumap.get(i).getAdr());
 				jsonobj.put("d_name", gosumap.get(i).getD_name());
+				jsonobj.put("name", gosumap.get(i).getName());
+				jsonobj.put("s_name", gosumap.get(i).getS_name());
 				
 				jsonarr.add(jsonobj);
 			}
 	
 		out.print(jsonarr);
-		System.out.println(jsonarr);	
+		
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
