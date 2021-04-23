@@ -22,6 +22,7 @@
 
 					<div class="input-group">
 						<input type="text" placeholder="서비스를 검색하세요" id="search">
+						<input type="hidden" id="searchvalue">
 						<div class="input-search">
 							<img src="images/search.svg">
 						</div>
@@ -89,6 +90,7 @@
 		$(this).attr('class','tab_selected');
 		
 	})
+	
 	
 </script>
 </html>

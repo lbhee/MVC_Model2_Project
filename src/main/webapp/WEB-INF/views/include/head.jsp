@@ -5,15 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	MemberDao memberDao = new MemberDao();
+
 	GosuDao gosuDao = new GosuDao();
 	String id = (String)session.getAttribute("ID");
+
 %>
+
+<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="id" value="${ sessionScope.ID }" />
 <c:set var="member" value="<%= memberDao.getContent(id) %>" />
 <c:set var="gosu" value="<%= gosuDao.getRegister(id) %>" />
+
 <c:set var="path" value="<%= request.getContextPath() %>" />
 <meta charset="UTF-8">
     <title>숨고 : 고수를찾아서</title>  
@@ -28,7 +33,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">  
-
+	
 
 </head>
 <body class="host_version"> 
@@ -48,7 +53,9 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="main.jsp">
+
 					<img src="images/logo.jpg" alt="" />
+
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar"></span>
@@ -67,11 +74,16 @@
 								<li class="nav-item active"><a class="nav-link" href="${ path }/Login.go">로그인</a></li>
 				 			</c:when>
 				 			<c:otherwise>
+
 				 				<c:if test="${gosu>0}">
 				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고수님</a>
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
+                  
+				 				<li class="nav-item active"><a class="" href="WriteRQ.go">요청서쓰기</a>
+				 				<li class="nav-item active"><a class="" href="RQList.go">요청서리스트</a>
 				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고객님</a>
+                  
 				 				</c:if>
 				 				<div class="user_info" style="display:none">
 

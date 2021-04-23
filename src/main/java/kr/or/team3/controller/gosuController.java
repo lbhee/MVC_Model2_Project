@@ -17,6 +17,7 @@ import kr.or.team3.service.Gosuregister_Service;
 import kr.or.team3.service.Member_EditOk_Service;
 
 import kr.or.team3.service.Member_JoinOk_Service;
+import kr.or.team3.service.RQ_Form_WriteOk_Service;
 
 @WebServlet("*.go")
 public class gosuController extends HttpServlet {
@@ -55,7 +56,6 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/Login.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Login.jsp");
-    	
     		
     	// ==================================================================================	
     	// 고수가입하기_1 화면	
@@ -66,7 +66,7 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/Gosuregister_2.go")) {
 			actionForward = new ActionForward();
 			actionForward.setPath("/WEB-INF/views/register/GosuRegister/Gosuregister_2.jsp");
-			
+        
     	// 고수가입완료
     	} else if(URL.equals("/GosuregisterOk.go")) {
     		action = new Gosuregister_Service();
@@ -83,7 +83,7 @@ public class gosuController extends HttpServlet {
     		actionForward = action.excute(request, response);
 			
     		// ==================================================================================
-    		
+	
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
     		actionForward = new ActionForward();
@@ -93,8 +93,31 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/EditOk.go")) {
     		action = new Member_EditOk_Service();
     		actionForward = action.excute(request, response);
-    	}
+    	
+    	// 요청서 작성완료 by 안승주
+    	}else if(URL.equals("/SendRQOk.go")) {
+    		action = new RQ_Form_WriteOk_Service();
+    		actionForward = action.excute(request, response);
     		
+    	// 요청서 작성하기 by 안승주
+    	}else if(URL.equals("/WriteRQ.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("RQ_Member_write.jsp");
+    		
+    	// 요청서 가져오기 by 안승주
+    	}else if(URL.equals("/RQList.go")) {
+    		System.out.println("요청서 가져오기");
+    		actionForward = new ActionForward();
+    		actionForward.setPath("RQ_List.jsp");
+    		
+    	// 고객이 고수에게 보낸 요청서 자세히 보기
+    	}else if(URL.equals("/Rq_Content_Memeber.go")) {
+    		System.out.println("요청서 자세히 보기");
+    		actionForward = new ActionForward();
+    		actionForward.setPath("RQ_Content_Member.jsp");
+    	}
+    	
+
     	
     	
     	
