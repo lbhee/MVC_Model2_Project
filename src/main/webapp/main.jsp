@@ -10,7 +10,10 @@
 				<div class="tab_select">
 					<ul class="script_ul">
 						<li><a class="tab_selected" href="#">서비스 찾기</a></li>
-						<li><a class="" href="#">고수 찾기</a></li>
+						
+							<li><a class="gosumap" href="#">고수 찾기</a></li>
+							
+						
 					</ul>
 				</div>
 
@@ -91,6 +94,14 @@
 		
 	})
 	
+	$('.gosumap').click(function(){
+		var url = "map.html";
+		var name = "내주변 고수찾기";
+		var option = "width = 700, height = 500, top = 180, left = 500";
+		
+		window.open(url, name , option);
+		
+	});
 	
 </script>
 </html>

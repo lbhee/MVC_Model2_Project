@@ -324,6 +324,7 @@ public class GosuDao {
 		return list;
 	}
 	
+
 	//고수가 받은 요청서 지우기 by 안승주 21.04.23
 	public boolean cancel_RQ_Gosu(int G_code, String G_email, String M_email) {
 		Connection conn = null;
@@ -399,6 +400,7 @@ public class GosuDao {
 		
 	}
 	public String getGosuName(int num) {
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -502,6 +504,45 @@ public class GosuDao {
 		return gosulist;
 	}
 	
+
+	//
+	public List<Member> gosumap(){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> gosumaplist = null;
+		Member member = null;
+	    
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT m.ADR , gd.D_NAME  FROM G_REGISTER g JOIN MEMBER m ON g.EMAIL = m.EMAIL JOIN G_DETAIL gd ON g.D_CODE = gd.D_CODE ";
+		
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			gosumaplist = new ArrayList<Member>();
+
+			while(rs.next()) {
+				String adr = rs.getString("adr");
+				String d_name = rs.getString("d_name");
+				member = new Member(adr, d_name);
+				gosumaplist.add(member);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return gosumaplist;
+	}
+	
+
 	//가입된 총 고수의 수 by 안승주 21.04.23
 	public int totalGosuCount() {
 		Connection conn = null;
@@ -766,6 +807,7 @@ public class GosuDao {
 		
 		return gosu_Detail_Join_Service;
 	}
+
 
 }
 

@@ -6,6 +6,7 @@ public class Member {
 	private String name;  //이름
 	private String pwd;   //비밀번호
 	private String adr;   //주소
+	private String d_name; // 상세 서비스 코드
 	
 	public Member() {
 	}
@@ -18,6 +19,10 @@ public class Member {
 		this.adr = adr;
 	}
 	
+	public Member(String adr, String d_name) {
+		this.adr = adr;
+		this.d_name = d_name;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -41,6 +46,20 @@ public class Member {
 	}
 	public void setAdr(String adr) {
 		this.adr = adr;
+	}
+
+	public String getD_name() {
+		return d_name;
+	}
+
+	public void setD_name(String d_name) {
+		this.d_name = d_name;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [email=" + email + ", name=" + name + ", pwd=" + pwd + ", adr=" + adr + ", d_name=" + d_name
+				+ "]";
 	}
 	
 	
