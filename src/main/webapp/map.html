@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>내 주변 고수찾기</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <style type="text/css">
     	 a:link { color: red; text-decoration: none;}
  		 a:visited { color: black; text-decoration: none;}
@@ -83,8 +83,8 @@
 							// 인포윈도우를 생성합니다 
 							var infowindow = new kakao.maps.InfoWindow({ 
 								content: '<div style="width:150px; text-align:center;padding:6px 0;">' 
-								         + '<a href="http://www.naver.com">' +obj.s_name+ ' 고수<br><b>' +obj.name+ '</b></a>' + '</div>', 
-								removable : true 
+								         + '<a href="Gosupage.jsp?email='+obj.email+'">' +obj.s_name+ '(' +obj.d_name+ ')<br><b>' +obj.name+ ' 고수</b></a></div>', 
+								removable : true
 							}); 
 							
 							// 마커에 클릭이벤트를 등록합니다 

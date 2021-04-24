@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import kr.or.team3.dto.gosu.Gosu_Detail_Join_Service;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
+import kr.or.team3.dto.gosu.Gosu_Page;
 import kr.or.team3.dto.gosu.Gosu_Register;
 import kr.or.team3.dto.member.Member;
 
@@ -475,7 +476,7 @@ public class GosuDao {
 	    Member member = new Member();
 		try {
 			conn = ds.getConnection();
-			String sql = "select g_register.pr, member.name from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
+			String sql = "select g_register.pr, member.name, member.email from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
 			
 			pstmt = conn.prepareStatement(sql);
 
@@ -485,7 +486,9 @@ public class GosuDao {
 			while(rs.next()) {
 				String pr = rs.getString("pr");
 				String name = rs.getString("name");
-				Gosu_Register gosuregister = new Gosu_Register(pr, name);
+				String email = rs.getString("email");
+				Gosu_Register gosuregister = new Gosu_Register(pr, name, email);
+				
 				gosulist.add(gosuregister);
 				System.out.println(gosulist);
 			
@@ -515,8 +518,8 @@ public class GosuDao {
 	    
 		try {
 			conn = ds.getConnection();
-			String sql = "select m.adr, m.name, gs.s_name from g_register g join member m on g.email = m.email \r\n"
-					+ "join g_detail gd on g.d_code = gd.d_code join g_service gs on gs.s_code = gd.s_code";
+			String sql = "select m.email, m.adr, m.name, gs.s_name, gd.d_name from g_register g join member m on g.email = m.email "
+					   + "join g_detail gd on g.d_code = gd.d_code join g_service gs on gs.s_code = gd.s_code";
 		
 			pstmt = conn.prepareStatement(sql);
 
@@ -525,11 +528,13 @@ public class GosuDao {
 			gosumaplist = new ArrayList<Member>();
 
 			while(rs.next()) {
+				String email = rs.getString("email");
 				String adr = rs.getString("adr"); //고수주소
 				String name = rs.getString("name"); //고수이름
 				String s_name = rs.getString("s_name"); //서비스
+				String d_name = rs.getString("d_name"); //상세서비스
 				
-				member = new Member(adr, name, s_name);
+				member = new Member(email, adr, name, s_name, d_name);
 				gosumaplist.add(member);
 		}
 		} catch (Exception e) {
@@ -793,7 +798,7 @@ public class GosuDao {
 				String S_NAME = rs.getString("S_NAME");
 				String PR = rs.getString("PR");
 				
-				gosu_Detail_Join_Service = new Gosu_Detail_Join_Service(D_CODE, D_NAME, S_CODE,S_NAME, PR);
+				gosu_Detail_Join_Service = new Gosu_Detail_Join_Service(D_CODE, D_NAME, S_CODE, S_NAME, PR);
 						
 			}
 			
@@ -813,6 +818,62 @@ public class GosuDao {
 	}
 
 
+	//고수페이지
+	public List<Gosu_Page> gosupage(String email){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Gosu_Page> gosuinfo = null;
+		Gosu_Page gosupage = null;
+	    
+		try {
+			conn = ds.getConnection();
+			String sql = "select m.name, g.pr, gb.area, gb.calltime, gb.hire_num, gb.payment, gb.photo, ga.license, ga.career, gd.d_name, gs.s_name "
+					   + "from member m join g_register g on m.email = g.email  join g_info_basic gb on m.email = gb.email "
+					   + "join g_info_add ga on m.email = ga.email join g_detail gd on gd.d_code = g.d_code join g_service gs on gd.s_code = gs.s_code "
+					   + "where m.email = ?";
+		
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			gosuinfo = new ArrayList<Gosu_Page>();
+
+			while(rs.next()) {
+
+				String name = rs.getString("name"); //고수이름
+				String pr = rs.getString("pr"); //자기소개
+				String area = rs.getString("area"); //활동지역
+				String calltime = rs.getString("calltime"); //연락가능시간
+				int hire_num = rs.getInt("hire_num"); //고용횟수
+				String payment = rs.getString("payment"); //결재수단
+				String photo = rs.getString("photo"); //사진
+				String license = rs.getString("license"); //자격증
+				String career = rs.getString("career"); //경력
+				String d_name = rs.getString("d_name"); //상세서비스이름
+				String s_name = rs.getString("s_name"); //서비스이름
+				
+				gosupage = new Gosu_Page(name, pr, area, calltime, hire_num, payment, photo, license, career, d_name, s_name);
+				
+				gosuinfo.add(gosupage);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return gosuinfo;
+	}
+	
+	
 }
 
 

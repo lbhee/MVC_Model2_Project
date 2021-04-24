@@ -7,17 +7,17 @@ public class Gosu_Register {
 	private String pr;    //자기소개
 	private int d_code;   //상세서비스코드(참조)
 	private String name;  //이름
-	 
 	
 	public Gosu_Register() {
 		
 	}
 	
 
-	public Gosu_Register(String pr, String name) {
+	public Gosu_Register(String pr, String name, String email) {
 		super();
 		this.pr = pr;
 		this.name = name;
+		this.email = email;
 	}
 
 

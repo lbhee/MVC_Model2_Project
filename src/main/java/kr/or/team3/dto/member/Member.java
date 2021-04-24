@@ -19,11 +19,14 @@ public class Member {
 		this.adr = adr;
 	}
 	
-	public Member(String adr, String name, String s_name) {
+	public Member(String email, String adr, String name, String s_name, String d_name) {
+		this.email = email;
 		this.adr = adr;
 		this.name = name;
 		this.s_name = s_name;
+		this.d_name = d_name;
 	}
+	
 	public String getEmail() {
 		return email;
 	}

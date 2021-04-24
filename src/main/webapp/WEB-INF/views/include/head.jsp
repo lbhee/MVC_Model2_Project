@@ -34,6 +34,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">  
 	
+	<!-- font-awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body class="host_version"> 
