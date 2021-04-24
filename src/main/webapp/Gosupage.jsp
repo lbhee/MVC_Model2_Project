@@ -97,7 +97,7 @@
     				$('#area').append(obj.area.substring(0,7));
     				$('#calltime').append("연락 가능 시간 : "+obj.calltime);
     				$('#payment').append(obj.payment+" 가능");
-    				$('#hire_num').append(obj.hire_num +"회 고용됨");
+    				$('#hire_num').append(obj.hire_num +"회 고용");
     				$('#career').append("경력 " + obj.career);
     				$('#license').append(obj.license + " 보유");
     				
