@@ -12,9 +12,15 @@ public class Member {
 	public Member() {
 	}
 
-	public Member(String adr, String d_name, String name, String s_name) {
+	public Member(String email, String name, String pwd, String adr) {
+		this.email = email;
+		this.name = name;
+		this.pwd = pwd;
 		this.adr = adr;
-		this.d_name = d_name;
+	}
+	
+	public Member(String adr, String name, String s_name) {
+		this.adr = adr;
 		this.name = name;
 		this.s_name = s_name;
 	}

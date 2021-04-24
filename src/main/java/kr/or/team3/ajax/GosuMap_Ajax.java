@@ -44,7 +44,6 @@ public class GosuMap_Ajax extends HttpServlet {
 			for(int i=0; i < gosumap.size(); i++) {
 				JSONObject jsonobj = new JSONObject();
 				jsonobj.put("adr", gosumap.get(i).getAdr());
-				jsonobj.put("d_name", gosumap.get(i).getD_name());
 				jsonobj.put("name", gosumap.get(i).getName());
 				jsonobj.put("s_name", gosumap.get(i).getS_name());
 				
