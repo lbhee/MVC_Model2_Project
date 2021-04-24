@@ -12,8 +12,6 @@
 						<li><a class="tab_selected" href="#">서비스 찾기</a></li>
 						
 							<li><a class="gosumap" href="#">고수 찾기</a></li>
-							
-						
 					</ul>
 				</div>
 

@@ -27,7 +27,7 @@ public class SearchGosu_Ajax extends HttpServlet {
     	
     	PrintWriter out = response.getWriter();
     	String d_code = request.getParameter("d_code");
-    	String name = request.getParameter("name");
+    	// String name = request.getParameter("name");
     	Gosu_Register gosu = null;
     	
     
@@ -45,9 +45,8 @@ public class SearchGosu_Ajax extends HttpServlet {
 				div += "<h1>" + list.getName()+ " 선생님 </h1>";
 				div += "<hr><br>";
 				div += "<h3>" + list.getPr() + "</h3>"; 
-				div += "<a href ='Gosupage.jsp'><h>개인 페이지 이동</h2></a>";
-				
-				
+				div += "<a href ='Gosupage.jsp?email="+list.getEmail()+"'><h>개인 페이지 이동</h2></a>";
+
 				div += "</div> </div>  ";
 				
 				

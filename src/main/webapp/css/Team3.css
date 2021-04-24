@@ -75,6 +75,10 @@ body{
 	padding-left: 1.25rem;
 }
 
+.tab_select >ul> :nth-child(2){
+	padding-left: 1.25rem;
+}
+
 .service-searcher{
     flex-grow: 1;
     max-width: 100%;
@@ -492,4 +496,32 @@ body{
 .gosu_register3_buttonbox{
 	max-width: 80%;
     border: none;
+}
+
+.footer-links i, li {
+	color: #999999;
+}
+
+.widget-title h2 {
+	color: #353535;
+	font-weight: bold;
+}
+
+.profile {
+	float: left;
+	margin-right: 25px;
+}
+
+.app-body {
+	padding: 20px;
+}
+
+.rowprofile {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-right: -15px;
+	margin-left: -15px;
+	padding: 15px;
 }
