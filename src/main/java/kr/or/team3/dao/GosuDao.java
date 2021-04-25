@@ -476,7 +476,8 @@ public class GosuDao {
 	    Member member = new Member();
 		try {
 			conn = ds.getConnection();
-			String sql = "select g_register.pr, member.name, member.email from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
+			String sql = "select g_register.pr, member.name, member.email, gb.PHOTO from member join g_register on g_register.email = member.email" 
+					    + " JOIN G_INFO_BASIC gb ON MEMBER.EMAIL = gb.EMAIL where d_code like '" + d_code + "%'";
 			
 			pstmt = conn.prepareStatement(sql);
 
@@ -487,11 +488,11 @@ public class GosuDao {
 				String pr = rs.getString("pr");
 				String name = rs.getString("name");
 				String email = rs.getString("email");
-				Gosu_Register gosuregister = new Gosu_Register(pr, name, email);
+				String photo = rs.getString("photo");
+				
+				Gosu_Register gosuregister = new Gosu_Register(email, 0, pr, 0, name, photo);
 				
 				gosulist.add(gosuregister);
-				System.out.println(gosulist);
-			
 		}
 		} catch (Exception e) {
 			e.printStackTrace();

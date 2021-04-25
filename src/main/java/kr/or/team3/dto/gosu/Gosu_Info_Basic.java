@@ -13,7 +13,7 @@ public class Gosu_Info_Basic {
 	public Gosu_Info_Basic() {
 	}
 
-	public Gosu_Info_Basic(String email, int g_code, String payment, String area, int hire_num, String calltime, String pohoto ) {
+	public Gosu_Info_Basic(String email, int g_code, String payment, String area, int hire_num, String calltime, String photo ) {
 		super();
 		this.payment = payment;
 		this.area = area;
@@ -21,6 +21,7 @@ public class Gosu_Info_Basic {
 		this.calltime = calltime;
 		this.g_code = g_code;
 		this.email = email;
+		this.photo = photo;
 	}
 
 	public String getEmail() {

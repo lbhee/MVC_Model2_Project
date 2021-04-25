@@ -1,8 +1,13 @@
 package kr.or.team3.service;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
@@ -15,6 +20,13 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response) {
+		String uploadpath = request.getSession().getServletContext().getRealPath("upload");
+	    
+		//cos.jar 파일에서 제공하는 MultipartRequest 객체 사용
+		
+		//업로드 파일에 대한 기본 정보 세팅
+		int size = 1024*1024*10; //10M 네이버 계산기
+				
 		
 		Gosu_Register gosu_register = null;
 		Gosu_Info_Basic gosu_info_basic = null;
@@ -27,20 +39,33 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 		
 		String email= (String)session.getAttribute("ID");
 		
-		String pr=request.getParameter("pr");
-		String area=request.getParameter("area");
-		String calltime=request.getParameter("calltime");
-		String payment=request.getParameter("payment");
-		String career=request.getParameter("career");
-		String license=request.getParameter("license");
-		String photo=request.getParameter("photo");
 		
 		try {
+				
+			MultipartRequest multi = new MultipartRequest(
+					request,
+					uploadpath, // 실 저장 경로 (배포된 경로)
+					size, // 10M
+					"UTF-8",
+					new DefaultFileRenamePolicy() // 파일 중복 (upload > 중복된 이름 변경)
+					); // 파일 업로드 완료
+			Enumeration filenames = multi.getFileNames();
+			
+			String file = (String)filenames.nextElement();
+			
+			String pr = multi.getParameter("pr");
+			String area = multi.getParameter("area");
+			String calltime = multi.getParameter("calltime");
+			String payment = multi.getParameter("payment");
+			String career = multi.getParameter("career");
+			String license = multi.getParameter("license");
+			String photo = multi.getFilesystemName(file);
+			
 			
 			 gosudao = new GosuDao();
 			 
 			 // 고수 가입정보
-			 gosu_register = new Gosu_Register(email, pr, 0);
+			 gosu_register = new Gosu_Register(email, size, pr, size, license, photo);
 			 // 고수 기본정보
 			 gosu_info_basic = new Gosu_Info_Basic(email, 10000, payment, area, 0, calltime, photo);
 			 // 고수 추가정보
@@ -55,7 +80,7 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 			
 			if(row1 > 0 || row2 > 0 || row3 > 0) {
 				msg="변경 완료";
-				url="/Gosuregister_Info.go";
+				url="/GosuProfile.go";
 				
 			}else {
 				msg="변경 실패";

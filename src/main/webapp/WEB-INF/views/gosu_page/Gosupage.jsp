@@ -2,7 +2,14 @@
     pageEncoding="UTF-8"%>
 <!-- header -->
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
-
+    <script type="text/javascript">
+    var email = '<%=request.getParameter("email")%>';
+    
+    if(email == 'null'){
+    	email = '<%= session.getAttribute("ID")%>';
+    			
+    }
+   </script>
 	<body>
 	
 	<div class="app-body">
@@ -10,7 +17,7 @@
 	 <div class="container">
             <div class="rowprofile">
             	<div class="profile">
-            		<img src="images/default_img.svg" alt="" width="100px" height="100px">
+            		<img class="photo" src="images/default_img.svg" alt="" width="100px" height="100px">
             	</div>
 				<div id="gosu">
 				</div>
@@ -80,9 +87,10 @@
 	</div>
 	
     </body>
-    <script type="text/javascript">
-    var email = '<%=request.getParameter("email")%>';
-    console.log("ajax");
+	<script type="text/javascript">
+    
+   
+    
     function gosupage() {
     	$.ajax({
     		url:"Gosupage_Ajax",
@@ -92,7 +100,8 @@
     			console.log(responsedata);
     			$.each(responsedata,function(index,obj){
     				$('#gosu').append("<h2>" + obj.name + "</h2><p>" + obj.s_name + "(" + obj.d_name + ") 고수");
-
+					
+    				
     				$('#introduction').append(obj.pr);
     				$('#area').append(obj.area.substring(0,7));
     				$('#calltime').append("연락 가능 시간 : "+obj.calltime);
@@ -100,6 +109,7 @@
     				$('#hire_num').append(obj.hire_num +"회 고용됨");
     				$('#career').append("경력 " + obj.career);
     				$('#license').append(obj.license + " 보유");
+    				$('.photo').attr('src','upload/' + obj.photo);
     				
     			});
 

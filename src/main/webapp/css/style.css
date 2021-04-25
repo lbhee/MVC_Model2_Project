@@ -823,7 +823,7 @@ a img.aligncenter {
     display: block;
     position: relative;
     overflow: hidden;
-    padding: 70px 0;
+    padding: 10px 0;
 }
 
 .noover {
@@ -848,7 +848,6 @@ a img.aligncenter {
 
 .section.lb {
     background-color: #f2f3f5;
-    height : 250px;
 }
 
 .section.db {
@@ -1484,18 +1483,18 @@ a img.aligncenter {
 -------------------------------------------------------------------*/
 
 .icon-wrapper {
+	text-align: center !important;
     position: relative;
 	box-shadow: -1px 3px 30px rgba(0, 0, 0, 0.08);
-    cursor: pointer;
     display: block;
     z-index: 1;
     height : 210px;
-	border : 3px double steelblue;
-	border-radius : 10px;
-	background-color: rgba(133, 146, 157, 0.65);
- 	 margin-top: 5px;
+	border: none;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px 0 rgb(0 0 0 / 20%);
+	background-color: #fffdf0;
+ 	margin-top: 5px;
 	    
-
 }
 
 .icon-wrapper i {
@@ -1544,8 +1543,7 @@ a img.aligncenter {
 }
 
 .icon-wrapper p {
-    margin-bottom: 0;
-    padding-left: 95px;
+	margin: 3px;
 }
 
 .icon-wrapper p small {
@@ -2737,9 +2735,20 @@ body.host_version .first-section .effect-1.slide-btn::after{
 	font-weight: 600;
 	text-transform: capitalize;
 	padding-top: 11%;
-	font-size: 48px;
+	font-size: 38px;
 	line-height: 0px;
+	margin: 0;
 }
+
+.all-title-box p{
+	color: #fff;
+	font-weight: 600;
+	text-transform: capitalize;
+	font-size: 14px;
+	line-height: 0px;
+	margin: 0;
+}
+
 
 span.m_1 {
     font-weight: 300;
