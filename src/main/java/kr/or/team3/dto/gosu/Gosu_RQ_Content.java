@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Gosu_RQ_Content {
 	private int num;
 	private String title;
-	private String conent;
+	private String content;
 	private Date writedate;
 	private Date hopedate;
 	private String memberName;
@@ -21,12 +21,12 @@ public class Gosu_RQ_Content {
 	
 	
 	
-	public Gosu_RQ_Content(int num, String title, String conent, Date writedate, Date hopedate, String memberName,
+	public Gosu_RQ_Content(int num, String title, String content, Date writedate, Date hopedate, String memberName,
 			String gosuName, String phone, String m_email) {
 		super();
 		this.num = num;
 		this.title = title;
-		this.conent = conent;
+		this.content = content;
 		this.writedate = writedate;
 		this.hopedate = hopedate;
 		this.memberName = memberName;
@@ -52,11 +52,11 @@ public class Gosu_RQ_Content {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getConent() {
-		return conent;
+	public String getContent() {
+		return content;
 	}
-	public void setConent(String conent) {
-		this.conent = conent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public Date getWritedate() {
 		return writedate;
@@ -90,7 +90,7 @@ public class Gosu_RQ_Content {
 	}
 	@Override
 	public String toString() {
-		return "Gosu_RQ_Content [num=" + num + ", title=" + title + ", conent=" + conent + ", writedate=" + writedate
+		return "Gosu_RQ_Content [num=" + num + ", title=" + title + ", content=" + content + ", writedate=" + writedate
 				+ ", hopedate=" + hopedate + ", gosuName=" + gosuName + ", phone=" + phone + ", M_email=" + M_email + "]";
 	}
 	

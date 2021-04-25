@@ -328,19 +328,16 @@ public class GosuDao {
 	
 
 	//고수가 받은 요청서 지우기 by 안승주 21.04.23
-	public boolean cancel_RQ_Gosu(int G_code, String G_email, String M_email) {
+	public boolean delete_RQ_Gosu(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "update RQ_Form set done = 3 where G_code = ? and G_email = ? and M_email = ?";
+			String sql = "update RQ_Form set done = 2 where num = ?";
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, G_code);
-			pstmt.setString(2, G_email);
-			pstmt.setString(3, M_email);
+			pstmt.setInt(1, num);
 			
 			int row = pstmt.executeUpdate();
 			if(row > 0) {
@@ -366,19 +363,18 @@ public class GosuDao {
 	
 	//고수가 받은 요청서 완료 by 안승주 21.04.23
 	
-	public boolean complet_RQ_Gosu(int G_code, String G_email, String M_email) {
+	public boolean complet_RQ_Gosu(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "update RQ_Form set done = 2 where G_code = ? and G_email = ? and M_email = ?";
+			String sql = "update RQ_Form set done = 1 where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, G_code);
-			pstmt.setString(2, G_email);
-			pstmt.setString(3, M_email);
+			pstmt.setInt(1, num);
+			
 			
 			int row = pstmt.executeUpdate();
 			if(row > 0) {
@@ -597,26 +593,28 @@ public class GosuDao {
 				try {
 					content = new Gosu_RQ_Content();
 					conn = ds.getConnection();
-					String sql1 = "SELECT rf.NUM ,rf.TITLE , rf.CONTENT , rf.WRITEDATE ,rf.HOPEDATE, m.NAME, rf.G_EMAIL , rf.PHONE FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
-					String sql2 = "SELECT m.name, m.email FROM RQ_FORM rf JOIN MEMBER m ON rf.G_EMAIL = m.EMAIL WHERE rf.NUM = ?";
+					String sql1 = "SELECT rf.NUM ,rf.TITLE , rf.CONTENT , rf.WRITEDATE ,rf.HOPEDATE, m.NAME, rf.M_EMAIL , rf.PHONE FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
+					String sql2 = "SELECT m.name FROM RQ_FORM rf JOIN MEMBER m ON rf.G_EMAIL = m.EMAIL WHERE rf.NUM = ?";
 					pstmt = conn.prepareStatement(sql1);
 					pstmt.setInt(1, num);
 					rs = pstmt.executeQuery();
 					if(rs.next()) {
 						content.setNum(rs.getInt("num"));
 						content.setTitle(rs.getString("title"));
-						content.setConent(rs.getString("content"));
-						content.setWritedate(rs.getDate("wrigtedate"));
+						content.setContent(rs.getString("content"));
+						content.setWritedate(rs.getDate("writedate"));
 						content.setHopedate(rs.getDate("hopedate"));
 						content.setMemberName(rs.getString("name"));
 						content.setM_email(rs.getString("m_email"));
 						content.setPhone(rs.getString("phone"));
+						
 					}
-					
+					System.out.println("3");
 					pstmt = conn.prepareStatement(sql2);
 					pstmt.setInt(1, num);
 					rs = pstmt.executeQuery();
 					if(rs.next()) {
+						System.out.println("2");
 						content.setGosuName(rs.getString("name"));
 					}
 					
@@ -861,6 +859,42 @@ public class GosuDao {
 		}
 		return gosuinfo;
 	}
+	// 고수가 받은 요청서 건수 by 안승주 21.04.25
+	public int totalRQMemberCount(String G_email) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int totalrqmembercount = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select count(*) cnt from RQ_Form where g_email = ? and done = 0";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, G_email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalrqmembercount = rs.getInt("cnt");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.getMessage();
+		}finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.getMessage();
+			}
+		}
+		
+		
+		return totalrqmembercount;
+	}
+	
 	
 	
 }

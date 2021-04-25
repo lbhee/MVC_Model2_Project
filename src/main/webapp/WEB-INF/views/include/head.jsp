@@ -79,11 +79,12 @@
 
 				 				<c:if test="${gosu>0}">
 				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고수님</a>
+				 				<li class="nav-item active"><a class="nav-link" href="RQList_Gosu.go">도착한 요청서</a>
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   
 				 				<li class="nav-item active"><a class="nav-link" href="WriteRQ.go">요청서쓰기</a>
-				 				<li class="nav-item active"><a class="nav-link" href="RQList.go">요청서리스트</a>
+				 				<li class="nav-item active"><a class="nav-link" href="RQList_Member.go">요청서리스트</a>
 				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a>
                   
 				 				</c:if>
