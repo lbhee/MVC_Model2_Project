@@ -161,23 +161,33 @@ public class gosuController extends HttpServlet {
     	}else if(URL.equals("/Member_RQ_EditOk.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Edit_Member.jsp");
+    
+    	// 자주하는질문 글쓰기로 이동
+    	}else if(URL.equals("/QnAwrite.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/gosu_page/QnA_Write.jsp");	
     		
     	// 자주하는질문 글쓰기
     	}else if(URL.equals("/QnAwriteOK.go")) {
     		action = new QnA_Wirte_Service();
     		actionForward = action.excute(request, response);
-        
-      // 자주하는질문 수정하기
+    		
+    	// 자주하는질문 수정하기로 이동
+    	}else if(URL.equals("/QnAEdit.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/gosu_page/QnA_Edit.jsp");	
+
+        // 자주하는질문 수정하기
     	}else if(URL.equals("/QnAEditOK.go")) {
     		action = new QnA_Edit_Service();
     		actionForward = action.excute(request, response);
     	
     	// 공지사항 글쓰기
-		  }else if(URL.equals("/NoticeWriteOK.go")) {
-			  action = new QnA_Wirte_Service();
-			  actionForward = action.excute(request, response);
-		  }
-    	
+	    //}else if(URL.equals("/NoticeWriteOK.go")) {
+		    //action = new QnA_Wirte_Service();
+		    //actionForward = action.excute(request, response);
+	    }
+	
     	
     	
     	
