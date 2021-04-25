@@ -1,10 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@page import="kr.or.team3.dto.member.RQ_Form"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.team3.dao.MemberDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <%
 String M_email = (String) session.getAttribute("ID");
@@ -39,20 +40,6 @@ System.out.println(M_email);
 <c:set var="conextPath" value="<%=request.getContextPath()%>" />
 <c:set var="totalcount" value="<%=totalRQcount%>"/>
 
-<%-- <div class="RQContainer">
-	<c:choose>
-		<c:when test="${list.size() == 0 || list == null }">
-			데이터가 없습니다
-		</c:when>
-		<c:otherwise>
-			데이터가 있습니다
-		</c:otherwise>
-	</c:choose>
-	
-	<c:forEach var="rqtest" items="<%=list%>">
-		${rqtest.title}
-	</c:forEach>
-</div> --%>
 
 <div class="all-title-box">
 	<div class="container text-center">
@@ -75,7 +62,6 @@ System.out.println(M_email);
 					</c:otherwise>
 				</c:choose>
 				
-				<p class="lead">뭐임마</p>
 			</div>
 		</div>
 		<!-- end title -->

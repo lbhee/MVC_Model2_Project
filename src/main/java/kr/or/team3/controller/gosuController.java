@@ -110,7 +110,6 @@ public class gosuController extends HttpServlet {
     		
     	// 요청서 가져오기 by 안승주
     	}else if(URL.equals("/RQList.go")) {
-    		System.out.println("요청서 가져오기");
     		actionForward = new ActionForward();
     		actionForward.setPath("RQ_List.jsp");
 

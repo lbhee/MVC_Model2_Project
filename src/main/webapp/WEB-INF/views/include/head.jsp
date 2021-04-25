@@ -82,9 +82,9 @@
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   
-				 				<li class="nav-item active"><a class="" href="WriteRQ.go">요청서쓰기</a>
-				 				<li class="nav-item active"><a class="" href="RQList.go">요청서리스트</a>
-				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고객님</a>
+				 				<li class="nav-item active"><a class="nav-link" href="WriteRQ.go">요청서쓰기</a>
+				 				<li class="nav-item active"><a class="nav-link" href="RQList.go">요청서리스트</a>
+				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a>
                   
 				 				</c:if>
 				 				<div class="user_info" style="display:none">
@@ -127,7 +127,7 @@
 		}); 
 		
 		// 회원 정보
-		$('.nav-link').click(function() {
+		$('#info').click(function() {
 			var toggle = $('.user_info').attr('style');
 			
 			if(toggle == "display:none"){
