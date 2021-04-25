@@ -18,6 +18,7 @@ public class RQ_Form {
 	public RQ_Form() {
 	}
 	
+	
 	public RQ_Form(int num, String title, String content, Date writedate, Date hopedate, int done, String phone,
 			String m_mail, String g_email, int g_code) {
 		super();

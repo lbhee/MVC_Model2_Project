@@ -28,13 +28,15 @@ int pagesize = Integer.parseInt(ps);
 List<RQ_Form> list = dao.getRQList_Gosu(cpage, pagesize, G_email);
 System.out.println(list.size());
 System.out.println(list.isEmpty());
+int totalRQcount = dao.totalRQMemberCount(G_email);
 %>
 <c:set var="list" value="<%=list%>"/>
 <c:set var="cpage" value="<%=cpage%>" />
 <c:set var="pagesize" value="<%=pagesize%>" />
 <c:set var="conextPath" value="<%=request.getContextPath()%>" />
-
-
+<c:set var="totalcount" value="<%=totalRQcount%>"/>
+<c:set var = "cpage" value = "<%=cpage%>"/>
+<c:set var = "pagesize" value = "<%=pagesize%>"/>
 
 <div class="all-title-box">
 	<div class="container text-center">
@@ -48,13 +50,14 @@ System.out.println(list.isEmpty());
 	<div class="container">
 		<div class="section-title row text-center">
 			<div class="col-md-8 offset-md-2">
-				<c:if test="${list.size() == 0}">
-					<h3>데이터가 없습니다</h3>
-				</c:if>
-				<c:if test="${list!=null || list.size() != 0}">
-					<h3>데이터가 있습니다!</h3>
-				</c:if>
-				<p class="lead">뭐임마</p>
+				<c:choose>
+					<c:when test="${list.size() == 0 || list == null}">
+						<h3>도착한 요청서가 없습니다</h3>
+					</c:when>
+					<c:otherwise>
+						<h3>고수에게 보낸 요청서가 <b>${totalcount}건 </b>있습니다</h3>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<!-- end title -->
@@ -67,13 +70,9 @@ System.out.println(list.isEmpty());
 					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 						data-wow-delay="0.2s">
 						<i class="flaticon-server global-radius effect-1 alignleft"></i>
-						<h3>${rqlist.m_email}님에게 요청</h3>
-						<p>
-							요청번호: ${rqlist.num}<br>
-							<small class="readmore">
-								<a href="Rq_Conetent_Gosu.go?num=${rqlist.num}">요청서 자세히 보기</a>
-							</small>
-						</p>
+						<h3>${rqlist.g_email}님에 요청</h3>
+						<p>요청번호: ${fn:trim(rqlist.num)}</p>
+						<a href="RQ_Content_Gosu.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
 					</div>
 				</div><!-- end col -->
 			</c:forEach>
@@ -81,6 +80,7 @@ System.out.println(list.isEmpty());
 		<c:if test = "${fn:length(list) > 3}">
 			<hr class="hr3">
 		</c:if>
+		
 		<div class="row">
 			<c:forEach var="rqlist" items="${list}" begin="3" end="6" step="1">
 				<div class="col-md-4 col-sm-6 col-xs-12">
@@ -91,7 +91,7 @@ System.out.println(list.isEmpty());
 						<p>
 							요청번호: ${rqlist.num}<br>
 							<small class="readmore">
-								<a href="#">요청서 자세히 보기</a>
+								<a href="RQ_Content_Gosu.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
 							</small>
 						</p>
 					</div>

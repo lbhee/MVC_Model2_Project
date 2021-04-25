@@ -213,7 +213,7 @@ DataSource ds = null;
 	}
 	
 	//고객이 요청취소시 by 안승주 21.04.23
-	public boolean cancel_RQ_Member(int G_code, String G_email, String M_email) {
+	public boolean delete_RQ_Member(int num) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -221,12 +221,11 @@ DataSource ds = null;
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "update RQ_Form set done = 3 where G_code = ? and G_email = ? and M_email = ?";
+			String sql = "update RQ_Form set done = 3 where num = ?";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, G_code);
-			pstmt.setString(2, G_email);
-			pstmt.setString(3, M_email);
+			pstmt.setInt(1, num);
+			
 			
 			int row = pstmt.executeUpdate();
 			if(row > 0) {
@@ -465,9 +464,7 @@ DataSource ds = null;
 					content.setMemberName(rs.getString("name"));
 					content.setG_email(rs.getString("G_email"));
 				}
-				System.out.println("1");
 				pstmt = conn.prepareStatement(sql2);
-				System.out.println("2");
 				pstmt.setInt(1, num);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
@@ -481,8 +478,6 @@ DataSource ds = null;
 				if(rs.next()){
 					String sname = rs.getString("s_name");//운동
 					String dname = rs.getString("d_name");//유산소
-					System.out.println(sname);
-					System.out.println(dname);
 					String subject = sname + "/" + dname;
 					content.setSubject(subject);
 				}
@@ -502,7 +497,28 @@ DataSource ds = null;
 			return content;
 		}
 		
-		
+		public int RQ_Form_EditOk(int num) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			RQ_Form rq = null;
+			int row = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "UPDATE RQ_FORM SET title = ?, CONTENT = ? ,HOPEDATE = ? , PHONE = ? WHERE num = ?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, "");
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
+			
+			return row;
+		}
 		
 		
 		

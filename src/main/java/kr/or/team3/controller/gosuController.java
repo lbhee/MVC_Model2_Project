@@ -11,16 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
-
 import kr.or.team3.service.GosuMap_Service;
-
+import kr.or.team3.service.Gosu_RQ_CompleteOK_Service;
+import kr.or.team3.service.Gosu_RQ_DeleteOk_Service;
 import kr.or.team3.service.Gosu_register_Info_Edit_Sevice;
-
 import kr.or.team3.service.Gosuregister_Service;
-
 import kr.or.team3.service.Member_EditOk_Service;
-
 import kr.or.team3.service.Member_JoinOk_Service;
+
+import kr.or.team3.service.Member_RQ_Delete_Service;
 import kr.or.team3.service.QnA_Edit_Service;
 import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
@@ -117,40 +116,67 @@ public class gosuController extends HttpServlet {
     	// 요청서 작성하기 by 안승주
     	}else if(URL.equals("/WriteRQ.go")) {
     		actionForward = new ActionForward();
-    		actionForward.setPath("RQ_Member_write.jsp");
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member_write.jsp");
     		
-    	// 요청서 가져오기 by 안승주
-    	}else if(URL.equals("/RQList.go")) {
+    	// (고객) 요청서 가져오기 by 안승주
+    	}else if(URL.equals("/RQList_Member.go")) {
     		actionForward = new ActionForward();
-    		actionForward.setPath("RQ_List.jsp");
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_List.jsp");
 
     	//고수위치	
     	} else if(URL.equals("/gosumap.go")) {
     		action = new GosuMap_Service();
     		actionForward = action.excute(request, response);
 
-    	// 고객이 고수에게 보낸 요청서 자세히 보기
     	}else if(URL.equals("/Rq_Content_Memeber.go")) {
-    		System.out.println("요청서 자세히 보기");
     		actionForward = new ActionForward();
-    		actionForward.setPath("RQ_Content_Member.jsp");
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Member.jsp");
     	
+    	// (고수) 요청서 가져오기 by 안승주
+    	}else if(URL.equals("/RQList_Gosu.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Gosu/RQ_List_Gosu.jsp");
+    		
+    	// (고수) 요청서 자세히보기 by 안승주
+    	}else if(URL.equals("/RQ_Content_Gosu.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Gosu/RQ_Content_Gosu.jsp");
+    	     
+        // (고수) 요청서 삭제 by 안승주
+    	}else if(URL.equals("/Gosu_RQ_DeleteOk.go")) {
+    		action = new Gosu_RQ_DeleteOk_Service();
+    		actionForward = action.excute(request, response);
+    		
+    	// (고수) 요청서 완료 by 안승주
+    	}else if(URL.equals("/Gosu_RQ_CompleteOk.go")) {
+    		action = new Gosu_RQ_CompleteOK_Service();
+    		actionForward = action.excute(request, response);
+    		
+    	// (고객)	 요청서 삭제 by 안승주
+    	}else if(URL.equals("/Member_RQ_DeleteOk.go")) {
+    		action = new Member_RQ_Delete_Service();
+    		actionForward = action.excute(request, response);
+    		
+    	// (고개) 요청서 수정 by 안승주
+    	}else if(URL.equals("/Member_RQ_EditOk.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Edit_Member.jsp");
+    		
     	// 자주하는질문 글쓰기
     	}else if(URL.equals("/QnAwriteOK.go")) {
     		action = new QnA_Wirte_Service();
     		actionForward = action.excute(request, response);
-    	} 	
-    	
-    	// 자주하는질문 수정하기
-    	else if(URL.equals("/QnAEditOK.go")) {
+        
+      // 자주하는질문 수정하기
+    	}else if(URL.equals("/QnAEditOK.go")) {
     		action = new QnA_Edit_Service();
     		actionForward = action.excute(request, response);
     	
     	// 공지사항 글쓰기
-		}else if(URL.equals("/NoticeWriteOK.go")) {
-			action = new QnA_Wirte_Service();
-			actionForward = action.excute(request, response);
-		}
+		  }else if(URL.equals("/NoticeWriteOK.go")) {
+			  action = new QnA_Wirte_Service();
+			  actionForward = action.excute(request, response);
+		  }
     	
     	
     	
@@ -160,6 +186,7 @@ public class gosuController extends HttpServlet {
     	if(actionForward != null) {
             RequestDispatcher dis = request.getRequestDispatcher(actionForward.getPath());
             dis.forward(request, response);
+       
          }
     	
     	

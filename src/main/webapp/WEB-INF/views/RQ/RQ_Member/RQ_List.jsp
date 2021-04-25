@@ -79,7 +79,7 @@ System.out.println(M_email);
 							요청번호: ${rqlist.num}<br>
 							요청날짜: ${rqlist.writedate}<br>
 							<small class="readmore">
-								<a href="Rq_Content_Memeber.go?num=${rqlist.num}">요청서 자세히 보기</a>
+								<a href="Rq_Content_Memeber.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
 							</small>
 						</p>
 					</div>
@@ -99,7 +99,7 @@ System.out.println(M_email);
 						<p>
 							요청번호: ${rqlist.num}<br>
 							<small class="readmore">
-								<a href="#">요청서 자세히 보기</a>
+								<a href="Rq_Content_Memeber.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
 							</small>
 						</p>
 					</div>
