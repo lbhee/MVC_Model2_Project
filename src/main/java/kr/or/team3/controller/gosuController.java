@@ -21,6 +21,8 @@ import kr.or.team3.service.Gosuregister_Service;
 import kr.or.team3.service.Member_EditOk_Service;
 
 import kr.or.team3.service.Member_JoinOk_Service;
+import kr.or.team3.service.QnA_Edit_Service;
+import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
 
 @WebServlet("*.go")
@@ -117,17 +119,34 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/gosumap.go")) {
     		action = new GosuMap_Service();
     		actionForward = action.excute(request, response);
-    				
 
-    		
     	// 고객이 고수에게 보낸 요청서 자세히 보기
     	}else if(URL.equals("/Rq_Content_Memeber.go")) {
     		System.out.println("요청서 자세히 보기");
     		actionForward = new ActionForward();
     		actionForward.setPath("RQ_Content_Member.jsp");
-
-    	}
- 	
+    	
+    	// 자주하는질문 글쓰기
+    	}else if(URL.equals("/QnAwriteOK.go")) {
+    		action = new QnA_Wirte_Service();
+    		actionForward = action.excute(request, response);
+    	} 	
+    	
+    	// 자주하는질문 수정하기
+    	else if(URL.equals("/QnAEditOK.go")) {
+    		action = new QnA_Edit_Service();
+    		actionForward = action.excute(request, response);
+    	
+    	// 공지사항 글쓰기
+		}else if(URL.equals("/NoticeWriteOK.go")) {
+			action = new QnA_Wirte_Service();
+			actionForward = action.excute(request, response);
+		}
+    	
+    	
+    	
+    	
+    	
     	// 결과 forward
     	if(actionForward != null) {
             RequestDispatcher dis = request.getRequestDispatcher(actionForward.getPath());

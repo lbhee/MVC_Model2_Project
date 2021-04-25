@@ -70,18 +70,30 @@
 	      <div class="tab_select">
 				<ul class="script_ul">
 					<li><a class="tab_selected" href="#">공지사항</a></li>
-					<li><a class="" href="#">질문답변</a></li>
+					<li><a class="" href="#" id="qnabord">자주하는 질문</a></li>
 					<li><a class="" href="#">리뷰</a></li>
 				</ul>
 		  </div>  
   		</div>  	
       </div>    
-           
+          
+          
+      <div class="container">       
+	       <div id="boarddata" style="padding-bottom: 30px; padding-top: 30px">
+	       </div> 
+	       <button type="button" id="noticebtn">공지사항글쓰기</button>
+	       <button type="button" id="qnabtn">질문답변글쓰기</button>
+	       <button type="button" id="qnaeditbtn">질문답변수정하기</button>  
+	        
+       </div>  
+        
 	</div>
 	
     </body>
     <script type="text/javascript">
+	var loginemail = '<%=(String)session.getAttribute("ID")%>';
     var email = '<%=request.getParameter("email")%>';
+    
     console.log("ajax");
     function gosupage() {
     	$.ajax({
@@ -97,7 +109,7 @@
     				$('#area').append(obj.area.substring(0,7));
     				$('#calltime').append("연락 가능 시간 : "+obj.calltime);
     				$('#payment').append(obj.payment+" 가능");
-    				$('#hire_num').append(obj.hire_num +"회 고용");
+    				$('#hire_num').append(obj.hire_num +"회 고용됨");
     				$('#career').append("경력 " + obj.career);
     				$('#license').append(obj.license + " 보유");
     				
@@ -117,6 +129,43 @@
 		
 	})
  
+	
+	
+	$('#qnabtn').click(function(){
+		if(email == loginemail){
+			location.href = 'QnA_Write.jsp';
+		}else {
+			alert("권한이 없습니다.");
+		}
+	});
+    
+    $('#qnabord').click(function(){
+    	$.ajax({
+    		url:"QnA_Ajax",
+    		data: {email: email},
+    		success: function(responsedata){
+    			$('#boarddata').empty();
+    			$('#boarddata').append(responsedata);
+    		}
+    	});
+    });
+    
+    $('#qnaeditbtn').click(function(){
+		if(email == loginemail){
+			location.href = 'QnA_Edit.jsp';
+		}else {
+			alert("권한이 없습니다.");
+		}
+	});
+    
+    $('#noticebtn').click(function(){
+		if(email == loginemail){
+			location.href = 'Notice_Write.jsp';
+		}else {
+			alert("권한이 없습니다.");
+		}
+	});
+    
 	</script>
     </html>
     

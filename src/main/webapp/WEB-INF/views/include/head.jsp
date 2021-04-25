@@ -78,7 +78,7 @@
 				 			<c:otherwise>
 
 				 				<c:if test="${gosu>0}">
-				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고수님</a>
+				 				<li class="nav-item active"><a class="nav-link" href="#" id="info">${ member.name } 고수님</a>
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   
