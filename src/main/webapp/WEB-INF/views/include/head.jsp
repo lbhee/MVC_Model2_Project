@@ -78,14 +78,18 @@
 				 			<c:otherwise>
 
 				 				<c:if test="${gosu>0}">
-				 				<li class="nav-item active"><a class="nav-link" href="#">${ member.name } 고수님</a>
-				 				<li class="nav-item active"><a class="nav-link" href="RQList_Gosu.go">도착한 요청서</a>
+				 			
+                <li class="nav-item active"><a class="nav-link" href="RQList_Gosu.go">도착한 요청서</a>
+				 				<li class="nav-item active"><a class="nav-link" href="">뭐넣을지 고민</a></li>
+				 				<li class="nav-item active"><a class="nav-link" href="GosuProfile.go?email=${id}">프로필</a></li>
+				 				<li class="nav-item active"><a class="nav-link" href="#" id="info">${ member.name } 고수님</a></li>
+
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   
-				 				<li class="nav-item active"><a class="nav-link" href="WriteRQ.go">요청서쓰기</a>
-				 				<li class="nav-item active"><a class="nav-link" href="RQList_Member.go">요청서리스트</a>
-				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a>
+				 				<li class="nav-item active"><a class="nav-link" href="WriteRQ.go">요청서쓰기</a></li>
+				 				<li class="nav-item active"><a class="nav-link" href="RQList.go">요청서리스트</a></li>
+				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a></li>
                   
 				 				</c:if>
 				 				<div class="user_info" style="display:none">
@@ -98,11 +102,11 @@
 				 					<div class="gosu_register"><a href="${ path }/Gosuregister_1.go">고수로 가입하기</a></div>
 									</c:if>
 									<c:if test="${gosu>0}">
-				 					<div class="gosu_register"><a href="${ path }/Gosuregister_Info.go">고수 프로필가기</a></div>
+				 					<div class="gosu_register"><a href="${ path }/Gosuregister_Info.go">고수 프로필 수정하기</a></div>
 									</c:if>
 				 					<div class="logout"><a href="#">로그아웃</a></div>
 				 				</div>
-				 				</li>
+				 		
 				 			</c:otherwise>
 				 		</c:choose>
 				 		

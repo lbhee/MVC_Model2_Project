@@ -12,8 +12,11 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import kr.or.team3.dto.QnABoard.QnA_Board;
 import kr.or.team3.dto.gosu.Gosu_Detail_Join_Service;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
@@ -24,6 +27,7 @@ import kr.or.team3.dto.member.Member;
 
 import kr.or.team3.dto.member.RQ_Content_Member;
 import kr.or.team3.dto.member.RQ_Form;
+import kr.or.team3.dto.notice.Notice;
 
 
 public class GosuDao {
@@ -473,7 +477,8 @@ public class GosuDao {
 	    Member member = new Member();
 		try {
 			conn = ds.getConnection();
-			String sql = "select g_register.pr, member.name, member.email from member join g_register on g_register.email = member.email where d_code like '" + d_code +"%'";
+			String sql = "select g_register.pr, member.name, member.email, gb.PHOTO from member join g_register on g_register.email = member.email" 
+					    + " JOIN G_INFO_BASIC gb ON MEMBER.EMAIL = gb.EMAIL where d_code like '" + d_code + "%'";
 			
 			pstmt = conn.prepareStatement(sql);
 
@@ -484,11 +489,11 @@ public class GosuDao {
 				String pr = rs.getString("pr");
 				String name = rs.getString("name");
 				String email = rs.getString("email");
-				Gosu_Register gosuregister = new Gosu_Register(pr, name, email);
+				String photo = rs.getString("photo");
+				
+				Gosu_Register gosuregister = new Gosu_Register(email, 0, pr, 0, name, photo);
 				
 				gosulist.add(gosuregister);
-				System.out.println(gosulist);
-			
 		}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -896,7 +901,196 @@ public class GosuDao {
 	}
 	
 	
+	//자주하는 질문 글쓰기
+	public int QnAWrite(QnA_Board qna) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int row = 0;
+		
+		String sql = "insert into qna(num, title, content, g_email, g_code) values(qna_num.nextval, ?, ?, ?, 10000)";
+		try {
+			conn = ds.getConnection();
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, qna.getTitle());
+			pstmt.setString(2, qna.getContent());
+			pstmt.setString(3, qna.getG_email());
+			
+			row = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return row;
+	}
 	
+	//자주하는 질문 내용보기
+	public QnA_Board Qna(String Email) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnA_Board qna = null;
+		try {
+			conn = ds.getConnection();
+			String sql= "select content from qna where g_email = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, Email);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+
+				String content = rs.getString("content");
+				
+
+				qna = new QnA_Board(content);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Detail Error: " + e.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();//반환하기
+			} catch (Exception e2) {
+				
+			}
+		}
+		
+		return qna;
+	}
+	//자주하는 질문 수정하기(내용보기)
+	public QnA_Board QnaEditSelect(String email) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		QnA_Board qnaboard = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql_select = "select title, content, writedate from qna where g_email = ?";
+			
+			pstmt = conn.prepareStatement(sql_select);
+			
+			pstmt.setString(1, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String title = rs.getString("title");
+				String writedate = rs.getString("writedate");
+				String content = rs.getString("content");
+				
+				qnaboard = new QnA_Board(0, title, content, writedate, email, 0);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();//반환하기
+			} catch (Exception e2) {
+				
+			}
+		}
+		
+		
+		return qnaboard;
+	}
+	
+	
+	//자주하는 질문 수정하기
+	public int QnaEdit(QnA_Board qnaboard) {
+		//String title = qnaboard.getParameter("title");
+		//String writedate = qnaboard.getParameter("writedate");
+		
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int row =0;
+		try {
+			conn = ds.getConnection();
+			System.out.println("1");
+			String sql_update = "update qna set content = ? where g_email = ?";
+			System.out.println("2");
+			pstmt = conn.prepareStatement(sql_update);
+			
+			System.out.println("3");
+			System.out.println(qnaboard.getContent());
+			System.out.println(qnaboard.getG_email());
+			
+			pstmt.setString(1, qnaboard.getContent());
+			pstmt.setString(2, qnaboard.getG_email());
+			
+			row = pstmt.executeUpdate();
+			
+			System.out.println(row);
+			
+			
+			
+		} catch (Exception e) {
+			System.out.println("Detail Error: " + e.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();//반환하기
+			} catch (Exception e2) {
+				
+			}
+		}
+		
+		return row;
+	}
+	
+	// 공지사항 글쓰기
+		public int NoticeWrite(Notice notice) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int row = 0;
+			String sql = "insert into notice(num,title,content,G_EMAIL,G_CODE,FILENAME) values (qna_num.nextval,?,?,?,10000,?)";
+			try {
+				conn = ds.getConnection();
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, notice.getTitle());
+				pstmt.setString(2, notice.getContent());
+				pstmt.setString(3, notice.getEmail());
+				pstmt.setString(3, notice.getFilename());
+				
+				row = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return row;
+		}
 }
 
 

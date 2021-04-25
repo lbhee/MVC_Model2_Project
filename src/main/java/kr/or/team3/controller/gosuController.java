@@ -18,7 +18,10 @@ import kr.or.team3.service.Gosu_register_Info_Edit_Sevice;
 import kr.or.team3.service.Gosuregister_Service;
 import kr.or.team3.service.Member_EditOk_Service;
 import kr.or.team3.service.Member_JoinOk_Service;
+
 import kr.or.team3.service.Member_RQ_Delete_Service;
+import kr.or.team3.service.QnA_Edit_Service;
+import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
 
 @WebServlet("*.go")
@@ -85,7 +88,16 @@ public class gosuController extends HttpServlet {
     		actionForward = action.excute(request, response);
 			
     		// ==================================================================================
-	
+    	// 검색한 고수 프로필 	
+    	} else if(URL.equals("/searchGosu.go")) {
+    		actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/gosu_page/searchgosu.jsp");
+			
+		// 고수 프로필 가기
+    	} else if(URL.equals("/GosuProfile.go")) {
+    		actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/gosu_page/Gosupage.jsp");	
+    		
     	// 마이페이지	
     	} else if(URL.equals("/Mypage.go")) {
     		actionForward = new ActionForward();
@@ -115,8 +127,7 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/gosumap.go")) {
     		action = new GosuMap_Service();
     		actionForward = action.excute(request, response);
-    				
-    	// (고객) 요청서 자세히 보기 by 안승주
+
     	}else if(URL.equals("/Rq_Content_Memeber.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Member.jsp");
@@ -151,10 +162,21 @@ public class gosuController extends HttpServlet {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Edit_Member.jsp");
     		
-    	}
- 	
+    	// 자주하는질문 글쓰기
+    	}else if(URL.equals("/QnAwriteOK.go")) {
+    		action = new QnA_Wirte_Service();
+    		actionForward = action.excute(request, response);
+        
+      // 자주하는질문 수정하기
+    	}else if(URL.equals("/QnAEditOK.go")) {
+    		action = new QnA_Edit_Service();
+    		actionForward = action.excute(request, response);
     	
-    	
+    	// 공지사항 글쓰기
+		  }else if(URL.equals("/NoticeWriteOK.go")) {
+			  action = new QnA_Wirte_Service();
+			  actionForward = action.excute(request, response);
+		  }
     	
     	
     	

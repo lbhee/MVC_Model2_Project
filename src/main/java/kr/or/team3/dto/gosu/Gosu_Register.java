@@ -7,40 +7,35 @@ public class Gosu_Register {
 	private String pr;    //자기소개
 	private int d_code;   //상세서비스코드(참조)
 	private String name;  //이름
+	private String photo; // 사진정보
 	
 	public Gosu_Register() {
 		
 	}
 	
 
-	public Gosu_Register(String pr, String name, String email) {
-		super();
-		this.pr = pr;
-		this.name = name;
-		this.email = email;
-	}
-
-
-
-	public Gosu_Register(String email, String pr, int d_code) {
-		super();
-		this.email = email;
-		this.pr = pr;
-		this.d_code = d_code;
-	}
-
-
-
-	public Gosu_Register(String email, int g_code, String pr, int d_code) {
+	public Gosu_Register(String email, int g_code, String pr, int d_code, String name, String photo) {
 		super();
 		this.email = email;
 		this.g_code = g_code;
 		this.pr = pr;
 		this.d_code = d_code;
+		this.name = name;
+		this.photo = photo;
 	}
+
+
 	
-	
-	
+	public String getPhoto() {
+		return photo;
+	}
+
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+
 	public String getEmail() {
 		return email;
 	}
@@ -84,8 +79,12 @@ public class Gosu_Register {
 
 	@Override
 	public String toString() {
-		return "Gosu_Register [email=" + email + ", g_code=" + g_code + ", pr=" + pr + ", d_code=" + d_code + "]";
+		return "Gosu_Register [email=" + email + ", g_code=" + g_code + ", pr=" + pr + ", d_code=" + d_code + ", name="
+				+ name + ", photo=" + photo + "]";
 	}
+
+
+	
 	
 	
 }

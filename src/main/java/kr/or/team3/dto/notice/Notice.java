@@ -7,22 +7,24 @@ public class Notice {
 	private String title;   //글제목
 	private String content; //글내용
 	private Date writedate; //작성일
-	private int count;      //조회수
+	
 	private String email;   //이메일(참조)
 	private int g_number;	//고수고유코드
+	private String Filename;
 	
 	public Notice() {
 	}
 	
-	public Notice(int num, String title, String content, Date writedate, int count, String email, int g_number) {
+	public Notice(int num, String title, String content, Date writedate, String email, int g_number ,String filename) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.content = content;
 		this.writedate = writedate;
-		this.count = count;
+		
 		this.email = email;
 		this.g_number = g_number;
+		this.Filename = filename;
 	}
 	
 	public int getNum() {
@@ -49,12 +51,7 @@ public class Notice {
 	public void setWritedate(Date writedate) {
 		this.writedate = writedate;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -67,5 +64,15 @@ public class Notice {
 	public void setG_number(int g_number) {
 		this.g_number = g_number;
 	}
+
+	public String getFilename() {
+		return Filename;
+	}
+
+	public void setFilename(String filename) {
+		Filename = filename;
+	}
+	
+	
 	
 }
