@@ -18,6 +18,7 @@ import kr.or.team3.dto.gosu.Gosu_Detail_Join_Service;
 import kr.or.team3.dto.gosu.Gosu_Info_Add;
 import kr.or.team3.dto.gosu.Gosu_Info_Basic;
 import kr.or.team3.dto.gosu.Gosu_Page;
+import kr.or.team3.dto.gosu.Gosu_RQ_Content;
 import kr.or.team3.dto.gosu.Gosu_Register;
 import kr.or.team3.dto.member.Member;
 
@@ -560,6 +561,7 @@ public class GosuDao {
 		int totalgosucount = 0;
 		
 		try {
+			
 			conn = ds.getConnection();
 			String sql = "select count(*) cnt from g_register";
 			pstmt = conn.prepareStatement(sql);
@@ -586,52 +588,39 @@ public class GosuDao {
 	}
 	// 고객이 고수에게 보낸 요청서 콘텐츠 가져오기 by 안승주 21.04.23
 			@SuppressWarnings("resource")
-			public RQ_Content_Member getRQContent_Member(int num) {
+			public Gosu_RQ_Content getRQContent_Member(int num) {
 				Connection conn = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
-				RQ_Content_Member content = null;
+				Gosu_RQ_Content content = null;
 				
 				try {
-					content = new RQ_Content_Member();
+					content = new Gosu_RQ_Content();
 					conn = ds.getConnection();
-					String sql1 = "SELECT rf.NUM ,rf.TITLE , rf.CONTENT , rf.WRITEDATE ,rf.HOPEDATE, m.NAME, rf.M_EMAIL FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
-					String sql2 = "SELECT m.name , m.ADR FROM RQ_FORM rf JOIN MEMBER m ON rf.G_EMAIL = m.EMAIL WHERE rf.NUM = ?";
-					String sql3 = "SELECT gs.S_NAME ,gd.D_NAME FROM RQ_FORM rf JOIN G_REGISTER gr ON rf.G_EMAIL = gr.EMAIL JOIN G_DETAIL gd ON gr.D_CODE = gd.D_CODE JOIN G_SERVICE gs ON gd.S_CODE = gs.S_CODE WHERE rf.num = ?";
+					String sql1 = "SELECT rf.NUM ,rf.TITLE , rf.CONTENT , rf.WRITEDATE ,rf.HOPEDATE, m.NAME, rf.G_EMAIL , rf.PHONE FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
+					String sql2 = "SELECT m.name, m.email FROM RQ_FORM rf JOIN MEMBER m ON rf.G_EMAIL = m.EMAIL WHERE rf.NUM = ?";
 					pstmt = conn.prepareStatement(sql1);
-					pstmt.setInt(1,num);
-					System.out.println("4");
+					pstmt.setInt(1, num);
 					rs = pstmt.executeQuery();
 					if(rs.next()) {
 						content.setNum(rs.getInt("num"));
 						content.setTitle(rs.getString("title"));
-						content.setContent(rs.getString("content"));
-						content.setWritedate(rs.getDate("writedate"));
+						content.setConent(rs.getString("content"));
+						content.setWritedate(rs.getDate("wrigtedate"));
 						content.setHopedate(rs.getDate("hopedate"));
 						content.setMemberName(rs.getString("name"));
-						content.setG_email(rs.getString("G_email"));
+						content.setM_email(rs.getString("m_email"));
+						content.setPhone(rs.getString("phone"));
 					}
-					System.out.println("1");
+					
 					pstmt = conn.prepareStatement(sql2);
-					System.out.println("2");
 					pstmt.setInt(1, num);
 					rs = pstmt.executeQuery();
 					if(rs.next()) {
-						System.out.println(rs.getString("name"));
 						content.setGosuName(rs.getString("name"));
-						content.setAdr(rs.getString("adr"));
 					}
-					pstmt = conn.prepareStatement(sql3);
-					pstmt.setInt(1, num);
-					rs = pstmt.executeQuery();
-					if(rs.next()){
-						String sname = rs.getString("s_name");//운동
-						String dname = rs.getString("d_name");//유산소
-						System.out.println(sname);
-						System.out.println(dname);
-						String subject = sname + "/" + dname;
-						content.setSubject(subject);
-					}
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 					e.getMessage();

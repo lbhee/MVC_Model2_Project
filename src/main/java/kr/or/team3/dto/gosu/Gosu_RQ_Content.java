@@ -8,21 +8,37 @@ public class Gosu_RQ_Content {
 	private String conent;
 	private Date writedate;
 	private Date hopedate;
+	private String memberName;
 	private String gosuName;
-	private String phon;
+	private String phone;
 	private String M_email;
 	
 	
-	public Gosu_RQ_Content(int num, String title, String conent, Date writedate, Date hopedate, String gosuName,
-			String phon, String m_email) {
+	
+	public Gosu_RQ_Content() {
+	}
+	
+	
+	
+	
+	public Gosu_RQ_Content(int num, String title, String conent, Date writedate, Date hopedate, String memberName,
+			String gosuName, String phone, String m_email) {
+		super();
 		this.num = num;
 		this.title = title;
 		this.conent = conent;
 		this.writedate = writedate;
 		this.hopedate = hopedate;
+		this.memberName = memberName;
 		this.gosuName = gosuName;
-		this.phon = phon;
+		this.phone = phone;
 		this.M_email = m_email;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	public int getNum() {
 		return num;
@@ -60,11 +76,11 @@ public class Gosu_RQ_Content {
 	public void setGosuName(String gosuName) {
 		this.gosuName = gosuName;
 	}
-	public String getPhon() {
-		return phon;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhon(String phon) {
-		this.phon = phon;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getM_email() {
 		return M_email;
@@ -75,7 +91,7 @@ public class Gosu_RQ_Content {
 	@Override
 	public String toString() {
 		return "Gosu_RQ_Content [num=" + num + ", title=" + title + ", conent=" + conent + ", writedate=" + writedate
-				+ ", hopedate=" + hopedate + ", gosuName=" + gosuName + ", phon=" + phon + ", M_email=" + M_email + "]";
+				+ ", hopedate=" + hopedate + ", gosuName=" + gosuName + ", phone=" + phone + ", M_email=" + M_email + "]";
 	}
 	
 	
