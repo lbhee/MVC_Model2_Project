@@ -105,6 +105,7 @@ body{
     height: auto;
     caret-color: #00c7ae;
     color: #323232;	
+    outline: none;
 }
 .input-search{
 	padding: 0 0.75rem 0 0;
@@ -204,30 +205,60 @@ body{
   	position: absolute;
     bottom: 0;
     right: 0;
-    transform: translate(-12%,-55%);
+    transform: translate(0%,101%);
     background-color: #fff;
     border: 1px solid #e1e1e1;
+    border-top: none;
     border-radius: 4px;
-    width: 90%;
+    width: 100%;
     overflow: visible;
     font-size: 12px;
     z-index: 1;
 }
+
 .searchBox > div{
-	border: 1px solid #e1e1e1;
-	padding: 10px;
+	padding: 21px;
 }
 .searchBox > div >h1{
 	padding: 0;
+	margin: 0;
+    font-size: 1.25rem;
 }
 
 .searchBox >h2{
-	padding: 15px;
+	margin: 0;
+	padding: 20px;
 	margin-bottom: 30px;
+	font-size: 14px;
 }
+
+.searchBox >h2 >a{
+	width: 100%;
+	display: inline-block;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #e1e1e1;
+}
+
 
 .searchbar{
 	color: #00c7ae;;
+}
+
+
+.Gosu_Map_Box{
+	display: none;
+}
+.Gosu_Map_Box >p{
+	color:red; 
+	font-size:3px;
+	text-align: right;
+}
+
+.map{
+	margin-top: 1.75rem;
+	border: 1px solid #00c7ae;
+	width:100%;
+	height:335px;
 }
 /*============================= 회원가입, 로그인 , 계정설정 =============================*/
 .loginForm{
@@ -323,9 +354,10 @@ body{
 }
 
 .gosu_info_header > input[type=text]{
-    border: none;
-    width: 100%;
-    outline: none;
+   	border: 1px solid #f2f2f2;
+	width: 100%;
+	outline:none;
+	padding: 10px;
 }
 .gosu_info_image_box >img{
     width: 7.5rem;
@@ -337,18 +369,12 @@ body{
 }
 
 .gosu_info_image_box{
-	position: relative;
-    bottom: 0;
-    right: 0;   
-    transform: translate(100px);
-    border: none;
-    overflow: visible;
+	text-align: center;
     font-size: 12px;
+    cursor: pointer;
 }
 
-.gosu_info_image_box > input{
-	display: block;
-}
+
 .Gosu_contaniner{
 	position: absolute;
     bottom: 0;
@@ -479,8 +505,6 @@ body{
 .gosu_register{
 	width: 100%;
     padding: 18px 0;
-    border-bottom: 1px solid #f2f2f2;
-    
 }
 
 .gosu_register >p {
@@ -488,9 +512,10 @@ body{
 }
 
 .gosu_register >input{
-	border: none;
+	border: 1px solid #f2f2f2;
 	width: 100%;
 	outline:none;
+	padding: 10px;
 }
 
 .gosu_register3_buttonbox{
@@ -525,3 +550,31 @@ body{
 	margin-left: -15px;
 	padding: 15px;
 }
+
+/*======================== 고수 페이지 ==========================*/
+.gosu_page_category{
+	background-color: #f2f3f5;
+    z-index: 0;
+    margin: 0 -.5rem;
+    padding-top: 10px;
+    list-style: none;
+    text-align: center;
+}
+
+.gosu_page_category > li{
+	display: inline-block;
+    position: relative;
+    flex-direction: column;
+    width: 10%;
+}
+.search_gosuImgBox{
+	width: 100%;
+}
+.search_gosuImg{
+	width: 100%;
+    height: 150px;
+	object-fit: cover;	
+	background-position: 50% 50%;
+	margin-bottom: 10px;
+}
+

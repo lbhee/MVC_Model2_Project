@@ -38,9 +38,9 @@ public class Gosuregister_Service implements Action {
 			 Member member = memberDao.getContent(email);
 			 
 			 // 고수 가입정보
-			 gosu_register = new Gosu_Register(email, pr, d_code);
+			 gosu_register = new Gosu_Register(email, d_code, pr, d_code, email, null);
 			 // 고수 기본정보
-			 gosu_info_basic = new Gosu_Info_Basic(member.getEmail(), 10000, "카드", member.getAdr(), 0, "10시", "gosu.jpg");
+			 gosu_info_basic = new Gosu_Info_Basic(member.getEmail(), 10000, "카드", member.getAdr(), 0, "10시", "default_img.svg");
 			 // 고수 추가정보
 		  	 gosu_info_add = new Gosu_Info_Add(member.getEmail(), 10000, null, null, null);
 		  	 

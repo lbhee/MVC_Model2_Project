@@ -34,18 +34,7 @@ System.out.println(list.isEmpty());
 <c:set var="pagesize" value="<%=pagesize%>" />
 <c:set var="conextPath" value="<%=request.getContextPath()%>" />
 
-<div class="RQContainer">
-	<c:if test="${list.size() == 0}">
-		<h3>데이터가 없습니다</h3>
-	</c:if>
-	<c:if test="${list!=null || list.size() != 0}">
-		<h3>데이터가 있습니다!</h3>
-	</c:if>
-	
-	<c:forEach var="rqtest" items="<%=list%>">
-		${rqtest.title}
-	</c:forEach>
-</div>
+
 
 <div class="all-title-box">
 	<div class="container text-center">
@@ -82,7 +71,7 @@ System.out.println(list.isEmpty());
 						<p>
 							요청번호: ${rqlist.num}<br>
 							<small class="readmore">
-								<a href="#">요청서 자세히 보기</a>
+								<a href="Rq_Conetent_Gosu.go?num=${rqlist.num}">요청서 자세히 보기</a>
 							</small>
 						</p>
 					</div>
