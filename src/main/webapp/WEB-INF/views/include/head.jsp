@@ -78,9 +78,11 @@
 				 			<c:otherwise>
 
 				 				<c:if test="${gosu>0}">
+
 				 				<li class="nav-item active"><a class="nav-link" href="">뭐넣을지 고민</a></li>
 				 				<li class="nav-item active"><a class="nav-link" href="GosuProfile.go?email=${id}">프로필</a></li>
 				 				<li class="nav-item active"><a class="nav-link" href="#" id="info">${ member.name } 고수님</a></li>
+
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   

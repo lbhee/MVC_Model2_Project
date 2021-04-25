@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <jsp:include page="../include/head.jsp"></jsp:include>
+
  
    <link rel="stylesheet" href="css/versions.css">
    <link rel="stylesheet" href="css/style.css">
@@ -10,6 +12,7 @@
 	
 	<div class="all-title-box">
 		<div class="container text-center">
+
 			<h1 id="gsearch"></h1>
 			<p>지금 <b style="color:#00c7ae">ㄱㅅㅊㄱ</b>와 함께 시작해보세요</p>
 		</div>
@@ -49,11 +52,12 @@
                     <h1>나에게 딱! 맞는 고수를 선택하세요!</h1><br>
 					<p class="lead">쨘! 도움을 줄 수 있는 고수를 무료로 찾았습니다.<br>
 									고수의 개인페이지로 이동하여 고수의 정보를 더 얻을 수 있어요.</p>
+
                 </div>
             </div>
           </div>
       </div>
-          
+
     <!-- ALL JS FILES -->
     <script src="js/all.js"></script>
     <!-- ALL PLUGINS -->
@@ -61,11 +65,14 @@
     <script type="text/javascript">
     	var code = <%=request.getParameter("d_code")%>;
     	var h1 = document.getElementById("gsearch");
+
     	h1.innerHTML = <%=request.getParameter("title")%>
+
 
     	
     	function searchgosu() {
     		$.ajax({
+
     			url: "SearchGosu_A",
     			data: {d_code:code},
     			success:function(responsedata){
