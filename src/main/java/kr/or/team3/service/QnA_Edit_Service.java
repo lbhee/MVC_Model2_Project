@@ -1,7 +1,5 @@
 package kr.or.team3.service;
 
-import java.sql.SQLException;
-
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,23 +19,24 @@ public class QnA_Edit_Service implements Action {
 		String writedate = request.getParameter("writedate");
 		String content = request.getParameter("content");
 
+		ActionForward actionForward = new ActionForward();
 		
 		QnA_Board qnaboard = new QnA_Board(title, content, writedate, g_email);
 
 		String msg = "";
 		String url = "";
 		
-		ActionForward actionForward = new ActionForward();
+		
 		try {
 			GosuDao gosudao = new GosuDao();
-		int result = gosudao.QnaEdit(qnaboard);
+			int result = gosudao.QnaEdit(qnaboard);
 
 		if(result > 0) {
 			msg = "수정 완료";
-			url = "/Gosupage.jsp?email=" + g_email;
+			url = "/GosuProfile.go?email=" + g_email;
 		}else {
 			msg = "수정실패";
-			url = "/Gosupage.jsp?email=" + g_email;
+			url = "/GosuProfile.go?email=" + g_email;
 		}
 		
 		request.setAttribute("member_msg", msg);

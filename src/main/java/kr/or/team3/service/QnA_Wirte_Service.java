@@ -33,7 +33,7 @@ public class QnA_Wirte_Service implements Action {
 			
 			if(row > 0) {
 				msg = "글쓰기 완료";
-				url = "/Gosupage.jsp?email=" + email;
+				url = "/GosuProfile.go?email=" + email;
 			}
 			
 			request.setAttribute("member_msg", msg);
