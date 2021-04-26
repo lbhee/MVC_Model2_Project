@@ -21,7 +21,7 @@
 	<script type="text/javascript">
 	function check(){
     if(!bbs.title.value){
-        alert("제목을 입력하세요");
+        swal("제목을 입력하세요","","error");
         bbs.subject.focus();
         return false;
     }

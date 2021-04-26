@@ -6,6 +6,11 @@
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
     var loginemail = '<%=(String)session.getAttribute("ID")%>';
+    
+    if(email == 'null'){
+        email = '<%= session.getAttribute("ID")%>';
+              
+     }
 
    </script>
 
