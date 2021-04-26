@@ -9,7 +9,7 @@
 	String id = (String)session.getAttribute("ID");
 
 	if(id != null){
-		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		response.sendRedirect(request.getContextPath()+"/main.go");
 		return;
 	}
 
@@ -102,13 +102,7 @@ function btnclick(){
 		swal("빈칸을 모두 채워주세요." , "", "error");
 		return;
 	} else {
-		var cek = confirm("가입하시겠습니까?");
-		if(cek == true){
-			$('#join').submit();
-		}else{
-			return;
-		}
-
+		confirm('',"가입하겠습니까?");
 	}
 }
 
@@ -117,7 +111,28 @@ $('.button').click(function() {
 	btnclick();
 })
 
-		
+var confirm = function(msg, title, resvNum) {
+	swal({
+		title : title,
+		text : msg,
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonClass : "btn-danger",
+		confirmButtonText : "예",
+		cancelButtonText : "아니오",
+		closeOnConfirm : false,
+		closeOnCancel : true
+	}, function(isConfirm) {
+		if (isConfirm) {
+			$('#join').submit();
+			
+		}else{
+			return false;
+		}
+
+	});
+}
+
 function enterkey() { 
 	if (window.event.keyCode == 13) { 
 		
@@ -170,7 +185,7 @@ function enterkey() {
 	}		
 	$('#adr').focus(function() {
 		sample4_execDaumPostcode();
-		$('#adr').blur();
+		$('.button').focus();
 	})
 	
 </script>

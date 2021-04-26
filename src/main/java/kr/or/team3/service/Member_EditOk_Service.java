@@ -20,8 +20,6 @@ public class Member_EditOk_Service implements Action {
 		String pwd = request.getParameter("new_pwd");
 		String change = request.getParameter("change");
 		
-		System.out.println(change);
-		
 		Member member = new Member(email,name,pwd,adr);
 		
 		ActionForward actionForward = new ActionForward();
@@ -34,8 +32,8 @@ public class Member_EditOk_Service implements Action {
 			String url="";
 			
 			if(result > 0 ) {
-				msg="변경 완료";
 				url="/main.jsp";
+				msg="변경 되었습니다.";
 				
 			}else {
 				msg="변경 실패";

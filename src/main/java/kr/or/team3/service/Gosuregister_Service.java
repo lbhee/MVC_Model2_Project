@@ -57,7 +57,7 @@ public class Gosuregister_Service implements Action {
 			 String url="";
 			 
 			 if(row > 0) {
-				 msg = "고수 가입을 환영합니다~";
+				 msg = "null";
 				 url = "/Gosuregister_Info.go";
 			 }else {
 				 msg = "이미 고수로 가입된 회원입니다.";

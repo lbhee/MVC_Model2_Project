@@ -5,6 +5,7 @@
 <!-- header -->
 
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
@@ -16,10 +17,9 @@
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
-    
-
+	
    </script>
-
+	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
 	<body>
 	
 	<div class="app-body">
@@ -115,7 +115,8 @@
 	
     </body>
     <script type="text/javascript">
-
+	var d_code = null;
+    
     $(function(){
     	gosupage();
     	if(email == loginemail){
@@ -129,8 +130,15 @@
     		dataType:"JSON",
     		data: {email: email},
     		success:function(responsedata){
-    			console.log(responsedata);
+    			
+    			// 뿌려지는 화면 없으면 메인화면으로 전환
+    			if(responsedata.length == 0){
+    				location.href = "main.go";
+					return;
+				}
+    			
     			$.each(responsedata,function(index,obj){
+    				
     				$('#gosu').append("<h2>" + obj.name + "</h2><p>" + obj.s_name + "(" + obj.d_name + ") 고수");
 
     				$('#introduction').append(obj.pr);
@@ -144,7 +152,8 @@
     				$('.photo').attr('src','upload/' + obj.photo);
 
     			});
-
+    			 console.log($('#gosu >p').text());
+    			 d_code = $('#gosu >p').text();
     		}
     	});
     }
@@ -203,7 +212,7 @@
 		if(email == loginemail){
 			location.href = 'QnA_Edit.jsp';
 		}else {
-			alert("권한이 없습니다.");
+			swal('', '권한이 없습니다.', "error");
 		}
 	});
     
@@ -211,23 +220,21 @@
 		if(email == loginemail){
 			location.href = 'Notice_Write.jsp';
 		}else {
-			alert("권한이 없습니다.");
+			swal('', '권한이 없습니다.', "error");
 		}
 	});
     
     
     $('.button').click(function(){
     	if(email == loginemail){
-    		alert("자기 자신에게 요청서를 보낼 수 없습니다.");
-			
+    		swal('', '자기 자신에게 요청서를 보낼 수 없습니다.', "error");
+		}else if(loginemail == 'null'){
+			swal('', '로그인 후 이용가능합니다.', "error");
 		}else {
-			location.href = 'WriteRQ.go';
+			location.href = 'WriteRQ.go?email=${gosu_email}&code=' + d_code;
 		}
     });
-    
-    
-   	
-   
+
 	</script>
     </html>
     
