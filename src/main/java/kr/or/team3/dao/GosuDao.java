@@ -982,7 +982,7 @@ public class GosuDao {
 		try {
 			conn = ds.getConnection();
 			
-			String sql_select = "select title, content, writedate from qna where g_email = ?";
+			String sql_select = "select title, content, writedate, g_email from qna where g_email = ?";
 			
 			pstmt = conn.prepareStatement(sql_select);
 			
@@ -994,8 +994,9 @@ public class GosuDao {
 				String title = rs.getString("title");
 				String writedate = rs.getString("writedate");
 				String content = rs.getString("content");
+				String g_email = rs.getString("g_email");
 				
-				qnaboard = new QnA_Board(0, title, content, writedate, email, 0);
+				qnaboard = new QnA_Board(title, content, writedate, g_email);
 				
 			}
 		} catch (SQLException e) {
@@ -1027,24 +1028,16 @@ public class GosuDao {
 		int row =0;
 		try {
 			conn = ds.getConnection();
-			System.out.println("1");
+
 			String sql_update = "update qna set content = ? where g_email = ?";
-			System.out.println("2");
+
 			pstmt = conn.prepareStatement(sql_update);
-			
-			System.out.println("3");
-			System.out.println(qnaboard.getContent());
-			System.out.println(qnaboard.getG_email());
-			
+
 			pstmt.setString(1, qnaboard.getContent());
-			pstmt.setString(2, qnaboard.getG_email());
+			pstmt.setString(2, qnaboard.getG_email().trim());
 			
 			row = pstmt.executeUpdate();
-			
-			System.out.println(row);
-			
-			
-			
+
 		} catch (Exception e) {
 			System.out.println("Detail Error: " + e.getMessage());
 		}finally {

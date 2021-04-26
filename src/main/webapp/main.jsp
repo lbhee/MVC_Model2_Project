@@ -75,7 +75,6 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=53f9ac8e1b09677c674e020964ff22be&libraries=services"></script>
-	<script src="js/mainpage/main_image.js"></script>
 	<script src="js/mainpage/searchdata.js"></script>
 	<script src="js/mainpage/main_js.js"></script>
 </body>

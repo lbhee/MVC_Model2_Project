@@ -55,11 +55,19 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 			
 			String pr = multi.getParameter("pr");
 			String area = multi.getParameter("area");
-			String calltime = multi.getParameter("calltime");
+			String calltime_1 = multi.getParameter("calltime_1");
+			String calltime_2 = multi.getParameter("calltime_2");
+			String calltime = calltime_1 + "~" + calltime_2;
+			
 			String payment = multi.getParameter("payment");
 			String career = multi.getParameter("career");
 			String license = multi.getParameter("license");
 			String photo = multi.getFilesystemName(file);
+		
+			if(photo == null) {
+				photo = multi.getParameter("photo_Defalut");
+			}
+			
 			
 			
 			 gosudao = new GosuDao();
@@ -75,19 +83,15 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 			int row2 = gosudao.UpdateGosuInfo_A(gosu_info_add);
 			int row3 = gosudao.UpdateRegister(gosu_register);
 			
-			String msg="";
 			String url="";
 			
 			if(row1 > 0 || row2 > 0 || row3 > 0) {
-				msg="변경 완료";
 				url="/GosuProfile.go";
 				
 			}else {
-				msg="변경 실패";
 				url="/Gosuregister_Info.go";
 			}
 			
-			request.setAttribute("member_msg", msg);
 			request.setAttribute("member_url", url);
 			
 			actionForward.setPath("/WEB-INF/views/include/redirect.jsp");

@@ -38,7 +38,7 @@
 				<p></p>
 				
 				<p>비밀번호</p>
-				<input type="password" maxlength="15" id="pwd" name="pwd" placeholder="정보를 수정할려면 비밀번호를 입력해주세요.">
+				<input type="password" maxlength="15" id="pwd" name="pwd" onkeyup="enterkey()" placeholder="정보를 수정할려면 비밀번호를 입력해주세요." >
 				<p></p>
 				
 				<input type="button" value="정보수정" class="button"> 
@@ -50,9 +50,10 @@
 			</form>
 			
 				<div class="userInfo_pwdChange" style="display:none">
+					
 					<form action="<%= request.getContextPath() %>/EditOk.go?change=pwd" method="post" id="pwdChangeForm">
+					<h2 style="text-align: center"><b>비밀번호변경</b></h2>
 					<div class="regidiv">
- 					<h2 style="text-align: center"><b>비밀번호변경</b></h2>
  					<p>기존 비밀번호</p>
  					<input type="text" maxlength="20" id="email" name="email" value=${ member.email } hidden>
  					<input type="password" maxlength="15" id="origin_pwd" name="origin_pwd" >
@@ -61,7 +62,7 @@
  					<input type="password" maxlength="15" id="new_pwd" name="new_pwd" >
  					<p class="tdpw"></p>
  					<p>비밀번호확인</p>
- 					<input type="password" maxlength="15" id="new_pwdck" name="new_pwdck" >
+ 					<input type="password" maxlength="15" id="new_pwdck" name="new_pwdck">
  					<p class="tdpwch"></p>
  					<p></p>
  					<input type="button" value="비밀번호변경" class="pwd_Change_btn"> 
@@ -101,13 +102,14 @@ $('#pwd').blur(function() {
 			}
 		})
 		
+
 // 버튼 선택 
 $('.button').click(function() {
 	if(passck == false){
-		alert("비밀번호를 확인해주세요.");
+		swal("비밀번호를 확인해주세요.","","error");
 		return false;
 	}else{
-			var cek = confirm("수정하시겠습니까?");
+			var cek = swal("수정하시겠습니까?","","info");
 			if(cek == true){
 				$('#join').submit();
 			}else{
@@ -117,7 +119,7 @@ $('.button').click(function() {
 	})
 
 				
-		
+
 //우편번호로 주소찾기
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
@@ -164,6 +166,36 @@ function sample4_execDaumPostcode() {
 $('#adr').click(function() {
 	sample4_execDaumPostcode();
 })
+
+
+// 버튼 선택 
+$('.button').click(function() {
+	btnclick();
+	})
+
+function btnclick(){
+	if(passck == false){
+		alert("비밀번호를 확인해주세요.");
+		return false;
+	}else{
+			var cek = confirm("수정하시겠습니까?");
+			if(cek == true){
+				$('#join').submit();
+			}else{
+				return;
+			}
+		}
+}	
+
+//엔터키
+function enterkey() { 
+	if (window.event.keyCode == 13) { 
+		
+		btnclick();
+	
+	} 	
+}		
+
 
 
 // ===============================================================================
@@ -235,10 +267,10 @@ $('#new_pwdck').blur(
 // 비번변경버튼
 $('.pwd_Change_btn').click(function() {
 		if (origin_pwd == false || new_pwd == false || new_pwdck == false) {
-			alert("입력값을 확인해주세요.");
+			swal("입력값을 확인해주세요.", "" ,"error");
 			return;
 		} else {
-			var cek = confirm("변경하시겠습니까?");
+			var cek = swal("변경하시겠습니까?","","info");
 			if(cek == true){
 				$('#pwdChangeForm').submit();
 			}else{
@@ -248,6 +280,8 @@ $('.pwd_Change_btn').click(function() {
 		}
 	
 })
+
+
 // ===============================================================================		
 </script>		
 
