@@ -26,10 +26,12 @@ public class Member_LoginOk_Service extends HttpServlet {
 	
 		PrintWriter out = response.getWriter();
 		
-		String email=request.getParameter("email");
+		String email= request.getParameter("email");
 		String pwd=request.getParameter("pwd");
 		
-		Member member = new Member(email,"0",pwd,"0");
+		
+		
+		Member member = new Member(email.toLowerCase(),"0",pwd,"0");
 		
 		
 		try {
