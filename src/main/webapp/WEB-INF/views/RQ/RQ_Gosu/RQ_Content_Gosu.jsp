@@ -7,7 +7,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <%
-
+String g_email = (String)session.getAttribute("ID");
 int num = Integer.parseInt(request.getParameter("num"));
 
 int cpage = Integer.parseInt(request.getParameter("cp"));
@@ -18,6 +18,7 @@ int pagesize = Integer.parseInt(request.getParameter("ps"));
 GosuDao gosudao = new GosuDao();
 Gosu_RQ_Content content = gosudao.getRQContent_Member(num);
 %>
+<c:set var = "g_email" value = "<%=g_email%>"/>
 <c:set var = "num" value = "<%=num%>"/>
 <c:set var = "cpage" value = "<%=cpage%>"/>
 <c:set var = "pagesize" value = "<%=pagesize%>"/>
@@ -26,7 +27,7 @@ ${content}<br>
 <body>
 	요청 번호: ${content.getNum()}<br>
 	제목: ${content.getTitle()}<br>
-	내용: ${content.getConent()}<br>
+	내용: ${content.getContent()}<br>
 	작성 시간: ${content.getWritedate()}<br>
 	고객 이름: ${content.getMemberName()}<br>
 	고수 이름: ${content.getGosuName()}<br>

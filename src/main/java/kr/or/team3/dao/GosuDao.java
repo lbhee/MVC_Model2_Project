@@ -367,7 +367,8 @@ public class GosuDao {
 	
 	//고수가 받은 요청서 완료 by 안승주 21.04.23
 	
-	public boolean complet_RQ_Gosu(int num) {
+	@SuppressWarnings("resource")
+	public boolean complet_RQ_Gosu(int num, String g_email) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		boolean result = false;
@@ -375,6 +376,8 @@ public class GosuDao {
 		try {
 			conn = ds.getConnection();
 			String sql = "update RQ_Form set done = 1 where num = ?";
+			String sql2 = "update g_info_basic set HIRE_NUM = HIRE_NUM +1 WHERE EMAIL = ?";
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
@@ -382,7 +385,20 @@ public class GosuDao {
 			
 			int row = pstmt.executeUpdate();
 			if(row > 0) {
-				result = true;
+				try {
+					
+					pstmt = conn.prepareStatement(sql2);
+					pstmt.setString(1, g_email);
+					
+					row = pstmt.executeUpdate();
+					
+					if(row > 0) {
+						result = true;
+					}
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -1095,6 +1111,8 @@ public class GosuDao {
 			try {
 				conn = ds.getConnection();
 				String sql = "SELECT count(*) cnt FROM rq_form WHERE done = 1 AND g_email = ?";
+				String sql2 = "";
+				
 				pstmt  = conn.prepareStatement(sql);
 				
 				pstmt.setString(1, G_email);
@@ -1114,6 +1132,7 @@ public class GosuDao {
 			return count;
 			
 		}
+		
 }
 
 

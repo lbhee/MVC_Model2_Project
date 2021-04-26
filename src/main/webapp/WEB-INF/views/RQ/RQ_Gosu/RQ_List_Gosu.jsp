@@ -29,14 +29,20 @@ List<RQ_Form> list = dao.getRQList_Gosu(cpage, pagesize, G_email);
 System.out.println(list.size());
 System.out.println(list.isEmpty());
 int totalRQcount = dao.totalRQMemberCount(G_email);
+
+int pagecount = 0;
+
+if(totalRQcount % pagesize == 0){
+	pagecount = totalRQcount / pagesize; //  20 << 100/5
+}else{
+	pagecount = (totalRQcount / pagesize) + 1; 
+}
 %>
 <c:set var="list" value="<%=list%>"/>
-<c:set var="cpage" value="<%=cpage%>" />
-<c:set var="pagesize" value="<%=pagesize%>" />
-<c:set var="conextPath" value="<%=request.getContextPath()%>" />
 <c:set var="totalcount" value="<%=totalRQcount%>"/>
 <c:set var = "cpage" value = "<%=cpage%>"/>
 <c:set var = "pagesize" value = "<%=pagesize%>"/>
+<c:set var = "pagecount" value = "<%=pagecount%>"/>
 
 <div class="all-title-box">
 	<div class="container text-center">
@@ -98,6 +104,23 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 				</div><!-- end col -->
 			</c:forEach>
 		</div><!-- end row -->
+		
+		<div class = "paging">
+			<c:if test="${cpage > 1}">
+				<a href="RQList_Gosu.go?cp=${cpage-1}&ps=${pagesize}">이전</a>
+			</c:if>
+			<c:forEach var="i" begin="1" end="${pagecount}" step="1">
+				<c:choose>
+					<c:when test="${cpage==i}">
+						<font color="red" >[${i}]</font>
+					</c:when>
+					<c:otherwise>
+						<a href="RQList_Gosu.go?cp=${i}&ps=${pagesize}">[${i}]</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div>
+		
 	</div>
 	<!-- end container -->
 </div>
