@@ -99,7 +99,7 @@ $('#email').blur(function() {
 // 버튼 선택 
 function btnclick(){
 	if (nameck == false || passck == false || emailck == false) {
-		alert("빈칸을 모두 채워주세요.");
+		swal("빈칸을 모두 채워주세요." , "", "error");
 		return;
 	} else {
 		var cek = confirm("가입하시겠습니까?");
