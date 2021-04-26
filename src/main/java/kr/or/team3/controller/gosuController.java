@@ -20,6 +20,7 @@ import kr.or.team3.service.Member_EditOk_Service;
 import kr.or.team3.service.Member_JoinOk_Service;
 
 import kr.or.team3.service.Member_RQ_Delete_Service;
+import kr.or.team3.service.Member_RQ_EditOk;
 import kr.or.team3.service.QnA_Edit_Service;
 import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
@@ -127,7 +128,8 @@ public class gosuController extends HttpServlet {
     	} else if(URL.equals("/gosumap.go")) {
     		action = new GosuMap_Service();
     		actionForward = action.excute(request, response);
-
+    	
+    	// (고객) 요청서 자세히 보기 by 안승주
     	}else if(URL.equals("/Rq_Content_Memeber.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Member.jsp");
@@ -157,8 +159,8 @@ public class gosuController extends HttpServlet {
     		action = new Member_RQ_Delete_Service();
     		actionForward = action.excute(request, response);
     		
-    	// (고개) 요청서 수정 by 안승주
-    	}else if(URL.equals("/Member_RQ_EditOk.go")) {
+    	// (고객) 요청서 수정페이지 이동 by 안승주
+    	}else if(URL.equals("/Member_RQ_Edit.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/RQ/RQ_Member/RQ_Content_Edit_Member.jsp");
     
@@ -183,10 +185,20 @@ public class gosuController extends HttpServlet {
     		actionForward = action.excute(request, response);
     	
     	// 공지사항 글쓰기
+		}else if(URL.equals("/NoticeWriteOK.go")) {
+			  action = new QnA_Wirte_Service();
+			  actionForward = action.excute(request, response);
+			  
+		// (고객) 요청서 수정 by 안승주
+		}else if(URL.equals("/Member_RQ_EditOk.go")) {
+			action = new Member_RQ_EditOk();
+			actionForward = action.excute(request, response);
+		}
+    	
 	    //}else if(URL.equals("/NoticeWriteOK.go")) {
 		    //action = new QnA_Wirte_Service();
 		    //actionForward = action.excute(request, response);
-	    }
+	    //}
 	
     	
     	

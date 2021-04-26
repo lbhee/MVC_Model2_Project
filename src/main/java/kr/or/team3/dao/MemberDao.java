@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Content_Member;
+import kr.or.team3.dto.member.RQ_Edit_Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 public class MemberDao {
@@ -496,23 +497,33 @@ DataSource ds = null;
 			}
 			return content;
 		}
-		
-		public int RQ_Form_EditOk(int num) {
+		// 고객이 보낸 요청서 수정하기
+		public int RQ_Form_EditOk(RQ_Edit_Member memberdata) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
-			RQ_Form rq = null;
 			int row = 0;
 			
 			try {
 				conn = ds.getConnection();
-				String sql = "UPDATE RQ_FORM SET title = ?, CONTENT = ? ,HOPEDATE = ? , PHONE = ? WHERE num = ?";
+				String sql = "UPDATE RQ_FORM SET title = ?, CONTENT = ? ,writedate = sysdate, HOPEDATE = ? , PHONE = ? WHERE num = ?";
 				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, "");
-				
+				pstmt.setString(1, memberdata.getTitle());
+				pstmt.setString(2, memberdata.getContent());
+				pstmt.setDate(3, memberdata.getHopedate());
+				pstmt.setString(4, memberdata.getPhone());
+				pstmt.setInt(5, memberdata.getNum());
+				row = pstmt.executeUpdate();
 				
 			} catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.getMessage();
+				}
 			}
 			
 			

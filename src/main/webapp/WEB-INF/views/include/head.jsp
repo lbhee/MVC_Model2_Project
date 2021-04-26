@@ -89,6 +89,7 @@
 				 				</c:if>
 				 				<c:if test="${gosu==0}">
                   
+
 				 				<li class="nav-item active"><a class="nav-link" href="RQList.go">요청서리스트</a></li>
 				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a></li>
                   

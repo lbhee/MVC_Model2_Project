@@ -1084,6 +1084,36 @@ public class GosuDao {
 
 			return row;
 		}
+		// 고용횟수 by 안승주
+		public int hireCount(String G_email) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			int count = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "SELECT count(*) cnt FROM rq_form WHERE done = 1 AND g_email = ?";
+				pstmt  = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, G_email);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()){;
+					count = rs.getInt("cnt");
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
+			return count;
+			
+		}
 }
 
 

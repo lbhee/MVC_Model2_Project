@@ -21,6 +21,9 @@
 	MemberDao memberDao = new MemberDao();
 	GosuDao gosudao = new GosuDao();
 %>
+<c:set var = "num" value = "<%=num%>"/>
+<c:set var = "cpage" value = "<%=cpage%>"/>
+<c:set var = "pagesize" value = "<%=pagesize%>"/>
 <c:set var="rq2" value="<%=memberDao.getRQContent_Member(num)%>" />
 <c:set var = "rq" value = "<%=gosudao.getRQContent_Member(num)%>"/>
 
@@ -29,11 +32,12 @@
 <body>
 	<div class="container loginForm">
 		<div class="loginForm">
-			<form action="#" method="post" id="join">
+			<form action="Member_RQ_EditOk.go?num=${num}&cp=${cpage}&ps=${pagesize}" method="post" id="join">
 				
 				<h2 style="text-align: center"><b>요청서 수정</b></h2>
-				<p style="text-align: center"><b>${rq.getMemberName()}</b> 고객님이 <b>${rq.getGosuName()}</b> 고수님에게 보내는 요청서</p>
 				<div class="regidiv">
+				<p style="text-align: center"><b>${rq.getMemberName()}</b> 고객님이 <b>${rq.getGosuName()}</b> 고수님에게 보내는 요청서</p>
+				<br>
 				<p>분야: ${rq2.getSubject()}</p>
 				<p>작성 시간: ${rq.getWritedate()}</p>
 				<p>제목</p>
