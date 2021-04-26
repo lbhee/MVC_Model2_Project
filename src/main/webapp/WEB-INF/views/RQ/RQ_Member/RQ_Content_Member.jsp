@@ -31,6 +31,6 @@ RQ_Content_Member content = memberdao.getRQContent_Member(num);
 	분야: ${content.getSubject()}<br>
 	
 	<a href = "Member_RQ_DeleteOk.go?num=${num}&cp=${cpage}&ps=${pagesize}">지우기</a>
-	<a href = "Member_RQ_EditOk.go?num=${num}&cp=${cpage}&ps=${pagesize}">수정하기</a>
+	<a href = "Member_RQ_Edit.go?num=${num}&cp=${cpage}&ps=${pagesize}">수정하기</a>
 	
 </body>
