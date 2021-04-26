@@ -102,6 +102,24 @@ $('#pwd').blur(function() {
 			}
 		})
 		
+
+// 버튼 선택 
+$('.button').click(function() {
+	if(passck == false){
+		swal("비밀번호를 확인해주세요.","","error");
+		return false;
+	}else{
+			var cek = swal("수정하시겠습니까?","","info");
+			if(cek == true){
+				$('#join').submit();
+			}else{
+				return;
+			}
+		}
+	})
+
+				
+
 //우편번호로 주소찾기
 function sample4_execDaumPostcode() {
 	new daum.Postcode(
@@ -249,10 +267,10 @@ $('#new_pwdck').blur(
 // 비번변경버튼
 $('.pwd_Change_btn').click(function() {
 		if (origin_pwd == false || new_pwd == false || new_pwdck == false) {
-			alert("입력값을 확인해주세요.");
+			swal("입력값을 확인해주세요.", "" ,"error");
 			return;
 		} else {
-			var cek = confirm("변경하시겠습니까?");
+			var cek = swal("변경하시겠습니까?","","info");
 			if(cek == true){
 				$('#pwdChangeForm').submit();
 			}else{

@@ -33,9 +33,11 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">  
-	
 	<!-- font-awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+	<!-- sweetalert -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 
 </head>
 <body class="host_version"> 
@@ -152,7 +154,7 @@
 					   }
 				   },
 				   error:function(xhr){
-					   alert(xhr.status);
+					   swal(xhr.status);
 				   }
 				
 			})

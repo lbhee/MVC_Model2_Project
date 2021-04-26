@@ -78,7 +78,7 @@ $('#pwd').change(
 
 function btnclick(){
 	if (passck == false || emailck == false) {
-		alert("빈칸을 모두 채워주세요.");
+		swal("빈칸을 모두 채워주세요." , "" ,"error");
 		return;
 	} else {
 		$.ajax({
@@ -92,11 +92,11 @@ function btnclick(){
 				   if(data == "true"){
 			   		   location.href = "main.jsp";
 				   }else{
-					   alert("아이디 또는 비밀번호를 확인해주세요")
+					   swal("아이디 또는 비밀번호를 확인해주세요","","error")
 				   }
 			   },
 			   error:function(xhr){
-				   alert(xhr.status);
+				   swal(xhr.status);
 			   }
 			})
 	}
