@@ -18,6 +18,7 @@ import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Content_Member;
 import kr.or.team3.dto.member.RQ_Edit_Member;
 import kr.or.team3.dto.member.RQ_Form;
+import kr.or.team3.dto.review.Review_Board;
 
 public class MemberDao {
 DataSource ds = null;
@@ -497,7 +498,7 @@ DataSource ds = null;
 			}
 			return content;
 		}
-		// 고객이 보낸 요청서 수정하기
+		// 고객이 보낸 요청서 수정하기 by 안승주 21.04.26
 		public int RQ_Form_EditOk(RQ_Edit_Member memberdata) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -530,10 +531,67 @@ DataSource ds = null;
 			
 			return row;
 		}
+		// 리뷰 게시판(원본) 쓰기 by 안승주 21.04.26
+		public int writeReviewBoard(Review_Board reviewdata) {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int row = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "insert into review (num, title, content, writedate, grade, count ,refer, m_email, g_email, g_code) "
+						+    "values ('시퀀스', ? , ? , sysdate, ? , 0 , ? , ? , ? , 10000)";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, reviewdata.getTitle());
+				pstmt.setString(2, reviewdata.getContent());
+				pstmt.setInt(3, reviewdata.getGrade());
+				
+				int referMax = getMaxRefer();
+				
+				pstmt.setInt(4,referMax);
+				pstmt.setString(5, reviewdata.getM_email());
+				pstmt.setString(6, reviewdata.getG_email());
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			return row;
+		}
 		
 		
-		
-		
+		// 글쓰기 (refer) 값 생성하기 (원본글) by 안승주 21.04.26 
+		private int getMaxRefer() {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int refer_max = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "select nvl(max(refer),0) refernum from review";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					refer_max = rs.getInt("refernum");
+				}
+			} catch (Exception e) {
+				e.getMessage();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+			
+			return refer_max;
+		}
 		
 		
 		

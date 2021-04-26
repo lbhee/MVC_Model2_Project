@@ -38,7 +38,8 @@
 	<!-- sweetalert -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
+	<!-- iconmonster -->
+	<link rel="stylesheet"href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" />
 </head>
 <body class="host_version"> 
 
@@ -90,7 +91,7 @@
 				 				<c:if test="${gosu==0}">
                   
 
-				 				<li class="nav-item active"><a class="nav-link" href="RQList.go">요청서리스트</a></li>
+				 				<li class="nav-item active"><a class="nav-link" href="RQList_Member.go">요청서리스트</a></li>
 				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a></li>
                   
 				 				</c:if>
