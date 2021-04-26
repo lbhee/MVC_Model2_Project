@@ -158,7 +158,7 @@ GosuDao gosuDao = new GosuDao();
 
 	// 가입하기 버튼
 	$('#gosu_next_button').click(function() {
-		$('#gosujoin').submit();
+		confirm('','변경하시겠습니까?');
 	});
 
 	//우편번호로 주소찾기
@@ -209,5 +209,28 @@ GosuDao gosuDao = new GosuDao();
 	$('.img_fileBox').click(function() {
 		$('.img_file').click();
 	})
+	
+	
+	var confirm = function(msg, title, resvNum) {
+	swal({
+		title : title,
+		text : msg,
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonClass : "btn-danger",
+		confirmButtonText : "예",
+		cancelButtonText : "아니오",
+		closeOnConfirm : false,
+		closeOnCancel : true}, 
+		function(isConfirm) {
+		if (isConfirm) {
+			$('#gosujoin').submit();
+		}else{
+			return false;
+		}
+
+	});
+}
+
 </script>
 </html>

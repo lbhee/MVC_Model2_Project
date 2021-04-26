@@ -1,4 +1,3 @@
-
 <%@page import="org.apache.commons.collections.bag.SynchronizedSortedBag"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,19 +9,24 @@
   String msg = (String)request.getAttribute("member_msg");
   String url = (String)request.getAttribute("member_url");
  
-  
-  if(msg != null && url != null){
+	  
+  if(msg != "null" && url != null){
 %>
-	<script>
-		alert('<%=msg%>');		
-	    location.href='<%=request.getContextPath()+url%>';
+	<script>	
+		swal('', '<%=msg%>', "success");
+		setTimeout(function() {
+			
+		    location.href='<%=request.getContextPath()+url%>';
+		}, 500);
+		
 	</script>
 	
 <%	  
-  }else if(msg == null || url == null){
+  }else if(msg == "null" || url == null){
 %>
 	<script>	
-	    location.href='<%=request.getContextPath() +url%>';
+		location.href='<%=request.getContextPath() +url%>';
+	
 	</script>
 <%
 }

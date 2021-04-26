@@ -19,9 +19,9 @@ body{
 /* ============================== include - head =======================================*/
 .wrapper{
 	width: 100%;
-	height: calc(100vh - 72px);
-    padding-right: 15px;
-    padding-left: 15px;
+    height: calc(102vh - 58px);
+    padding-right: 20px;
+    padding-left: 20px;
     margin-right: auto;
     margin-left: auto;
     display: flex;
@@ -277,6 +277,7 @@ body{
 	text-align: center;
 	width: 50%;
 	margin: auto;
+    background-color: white;
 }
 .regidiv >p{
 	text-align: left;
@@ -629,4 +630,170 @@ body{
 	background-color: #46c7b7;
 	color: white;
    
+}
+
+.RQ_writeBox{
+	position: absolute;
+    bottom: 0;
+    right: 0;    
+    transform: translate(-12%,-450%);
+    border: none;
+    padding: 1.3125rem;
+    width: 80%;
+    height: 60%;
+    overflow: visible;
+    font-size: 12px;
+    margin-bottom: 30px;
+}
+
+.RQ_WriteImgBox{
+	height: 19.375rem;
+    position: relative;
+    text-align: center;
+    background-image: linear-gradient(
+	180deg ,rgba(0,0,0,.3),rgba(50,50,50,.6) 65%), url(../images/Qr_Write_img.png);
+    background-size: cover;
+    background-position: center 36%;
+    padding: 10px;
+}
+.Rq_Wrtie_category{
+    z-index: 0;    
+    padding: 30px;
+    list-style: none;
+    margin-top: 190px;
+    position: absolute;
+    text-align: center;
+    background-color: #f2f3f5;
+	width: 100%;
+}
+
+
+.Rq_Wrtie_category > ul > li{
+	margin-top: 10px;
+    display: inline-block;
+    padding: 0px;
+    width: 24%;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* ============== 요청서 ===================*/
+
+.RqListHead{
+	text-align: right;
+    color: #737373;
+    font-size: .875rem;
+}
+
+.RQ_box{
+	padding: 60px;
+	padding-bottom: 0;
+	margin: 0;
+}
+.RqListBox{
+	text-align: center !important;
+    position: relative;
+    display: block;
+    z-index: 1;
+    height: 210px;
+    margin-top: 5px;
+    padding: 1rem;
+    border: 1px solid #e1e1e1;
+    border-radius: .25rem;
+    width: 80%;
+    margin: 0 auto 15px auto ;
+    
+}
+
+.RqListHeaderBox{
+	text-align: right;
+    color: #737373;
+    font-size: .875rem;
+}
+.RQ >input[type=button]{
+	margin-top: 13px;
+	background-color: #00c7ae;;
+	color: white;
+	border: 1px;
+	width: 100%;
+	height: 51px;
+	font-size: 15px;	
+}
+
+.RQ >input[type=button]:hover{
+	background-color: #46c7b7;
+	color: white;
+}
+.RQListMainBox{
+    text-align: left;
+    color: black;
+    font-size: 13px;
+}
+
+.RQ_Detail_modal{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 2;
+}
+
+.RQ_Detail_modal_box{
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    width: 40%;
+    margin: auto;
+    background-color: white;
+}
+.RQ_Detail_modal_box >p{
+	text-align: left;
+}
+
+.RQ_Detail_modal_box >p:last-child{
+	text-align: right;
+    color: #737373;
+    font-size: .875rem;
+}
+
+
+.RQ_Detail_modal_Header{
+	text-align: right;
+}
+.RQ_Detail_modal_Header > input{
+	width: 1.125rem;
+    height: 1.125rem;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    
+}
+.RQ_Detail_modal_Nav{
+	font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -.0313rem;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.Rq_btn{
+	display: inline-block;
+	padding: 15px;
+	background-color: #00c7ae;;
+	color: white;
+	border: 1px;
+	width: 45%;
+	height: 51px;
+	font-size: 15px;	
+	margin: 3px;
 }

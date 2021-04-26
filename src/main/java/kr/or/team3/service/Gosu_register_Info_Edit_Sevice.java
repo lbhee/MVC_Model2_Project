@@ -84,14 +84,18 @@ public class Gosu_register_Info_Edit_Sevice implements Action{
 			int row3 = gosudao.UpdateRegister(gosu_register);
 			
 			String url="";
+			String msg="";
 			
 			if(row1 > 0 || row2 > 0 || row3 > 0) {
 				url="/GosuProfile.go";
+				msg="변경 되었습니다.";
 				
 			}else {
 				url="/Gosuregister_Info.go";
+				msg="변경 실패";
 			}
 			
+			request.setAttribute("member_msg", msg);
 			request.setAttribute("member_url", url);
 			
 			actionForward.setPath("/WEB-INF/views/include/redirect.jsp");

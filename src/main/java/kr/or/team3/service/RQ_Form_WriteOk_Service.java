@@ -22,17 +22,19 @@ public class RQ_Form_WriteOk_Service implements Action {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String rq_hopedate = request.getParameter("hopedate");
+		
 		java.util.Date rq_hopedate_util =null;
+		
 		try {
 			rq_hopedate_util = format.parse(rq_hopedate);
-			System.out.println("util date: " + rq_hopedate_util);
+			
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("util date: " + rq_hopedate_util);
+		
 		Date hopedate = new Date(rq_hopedate_util.getTime());
-		System.out.println("try 밖 hope date: " + hopedate);
+		
 		String phone = request.getParameter("phone");
 		//String M_email = request.getParameter("m_email");
 		
@@ -43,7 +45,7 @@ public class RQ_Form_WriteOk_Service implements Action {
 		RQ_Form rq_form = new RQ_Form(0, title, content, null, hopedate, 0, phone, M_email, G_email, G_code);
 		
 		ActionForward actionForward = new ActionForward();
-		System.out.println(rq_form.toString());
+		
 		try {
 			MemberDao memberDao = new MemberDao();
 			int result = memberDao.sendRQ_Form(rq_form);
@@ -53,10 +55,10 @@ public class RQ_Form_WriteOk_Service implements Action {
 			
 			if(result > 0) {
 				msg = "요청 완료";
-				url = "";
+				url = "/RQList_Member.go";
 			}else {
 				msg = "요청실패";
-				url = "";
+				url = "/RQList_Member.go";
 			}
 			request.setAttribute("member_msg", msg);
 			request.setAttribute("member_url", url);
