@@ -7,10 +7,13 @@
     var email = '<%=request.getParameter("email")%>';
     var loginemail = '<%=(String)session.getAttribute("ID")%>';
     
+    var loginemail = '<%= session.getAttribute("ID")%>';
+    
     if(email == 'null'){
-        email = '<%= session.getAttribute("ID")%>';
-              
-     }
+    	email = '<%= session.getAttribute("ID")%>';
+    			
+    }
+    
 
    </script>
 
@@ -22,11 +25,16 @@
             <div class="rowprofile">
             	<div class="profile">
 
-            		<img class="photo" src="images/default_img.svg" alt="" width="100px" height="100px">
+            		<img class="photo" src="images/default_img.svg">
 
             	</div>
 				<div id="gosu">
 				</div>
+				<div class="RQ_Box navbar-light">
+					<p class="RQ_Header">고수에게 원하는 서비스의 견적을 받아보세요.</p>
+					<input type="button" value="견적 요청하기" class="button"> 
+				</div>
+				
 			</div>
 	</div>
 
@@ -160,6 +168,35 @@
     		}
     	});
     });
+
+    
+    $('#qnaeditbtn').click(function(){
+		if(email == loginemail){
+			location.href = 'QnA_Edit.jsp';
+		}else {
+			alert("권한이 없습니다.");
+		}
+	});
+    
+    $('#noticebtn').click(function(){
+		if(email == loginemail){
+			location.href = 'Notice_Write.jsp';
+		}else {
+			alert("권한이 없습니다.");
+		}
+	});
+    
+    
+    $('.button').click(function(){
+    	if(email == loginemail){
+    		alert("자기 자신에게 요청서를 보낼 수 없습니다.");
+			
+		}else {
+			location.href = 'WriteRQ.go';
+		}
+    });
+
+
 	</script>
     </html>
     

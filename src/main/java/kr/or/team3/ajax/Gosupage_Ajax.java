@@ -42,13 +42,24 @@ public class Gosupage_Ajax extends HttpServlet {
 				JSONObject jsonobj = new JSONObject();
 				jsonobj.put("name", gosupage.get(i).getName());
 				jsonobj.put("pr", gosupage.get(i).getPr());
+								
 				jsonobj.put("area", gosupage.get(i).getArea());
 				jsonobj.put("calltime", gosupage.get(i).getCalltime());
 				jsonobj.put("hire_num", gosupage.get(i).getHire_num());
 				jsonobj.put("payment", gosupage.get(i).getPayment());
 				jsonobj.put("photo", gosupage.get(i).getPhoto());
-				jsonobj.put("license", gosupage.get(i).getLicense());
-				jsonobj.put("career", gosupage.get(i).getCareer());
+				if(gosupage.get(i).getCareer() == null) {
+					jsonobj.put("career", "이 입력되지않았습니다.");
+				}else {
+					jsonobj.put("career", gosupage.get(i).getCareer());
+				}
+				
+				if(gosupage.get(i).getLicense() == null) {
+					jsonobj.put("license", "");
+				}else {
+					jsonobj.put("license", gosupage.get(i).getLicense());
+				}
+				
 				jsonobj.put("d_name", gosupage.get(i).getD_name());
 				jsonobj.put("s_name",  gosupage.get(i).getS_name());
 				

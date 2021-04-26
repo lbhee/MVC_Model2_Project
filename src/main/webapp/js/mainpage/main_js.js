@@ -95,7 +95,7 @@
 							// 인포윈도우를 생성합니다 
 							var infowindow = new kakao.maps.InfoWindow({ 
 								content: '<div style="width:150px; text-align:center;padding:6px 0;">' 
-								         + '<a href="Gosupage.jsp?email='+obj.email+'">' +obj.s_name+ '(' +obj.d_name+ ')<br><b>' +obj.name+ ' 고수</b></a></div>', 
+								         + '<a href="GosuProfile.go?email='+obj.email+'">' +obj.s_name+ '(' +obj.d_name+ ')<br><b>' +obj.name+ ' 고수</b></a></div>', 
 								removable : true
 							}); 
 							

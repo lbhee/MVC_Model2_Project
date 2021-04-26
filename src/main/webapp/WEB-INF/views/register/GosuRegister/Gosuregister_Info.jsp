@@ -42,10 +42,10 @@ GosuDao gosuDao = new GosuDao();
 
 					<div class="gosu_register">
 						<div class="gosu_info_image_box">
-							<img alt="" class="img_fileBox"
-								src="upload/${ gosu_info_basic.photo }"> <input
-								type="file" name="photo" class="img_file" hidden>
-
+						
+						<img alt="" class="img_fileBox" src="upload/${ gosu_info_basic.photo }">
+						<input type="file" name="photo" class="img_file" hidden>
+						<input tyep="text" name="photo_Defalut" value="${ gosu_info_basic.photo }" hidden>
 						</div>
 					</div>
 
@@ -86,16 +86,30 @@ GosuDao gosuDao = new GosuDao();
 						<p>
 							<b>연락가능시간</b>
 						</p>
-						<input type="text" name="calltime" id="calltime" maxlength="10"
-							value="${ gosu_info_basic.calltime }"><br>
+						<select name="calltime_1" id="calltime_1" class="timeBox">
+							<option value="${ gosu_info_basic.calltime_1 }" selected hidden >${ gosu_info_basic.calltime_1 }</option>
+						 	<c:forEach var="i"  begin="9" end="24">
+   							     <option value="${i}시">${i>9?i:'0'}${i>9?'':i}시</option>
+   							</c:forEach>
+						</select>
+						~
+						<select name="calltime_2" id="calltime_2" class="timeBox">
+							<option value="${ gosu_info_basic.calltime_2 }" selected hidden >${ gosu_info_basic.calltime_2 }</option>
+						 	<c:forEach var="i"  begin="9" end="24">
+   							     <option value="${i}시">${i>9?i:'0'}${i>9?'':i}시</option>
+						    </c:forEach>
+						</select>
 					</div>
 
 					<div class="gosu_register">
 						<p>
 							<b>결제수단</b>
 						</p>
-						<input type="text" name="payment" id="payment"
-							value="${ gosu_info_basic.payment }"><br>
+						<select name="payment" id="payment">
+						 	<option value="${ gosu_info_basic.payment }" selected hidden >${ gosu_info_basic.payment }</option>
+							<option value="카드">카드</option>
+   							 <option value="현금">현금</option>
+						</select>
 					</div>
 
 					<div class="gosu_register">
