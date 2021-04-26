@@ -38,7 +38,8 @@
 	<!-- sweetalert -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
+	<!-- iconmonster -->
+	<link rel="stylesheet"href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" />
 </head>
 <body class="host_version"> 
 
