@@ -65,14 +65,8 @@
 	$('#gosu_next_button').click(function(){
 		var code = $('input[name=code]:checked').val();
 		console.log(code);
-		if($('#code_1').is(':checked') || $('#code_2').is(':checked')){
-			var cek = confirm("해당 고수로 등록하시겠습니까?\n등록후엔 변경이 불가능합니다.");
-			
-			if(cek == true){
-				$('#gosujoin').submit();
-			}else{
-				return;
-			}
+		if($('#code_1').is(':checked') || $('#code_2').is(':checked')){	
+			confirm('',"해당 고수로 등록하시겠습니까?\n등록후엔 변경이 불가능합니다.");
 			
 		}else{
 			swal("제공 할 서비스를 선택해주세요.");
@@ -80,6 +74,30 @@
 		
 		
 	});
+	
+	var confirm = function(msg, title, resvNum) {
+		swal({
+			title : title,
+			text : msg,
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonClass : "btn-danger",
+			confirmButtonText : "예",
+			cancelButtonText : "아니오",
+			closeOnConfirm : false,
+			closeOnCancel : true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				swal('', '고수 가입을 환영합니다~', "success");
+				$('#gosujoin').submit();
+				
+			}else{
+				return false;
+			}
+
+		});
+	}
+
 	
 </script>
 </html>

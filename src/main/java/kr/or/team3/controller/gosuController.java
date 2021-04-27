@@ -21,6 +21,10 @@ import kr.or.team3.service.Member_JoinOk_Service;
 
 import kr.or.team3.service.Member_RQ_Delete_Service;
 import kr.or.team3.service.Member_RQ_EditOk;
+import kr.or.team3.service.Notice_Del_Service;
+import kr.or.team3.service.Notice_Edit_Service;
+import kr.or.team3.service.Notice_File_Download;
+import kr.or.team3.service.Notice_Write_Service;
 import kr.or.team3.service.QnA_Edit_Service;
 import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
@@ -48,8 +52,13 @@ public class gosuController extends HttpServlet {
     	Action action = null;
     	ActionForward actionForward = null;
     	
+    	// 메인화면
+    	if (URL.equals("/main.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("main.jsp");
+    	
     	// 회원가입
-    	if(URL.equals("/Join.go")) {
+    	} else if(URL.equals("/Join.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Join.jsp");
     	
@@ -184,26 +193,47 @@ public class gosuController extends HttpServlet {
     		action = new QnA_Edit_Service();
     		actionForward = action.excute(request, response);
     	
+    	// 공지사항 글쓰기로 이동
+    	}else if(URL.equals("/NoticeWrite.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("/WEB-INF/views/gosu_page/Notice_Write.jsp");		
+    		
     	// 공지사항 글쓰기
 		}else if(URL.equals("/NoticeWriteOK.go")) {
-			  action = new QnA_Wirte_Service();
+			  action = new Notice_Write_Service();
 			  actionForward = action.excute(request, response);
 			  
 		// (고객) 요청서 수정 by 안승주
 		}else if(URL.equals("/Member_RQ_EditOk.go")) {
 			action = new Member_RQ_EditOk();
 			actionForward = action.excute(request, response);
+
+    	// 공지사항 상세보기로 이동
+		}else if(URL.equals("/NoticeContent.go")) {
+			actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/gosu_page/Notice_Content.jsp");		
+    	
+    	// 공지사항 수정으로 이동
+		}else if(URL.equals("/NoticeEdit.go")) {
+			actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/gosu_page/Notice_Edit.jsp");		
+		 
+		// 공지사항 수정
+		}else if(URL.equals("/NoticeEditOK.go")) {
+			action = new Notice_Edit_Service();
+			actionForward = action.excute(request, response);
+			
+		// 공지사항 삭제 
+		}else if(URL.equals("/NoticeDel.go")) {
+			action = new Notice_Del_Service();
+			actionForward = action.excute(request, response);
+			
+    	// 공지사항 파일 다운로드 	
+		} else if(URL.equals("/NoticeFileDownload.go")) {
+			action = new Notice_File_Download();
+			actionForward = action.excute(request, response);
 		}
-    	
-	    //}else if(URL.equals("/NoticeWriteOK.go")) {
-		    //action = new QnA_Wirte_Service();
-		    //actionForward = action.excute(request, response);
-	    //}
-	
-    	
-    	
-    	
-    	
+
     	// 결과 forward
     	if(actionForward != null) {
             RequestDispatcher dis = request.getRequestDispatcher(actionForward.getPath());

@@ -9,23 +9,20 @@
 
 %>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
-<c:set var = "m_email" value = "<%=m_email%>"/>
-<c:set var = "g_email" value = "<%=g_email%>"/>
+
+<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
+
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
-    var loginemail = '<%=(String)session.getAttribute("ID")%>';
-    
     var loginemail = '<%= session.getAttribute("ID")%>';
     
     if(email == 'null'){
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
-    console.log(email);
-    console.log(loginemail);
 
    </script>
-
+	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
 	<body>
 	
 	<div class="app-body">
@@ -96,7 +93,7 @@
       </div>      
          
       <div class="container">  
-      	<div class="tabs">   
+      	<div class="tabs2">   
 	      <div class="tab_select">
 				<ul class="script_ul">
 					<li><a class="tab_selected" href="#" id="noticeboard">공지사항</a></li>
@@ -109,33 +106,55 @@
 
           
       <div class="container">       
-	       <div id="boarddata" style="padding-bottom: 30px; padding-top: 30px">
+	       <div style="padding-bottom: 30px; padding-top: 30px">	       
+					<div class="pricingTable">
+						<div class="pricingContent">
+							<div class="pricingContent">
+					            <ul id="boarddata">
+					            
+					            </ul>
+					        </div>
+					    </div>
+					</div>
+	       
 	       </div> 
-	       <div id="button_div" style="display: none">
-		       <button id="write_btn" onclick="location.href='#'">글쓰기</button >
-		       <button id="edit_btn" onclick="location.href='#'">수정하기</button >
-	       </div>
+		       <button style="display: none" id="write_btn" onclick="location.href='NoticeWrite.go'">글쓰기</button >
+		       <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
        </div>  
         
 	</div>
     </body>
     <script type="text/javascript">
-
+	var d_code = null;
+    
     $(function(){
     	gosupage();
-    	if(email == loginemail){
-    		$('#button_div').attr('style','');
-    	}
-    });
 
+    	notice();
+    	
+
+    	if(email == loginemail){
+    		$('#write_btn').attr('style','');
+    	}
+
+    });
+    
+    //고수정보
     function gosupage() {
     	$.ajax({
     		url:"Gosupage_Ajax",
     		dataType:"JSON",
     		data: {email: email},
     		success:function(responsedata){
-    			console.log(responsedata);
+    			
+    			// 뿌려지는 화면 없으면 메인화면으로 전환
+    			if(responsedata.length == 0){
+    				location.href = "main.go";
+					return;
+				}
+    			
     			$.each(responsedata,function(index,obj){
+    				
     				$('#gosu').append("<h2>" + obj.name + "</h2><p>" + obj.s_name + "(" + obj.d_name + ") 고수");
 
     				$('#introduction').append(obj.pr);
@@ -149,21 +168,57 @@
     				$('.photo').attr('src','upload/' + obj.photo);
 
     			});
-
+    			 console.log($('#gosu >p').text());
+    			 d_code = $('#gosu >p').text();
     		}
     	});
     }
 	
-    
-    
+
+    //탭 css
     $('.script_ul > li >a').click(function(){
 		$('.script_ul > li >a').attr('class','');
 		$(this).attr('class','tab_selected');
 		
 	})
 	
-	//review 게시판 글쓰기(보여주기)
+
+	//공지사항
+	function notice() {
+    	$.ajax({
+    		url:"Notice_Ajax",
+    		dataType:"JSON",
+    		data: {email: email},
+    		success: function(responsedata){
+    			$.each(responsedata,function(index,obj){
+    				$('#boarddata').append("<li id='no"+obj.num+"'>" + "<i class='fas fa-check'></i>        " + obj.title + "</li>");
+    			
+    			     $('#no'+obj.num).click(function(){
+    			    	 location.href = "NoticeContent.go?num="+obj.num;
+    			     });
+    		    });
+    	    }
+       });
+    }
 	
+    //공지사항 탭
+    $('#noticeboard').click(function(){ 
+    	if(email == loginemail){
+    		$('#write_btn').attr('style','');
+    		$('#edit_btn').attr('style','display: none');
+    	}
+    	
+		$('#write_btn').attr("onclick", "location.href='NoticeWrite.go'");
+		$('#edit_btn').attr("onclick", "location.href='NoticeEdit.go'");
+		
+		$('#boarddata').empty();
+		notice();
+    });	
+	
+	
+    //자주하는 질문 탭
+
+	//review 계시판 글쓰기(보여주기)
 	$('#reviewboard').click(function(){
 		$.ajax({
     		url : "ReviewWriteShow_Ajax",
@@ -187,11 +242,18 @@
 	});
 	
    //자주하는 질문
+
     $('#qnaboard').click(function(){ 
     	$.ajax({
     		url:"QnA_Ajax",
     		data: {email: email},
     		success: function(responsedata){
+    			
+    			if(email == loginemail){
+    	    		$('#write_btn').attr('style','');
+    	    		$('#edit_btn').attr('style','');
+    	    	}
+    			
     			$('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
     			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
     			
@@ -203,13 +265,14 @@
     		}
     	});
     });
-	
-    
+
+
+	//요청서보내기
     $('#qnaeditbtn').click(function(){
 		if(email == loginemail){
 			location.href = 'QnA_Edit.jsp';
 		}else {
-			alert("권한이 없습니다.");
+			swal('', '권한이 없습니다.', "error");
 		}
 	});
     
@@ -217,23 +280,22 @@
 		if(email == loginemail){
 			location.href = 'Notice_Write.jsp';
 		}else {
-			alert("권한이 없습니다.");
+			swal('', '권한이 없습니다.', "error");
 		}
 	});
     
-    
+
     $('.button').click(function(){
     	if(email == loginemail){
-    		alert("자기 자신에게 요청서를 보낼 수 없습니다.");
-			
+    		swal('', '자기 자신에게 요청서를 보낼 수 없습니다.', "error");
+		}else if(loginemail == 'null'){
+			swal('', '로그인 후 이용가능합니다.', "error");
 		}else {
-			location.href = 'WriteRQ.go';
+			location.href = 'WriteRQ.go?email=${gosu_email}&code=' + d_code;
 		}
     });
-    
-    
-   	
-   
+
+
 	</script>
     </html>
     

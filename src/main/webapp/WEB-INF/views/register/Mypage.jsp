@@ -8,7 +8,7 @@
 	String id = (String)session.getAttribute("ID");
 
 	if(id == null){
-		response.sendRedirect(request.getContextPath()+"/main.jsp");
+		response.sendRedirect(request.getContextPath()+"/main.go");
 		return;
 	}
 	
@@ -38,7 +38,7 @@
 				<p></p>
 				
 				<p>비밀번호</p>
-				<input type="password" maxlength="15" id="pwd" name="pwd" onkeyup="enterkey()" placeholder="정보를 수정할려면 비밀번호를 입력해주세요." >
+				<input type="password" maxlength="15" id="pwd" name="pwd" onkeyup="enterkey()" placeholder="정보를 수정할려면 비밀번호를 입력해주세요.">
 				<p></p>
 				
 				<input type="button" value="정보수정" class="button"> 
@@ -94,7 +94,7 @@ $('#name').change(function() {
 
 //비밀번호 체크 
 var passck = false;
-$('#pwd').blur(function() {
+$('#pwd').change(function() {
 			if ($('#pwd').val() != pwd){
 				passck = false;
 			} else {
@@ -175,16 +175,13 @@ $('.button').click(function() {
 
 function btnclick(){
 	if(passck == false){
-		alert("비밀번호를 확인해주세요.");
+		swal("비밀번호를 확인해주세요","","error")
 		return false;
 	}else{
-			var cek = confirm("수정하시겠습니까?");
-			if(cek == true){
-				$('#join').submit();
-			}else{
-				return;
-			}
-		}
+		confirm('','수정하시겠습니까?','userinfo');
+	}
+		
+		
 }	
 
 //엔터키
@@ -196,6 +193,33 @@ function enterkey() {
 	} 	
 }		
 
+
+// 스윗얼럿 선택창
+var confirm = function(msg, title, resvNum) {
+	swal({
+		title : title,
+		text : msg,
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonClass : "btn-danger",
+		confirmButtonText : "예",
+		cancelButtonText : "아니오",
+		closeOnConfirm : false,
+		closeOnCancel : true
+	}, function(isConfirm) {
+		if (isConfirm) {
+			if(resvNum == "userinfo"){
+				$('#join').submit();
+			}else if(resvNum == "pwd"){
+				$('#pwdChangeForm').submit();
+			}
+			
+		}else{
+			return false;
+		}
+
+	});
+}
 
 
 // ===============================================================================
@@ -222,7 +246,7 @@ $('.pwdChange_btn').click(function() {
 
 //비밀번호 체크   
 var origin_pwd = false;
-$('#origin_pwd').blur(function() {
+$('#origin_pwd').change(function() {
 			if ($('#origin_pwd').val() != pwd){
 				origin_pwd = false;
 			} else {
@@ -234,7 +258,7 @@ $('#origin_pwd').blur(function() {
 var passwoercheck = /^([A-Za-z])+([0-9])+([~!@#$%^&*()_+|<>?:{}])+$/;
 var new_pwd = false;
 var new_pwdck = false;
-$('#new_pwd').blur(
+$('#new_pwd').change(
 		function() {
 			if (passwoercheck.test($('#new_pwd').val())
 					&& $("#new_pwd").val().length >= 8) {
@@ -249,7 +273,7 @@ $('#new_pwd').blur(
 			}
 		})
 
-$('#new_pwdck').blur(
+$('#new_pwdck').change(
 		function() {
 			if ($('#new_pwd').val() == $('#new_pwdck').val()) {
 				console.log("일치");
@@ -270,13 +294,7 @@ $('.pwd_Change_btn').click(function() {
 			swal("입력값을 확인해주세요.", "" ,"error");
 			return;
 		} else {
-			var cek = swal("변경하시겠습니까?","","info");
-			if(cek == true){
-				$('#pwdChangeForm').submit();
-			}else{
-				return;
-			}
-
+			confirm('','변경하시겠습니까?','pwd');
 		}
 	
 })

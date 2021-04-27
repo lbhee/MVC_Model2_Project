@@ -214,6 +214,71 @@ DataSource ds = null;
 		return list;
 	}
 	
+	//고객이 고수에게 보낸 수락 혹은 거절된 요청서리스트 가져오기 by 안승주 21.04.19 수정 21.04.21
+		public List<RQ_Form> getDone_RQ_Form_Member(int cpage, int pagesize, String M_email) {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<RQ_Form> list = null;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = 	"SELECT *" +
+						"FROM (" +
+								"SELECT rownum AS rnum, rq.*" +
+								"FROM (" +
+										"SELECT * " +
+										"FROM RQ_FORM " +
+										"WHERE done != 0 AND M_EMAIL = ?" +
+										"ORDER BY num DESC) rq " +
+										"WHERE rownum <= ?" +//end
+							") n WHERE rnum >= ?"; //start
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				int start = cpage * pagesize - (pagesize -1); 	// 1 * 5 - (5 - 1 ) >> 1 
+				int end = cpage * pagesize; 					// 1 * 5 >> 5
+				
+				
+				pstmt.setString(1,M_email);
+				pstmt.setInt(2, end);
+				pstmt.setInt(3, start);
+				
+				rs = pstmt.executeQuery();
+				list = new ArrayList<RQ_Form>();
+				while(rs.next()) {
+					RQ_Form rq_Form = new RQ_Form();
+					rq_Form.setNum(rs.getInt("num"));
+					rq_Form.setTitle(rs.getString("title"));
+					rq_Form.setContent(rs.getString("content"));
+					rq_Form.setWritedate(rs.getDate("writedate"));
+					rq_Form.setHopedate(rs.getDate("hopedate"));
+					rq_Form.setPhone(rs.getString("phone"));
+					rq_Form.setDone(rs.getInt("done"));
+					rq_Form.setM_mail(rs.getString("M_email"));
+					rq_Form.setG_email(rs.getString("G_email"));
+					rq_Form.setG_code(rs.getInt("G_code"));
+					
+					list.add(rq_Form);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.getMessage();
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.getMessage();
+					e2.printStackTrace();
+				}
+			}
+			return list;
+		}
+	
 	//고객이 요청취소시 by 안승주 21.04.23
 	public boolean delete_RQ_Member(int num) {
 		
@@ -440,7 +505,6 @@ DataSource ds = null;
 //		}
 		
 		// 고객이 고수에게 보낸 요청서 콘텐츠 가져오기 by 안승주 21.04.23
-		@SuppressWarnings("resource")
 		public RQ_Content_Member getRQContent_Member(int num) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;

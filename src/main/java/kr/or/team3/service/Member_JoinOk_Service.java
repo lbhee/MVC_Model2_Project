@@ -31,11 +31,11 @@ public class Member_JoinOk_Service implements Action {
 			String url="";
 			
 			if(result > 0 ) {
-				msg="가입 완료";
+				msg="가입이 완료되었습니다.";
 				url="/Login.go";
 				
 			}else {
-				msg="가입 실패";
+				msg="가입이 실패되었습니다.";
 				url="/Join.go";
 			}
 			

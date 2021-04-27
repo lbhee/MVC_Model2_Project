@@ -11,11 +11,13 @@
 
 String G_email = (String) session.getAttribute("ID");
 GosuDao dao = new GosuDao();
+MemberDao memberDao = new MemberDao();
+
 String cp = request.getParameter("cp");
 String ps = request.getParameter("ps");
 
 if (ps == null || ps.trim().equals("")) {
-	ps = "6";
+	ps = "20";
 }
 
 if (cp == null || cp.trim().equals("")) {
@@ -26,102 +28,126 @@ int cpage = Integer.parseInt(cp);
 int pagesize = Integer.parseInt(ps);
 
 List<RQ_Form> list = dao.getRQList_Gosu(cpage, pagesize, G_email);
-System.out.println(list.size());
-System.out.println(list.isEmpty());
+List<RQ_Form> Donelist = dao.get_RqDoneList_Gosu(cpage, pagesize, G_email);
+
 int totalRQcount = dao.totalRQMemberCount(G_email);
-
-int pagecount = 0;
-
-if(totalRQcount % pagesize == 0){
-	pagecount = totalRQcount / pagesize; //  20 << 100/5
-}else{
-	pagecount = (totalRQcount / pagesize) + 1; 
-}
 %>
 <c:set var="list" value="<%=list%>"/>
+<c:set var="Donelist" value="<%=Donelist%>"/>
+<c:set var="cpage" value="<%=cpage%>" />
+<c:set var="pagesize" value="<%=pagesize%>" />
+<c:set var="conextPath" value="<%=request.getContextPath()%>" />
 <c:set var="totalcount" value="<%=totalRQcount%>"/>
 <c:set var = "cpage" value = "<%=cpage%>"/>
 <c:set var = "pagesize" value = "<%=pagesize%>"/>
-<c:set var = "pagecount" value = "<%=pagecount%>"/>
-
-<div class="all-title-box">
-	<div class="container text-center">
-		<h1>
-			요청서리스트<span class="m_1">도착한 요청서 리스트입니다</span>
-		</h1>
-	</div>
-</div>
+<c:set var = "memberDao" value = "<%=memberDao%>"/>
 
 <div id="overviews" class="section lb" style="background-color: white">
 	<div class="container">
-		<div class="section-title row text-center">
-			<div class="col-md-8 offset-md-2">
+		<div class="RqListHead">
 				<c:choose>
 					<c:when test="${list.size() == 0 || list == null}">
 						<h3>도착한 요청서가 없습니다</h3>
 					</c:when>
 					<c:otherwise>
-						<h3>고수에게 보낸 요청서가 <b>${totalcount}건 </b>있습니다</h3>
+						<h3>도착한 요청서가 <b>${totalcount}건 </b>있습니다</h3>
 					</c:otherwise>
 				</c:choose>
-			</div>
-		</div>
-		<!-- end title -->
-
-		<hr class="invis">
-		
-		<div class="row">
-			<c:forEach var="rqlist" items="${list}" begin="0" end="2" step="1">
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
-						data-wow-delay="0.2s">
-						<i class="flaticon-server global-radius effect-1 alignleft"></i>
-						<h3>${rqlist.g_email}님에 요청</h3>
-						<p>요청번호: ${fn:trim(rqlist.num)}</p>
-						<a href="RQ_Content_Gosu.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
-					</div>
-				</div><!-- end col -->
-			</c:forEach>
-		</div><!-- end row -->
-		<c:if test = "${fn:length(list) > 3}">
-			<hr class="hr3">
-		</c:if>
-		
-		<div class="row">
-			<c:forEach var="rqlist" items="${list}" begin="3" end="6" step="1">
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
-						data-wow-delay="0.2s">
-						<i class="flaticon-server global-radius effect-1 alignleft"></i>
-						<h3>${rqlist.g_email}에게 요청</h3>
-						<p>
-							요청번호: ${rqlist.num}<br>
-							<small class="readmore">
-								<a href="RQ_Content_Gosu.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
-							</small>
-						</p>
-					</div>
-				</div><!-- end col -->
-			</c:forEach>
-		</div><!-- end row -->
-		
-		<div class = "paging">
-			<c:if test="${cpage > 1}">
-				<a href="RQList_Gosu.go?cp=${cpage-1}&ps=${pagesize}">이전</a>
-			</c:if>
-			<c:forEach var="i" begin="1" end="${pagecount}" step="1">
-				<c:choose>
-					<c:when test="${cpage==i}">
-						<font color="red" >[${i}]</font>
-					</c:when>
-					<c:otherwise>
-						<a href="RQList_Gosu.go?cp=${i}&ps=${pagesize}">[${i}]</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</div>
-		
-	</div>
-	<!-- end container -->
+		</div>		
+	</div>	
 </div>
-<!-- end section -->
+		<div class="container">
+		<div class="RQ_box">
+		<h2><b>받은 요청서</b></h2>
+		</div>
+		<div class="row">
+			<c:forEach var="rqlist" items="${list}" begin="0" end="${list.size()}" step="1">
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class='RqListBox'>
+						<div class="RqListHeaderBox">
+							<p class="Rq_boardBox">요청 📩️</p>
+							${rqlist.writedate}
+							<p>요청번호: ${rqlist.num}</p>
+						</div>
+						<div class="RQListMainBox">
+							<c:set var="member" value="${ memberDao.getContent(rqlist.m_mail) }"></c:set>
+							<p>${member.name}님에게서 온 요청서</p>
+						</div>
+						<form action="" class="RQ">
+						<p class="num=${rqlist.num}&cp=${cpage}&ps=${pagesize}" hidden"></p>
+						<input type="button" value="자세히 보기" class="button">
+						</form>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<div class="RQ_Detail_modal"></div>
+		<!-- ================================================================================= -->
+		
+		
+		<div class="RQ_box">
+		<hr>
+		<h2><b>처리가 완료된 요청서</b></h2>
+		</div>
+		<div class="row">
+			<c:forEach var="Donelist" items="${Donelist}" begin="0" end="${Donelist.size()}" step="1">
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class='RqListDoneBox'>
+						<div class="RqDoneListHeaderBox">
+							<c:if test="${ Donelist.done == 1 }">
+								<p>수락한 요청서 ✅</p>
+							</c:if>
+							<c:if test="${ Donelist.done == 2 }">
+								<p>거절한 요청서 ❌</p>
+							</c:if>
+							${Donelist.writedate}
+							<p>요청번호: ${Donelist.num}</p>
+						</div>
+						<div class="RQListMainBox">
+							<c:set var="member" value="${ memberDao.getContent(Donelist.m_mail) }"></c:set>
+							<p>${member.name}님에게서 온 요청서</p>
+						</div>
+						<form action="" class="RQ">
+						<p class="num=${Donelist.num}&cp=${cpage}&ps=${pagesize}&CheckList=Done" hidden"></p>
+						<input type="button" value="자세히 보기" class="button">
+						</form>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>	
+<script type="text/javascript">
+	$('.RQ_Detail_modal').hide();
+	$('.RQ').click(function(){
+		console.log($(this).children("p"));
+		
+		var date = $(this).children("p")[0];
+		
+		console.log(date.attributes[0].nodeValue);
+		$.ajax({
+			url:"Gosu_RQ_Detail", 
+			   data:date.attributes[0].nodeValue,
+			   dataType:"html",
+			   success:function(data){
+				   
+				   
+				   $('.RQ_Detail_modal').empty();
+				   $('.RQ_Detail_modal').append(data);
+				   $('.RQ_Detail_modal').show();
+				   
+				   
+				   $('.closeMadal').click(function(){
+						$('.RQ_Detail_modal').hide();
+						$('.RQ_Detail_modal').empty();
+					})
+			   },
+			   error:function(xhr){
+				   alert(xhr);
+			   }
+			
+		})
+	})
+	
+	
+
+</script>
