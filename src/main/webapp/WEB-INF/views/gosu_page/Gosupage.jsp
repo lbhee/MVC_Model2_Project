@@ -5,8 +5,6 @@
 
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
-    var loginemail = '<%=(String)session.getAttribute("ID")%>';
-    
     var loginemail = '<%= session.getAttribute("ID")%>';
     
     if(email == 'null'){
@@ -87,7 +85,7 @@
       </div>      
          
       <div class="container">  
-      	<div class="tabs">   
+      	<div class="tabs2">   
 	      <div class="tab_select">
 				<ul class="script_ul">
 					<li><a class="tab_selected" href="#" id="noticeboard">공지사항</a></li>
@@ -99,14 +97,25 @@
       </div>    
 
           
-          
+                        
+                        
+                        
+                          
       <div class="container">       
-	       <div id="boarddata" style="padding-bottom: 30px; padding-top: 30px">
+	       <div style="padding-bottom: 30px; padding-top: 30px">	       
+					<div class="pricingTable">
+						<div class="pricingContent">
+							<div class="pricingContent">
+					            <ul id="boarddata">
+					            
+					            </ul>
+					        </div>
+					    </div>
+					</div>
+	       
 	       </div> 
-	       <div id="button_div" style="display: none">
-		       <button id="write_btn" onclick="location.href='#'">글쓰기</button >
-		       <button id="edit_btn" onclick="location.href='#'">수정하기</button >
-	       </div>
+		       <button style="display: none" id="write_btn" onclick="location.href='NoticeWrite.go'">글쓰기</button >
+		       <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
        </div>  
         
 	</div>
@@ -116,12 +125,15 @@
 
     $(function(){
     	gosupage();
+    	notice();
     	
     	if(email == loginemail){
-    		$('#button_div').attr('style','');
+    		$('#write_btn').attr('style','');
     	}
-    });
 
+    });
+    
+    //고수정보
     function gosupage() {
     	$.ajax({
     		url:"Gosupage_Ajax",
@@ -147,19 +159,59 @@
     		}
     	});
     }
-
+	
+    //탭 css
     $('.script_ul > li >a').click(function(){
 		$('.script_ul > li >a').attr('class','');
 		$(this).attr('class','tab_selected');
 		
 	})
-
-   //자주하는 질문
+	
+	//공지사항
+	function notice() {
+    	$.ajax({
+    		url:"Notice_Ajax",
+    		dataType:"JSON",
+    		data: {email: email},
+    		success: function(responsedata){
+    			$.each(responsedata,function(index,obj){
+    				$('#boarddata').append("<li id='no"+obj.num+"'>" + "<i class='fas fa-check'></i>        " + obj.title + "</li>");
+    			
+    			     $('#no'+obj.num).click(function(){
+    			    	 location.href = "NoticeContent.go?num="+obj.num;
+    			     });
+    		    });
+    	    }
+       });
+    }
+	
+    //공지사항 탭
+    $('#noticeboard').click(function(){ 
+    	if(email == loginemail){
+    		$('#write_btn').attr('style','');
+    		$('#edit_btn').attr('style','display: none');
+    	}
+    	
+		$('#write_btn').attr("onclick", "location.href='NoticeWrite.go'");
+		$('#edit_btn').attr("onclick", "location.href='NoticeEdit.go'");
+		
+		$('#boarddata').empty();
+		notice();
+    });	
+	
+	
+    //자주하는 질문 탭
     $('#qnaboard').click(function(){ 
     	$.ajax({
     		url:"QnA_Ajax",
     		data: {email: email},
     		success: function(responsedata){
+    			
+    			if(email == loginemail){
+    	    		$('#write_btn').attr('style','');
+    	    		$('#edit_btn').attr('style','');
+    	    	}
+    			
     			$('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
     			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
     			
@@ -169,24 +221,7 @@
     	});
     });
 
-    
-    $('#qnaeditbtn').click(function(){
-		if(email == loginemail){
-			location.href = 'QnA_Edit.jsp';
-		}else {
-			alert("권한이 없습니다.");
-		}
-	});
-    
-    $('#noticebtn').click(function(){
-		if(email == loginemail){
-			location.href = 'Notice_Write.jsp';
-		}else {
-			alert("권한이 없습니다.");
-		}
-	});
-    
-    
+	//요청서보내기
     $('.button').click(function(){
     	if(email == loginemail){
     		alert("자기 자신에게 요청서를 보낼 수 없습니다.");
@@ -196,8 +231,7 @@
 		}
     });
 
-
-	</script>
-    </html>
-    
+</script>
+</html>
+   
     

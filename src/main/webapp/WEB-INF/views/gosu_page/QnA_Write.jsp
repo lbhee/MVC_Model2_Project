@@ -9,8 +9,7 @@
 %>
 
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
-
-	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
 	<script type="text/javascript">
 	function check(){
