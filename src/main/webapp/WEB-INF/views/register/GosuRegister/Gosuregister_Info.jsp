@@ -43,7 +43,16 @@ GosuDao gosuDao = new GosuDao();
 					<div class="gosu_register">
 						<div class="gosu_info_image_box">
 						
-						<img alt="" class="img_fileBox" src="upload/${ gosu_info_basic.photo }">
+						<c:choose>
+							<c:when test="${ gosu_info_basic.photo == 'null'}">
+								<img alt="" class="img_fileBox" src="images/default_img.svg">
+							</c:when>
+							
+							<c:when test="${ gosu_info_basic.photo != null}">
+								<img alt="" class="img_fileBox" src="upload/${ gosu_info_basic.photo }">
+							</c:when>
+						
+						</c:choose>
 						<input type="file" name="photo" class="img_file" hidden>
 						<input tyep="text" name="photo_Defalut" value="${ gosu_info_basic.photo }" hidden>
 						</div>
