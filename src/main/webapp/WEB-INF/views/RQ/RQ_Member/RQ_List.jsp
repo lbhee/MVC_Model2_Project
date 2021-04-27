@@ -16,7 +16,7 @@ String ps = request.getParameter("ps");
 
 
 if (ps == null || ps.trim().equals("")) {
-	ps = "20";
+	ps = "10";
 }
 
 if (cp == null || cp.trim().equals("")) {

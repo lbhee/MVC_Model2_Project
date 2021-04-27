@@ -1,9 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@page import="kr.or.team3.dao.GosuDao"%>
 <%@page import="kr.or.team3.dto.member.RQ_Form"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.team3.dao.MemberDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
@@ -17,7 +17,7 @@ String cp = request.getParameter("cp");
 String ps = request.getParameter("ps");
 
 if (ps == null || ps.trim().equals("")) {
-	ps = "20";
+	ps = "10";
 }
 
 if (cp == null || cp.trim().equals("")) {
@@ -29,8 +29,8 @@ int pagesize = Integer.parseInt(ps);
 
 List<RQ_Form> list = dao.getRQList_Gosu(cpage, pagesize, G_email);
 List<RQ_Form> Donelist = dao.get_RqDoneList_Gosu(cpage, pagesize, G_email);
-
 int totalRQcount = dao.totalRQMemberCount(G_email);
+
 %>
 <c:set var="list" value="<%=list%>"/>
 <c:set var="Donelist" value="<%=Donelist%>"/>

@@ -328,11 +328,13 @@ public class GosuDao {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally {
+
 			try {
 				pstmt.close();
 				rs.close();
 				conn.close();
 			} catch (Exception e2) {
+
 				e2.printStackTrace();
 				e2.getMessage();
 			}
@@ -388,8 +390,9 @@ public class GosuDao {
 					list.add(rq_Form);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+
 			}finally {
+
 				try {
 					pstmt.close();
 					rs.close();
@@ -398,7 +401,7 @@ public class GosuDao {
 					e2.printStackTrace();
 					e2.getMessage();
 				}
-			}
+		}
 			return list;
 		}
 	
@@ -438,6 +441,7 @@ public class GosuDao {
 	}
 	
 	//고수가 받은 요청서 완료 by 안승주 21.04.23
+	@SuppressWarnings("resource")
 	public boolean complet_RQ_Gosu(int num, String g_email) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -467,10 +471,7 @@ public class GosuDao {
 					}
 					
 				} catch (Exception e) {
-					// TODO: handle exception
-				}
-			}
-		} catch (Exception e) {
+
 			// TODO: handle exception
 			e.printStackTrace();
 			e.getMessage();
@@ -669,12 +670,12 @@ public class GosuDao {
 						content.setPhone(rs.getString("phone"));
 						
 					}
-					System.out.println("3");
+					
 					pstmt = conn.prepareStatement(sql2);
 					pstmt.setInt(1, num);
 					rs = pstmt.executeQuery();
 					if(rs.next()) {
-						System.out.println("2");
+						
 						content.setGosuName(rs.getString("name"));
 					}
 					
