@@ -530,22 +530,53 @@ pre code {
 	margin-left: auto
 }
 
+@media ( min-width :300px) {
+	.container {
+		max-width: 540px
+	}
+	.main_image{
+		display: none;
+	}
+	.wrapper {
+  		display: block !important;
+	} 
+}
+
+
 @media ( min-width :576px) {
 	.container {
 		max-width: 540px
 	}
+	.main_image{
+		display: none;
+	}	
+	.wrapper {
+  		display: block !important;
+	} 
 }
 
 @media ( min-width :768px) {
 	.container {
 		max-width: 720px
 	}
+	.main_image{
+		display: none;
+	}
+	.wrapper {
+  		display: block !important;
+	} 
 }
 
 @media ( min-width :992px) {
 	.container {
 		max-width: 960px
 	}
+	.main_image{
+		display: block;
+	}
+	.wrapper {
+  		display: flex !important;
+	} 
 }
 
 @media ( min-width :1200px) {
@@ -2227,7 +2258,6 @@ select.form-control:focus::-ms-value {
 	}
 	.form-inline .form-control {
 		display: inline-block;
-		width: auto;
 		vertical-align: middle
 	}
 	.form-inline .form-control-plaintext {

@@ -52,8 +52,13 @@ public class gosuController extends HttpServlet {
     	Action action = null;
     	ActionForward actionForward = null;
     	
+    	// 메인화면
+    	if (URL.equals("/main.go")) {
+    		actionForward = new ActionForward();
+    		actionForward.setPath("main.jsp");
+    	
     	// 회원가입
-    	if(URL.equals("/Join.go")) {
+    	} else if(URL.equals("/Join.go")) {
     		actionForward = new ActionForward();
     		actionForward.setPath("/WEB-INF/views/register/Join.jsp");
     	

@@ -16,7 +16,7 @@ String ps = request.getParameter("ps");
 
 
 if (ps == null || ps.trim().equals("")) {
-	ps = "6";
+	ps = "20";
 }
 
 if (cp == null || cp.trim().equals("")) {
@@ -27,32 +27,20 @@ int cpage = Integer.parseInt(cp);
 int pagesize = Integer.parseInt(ps);
 
 List<RQ_Form> list = dao.getRQ_Form_Member(cpage, pagesize, M_email);
-System.out.println(list.size());
-System.out.println(list.isEmpty());
 
 int totalRQcount = dao.totalRQMemberCount(M_email);
-System.out.println(totalRQcount);
-System.out.println(M_email);
+
 %>
 <c:set var="list" value="<%=list%>"/>
 <c:set var="cpage" value="<%=cpage%>" />
 <c:set var="pagesize" value="<%=pagesize%>" />
 <c:set var="conextPath" value="<%=request.getContextPath()%>" />
 <c:set var="totalcount" value="<%=totalRQcount%>"/>
-
-
-<div class="all-title-box">
-	<div class="container text-center">
-		<h1>
-			요청서리스트<span class="m_1">보낸 요청서 리스트입니다</span>
-		</h1>
-	</div>
-</div>
+<c:set var="dao" value="<%=dao%>" />
 
 <div id="overviews" class="section lb" style="background-color: white">
 	<div class="container">
-		<div class="section-title row text-center">
-			<div class="col-md-8 offset-md-2">
+		<div class="RqListHead">
 				<c:choose>
 					<c:when test="${list.size() == 0 || list == null}">
 						<h3>고수에게 보낸 요청서가 없습니다</h3>
@@ -61,52 +49,71 @@ System.out.println(M_email);
 						<h3>고수에게 보낸 요청서가 <b>${totalcount}건 </b>있습니다</h3>
 					</c:otherwise>
 				</c:choose>
-				
-			</div>
-		</div>
+		</div>		
+	</div>	
+</div>	
 		<!-- end title -->
-
-		<hr class="invis">
 		
+		<div class="RQ_box">
+		
+		<h2><b>보낸 요청서</b></h2>
+		</div>
 		<div class="row">
-			<c:forEach var="rqlist" items="${list}" begin="0" end="2" step="1">
+			<c:forEach var="rqlist" items="${list}" begin="0" end="${list.size()}" step="1">
 				<div class="col-md-4 col-sm-6 col-xs-12">
-					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
-						data-wow-delay="0.2s">
-						<i class="flaticon-server global-radius effect-1 alignleft"></i>
-						<h3>${rqlist.g_email}에게 요청</h3>
-						<p>
-							요청번호: ${rqlist.num}<br>
-							요청날짜: ${rqlist.writedate}<br>
-							<small class="readmore">
-								<a href="Rq_Content_Memeber.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
-							</small>
-						</p>
+					<div class='RqListBox'>
+						<div class="RqListHeaderBox">
+							${rqlist.writedate}
+							<p>요청번호: ${rqlist.num}</p>
+						</div>
+						<div class="RQListMainBox">
+							<c:set var="member" value="${ dao.getContent(rqlist.g_email) }"></c:set>
+							<p>${member.name}고수에게 보낸요청</p>
+						</div>
+						<form action="" class="RQ">
+						<p class="num=${rqlist.num}&cp=${cpage}&ps=${pagesize}" hidden"></p>
+						<input type="button" value="자세히 보기" class="button">
+						</form>
 					</div>
-				</div><!-- end col -->
+				</div>
 			</c:forEach>
-		</div><!-- end row -->
-		<c:if test = "${fn:length(list) > 3}">
-			<hr class="hr3">
-		</c:if>
-		<div class="row">
-			<c:forEach var="rqlist" items="${list}" begin="3" end="6" step="1">
-				<div class="col-md-4 col-sm-6 col-xs-12">
-					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
-						data-wow-delay="0.2s">
-						<i class="flaticon-server global-radius effect-1 alignleft"></i>
-						<h3>${rqlist.g_email}에게 요청</h3>
-						<p>
-							요청번호: ${rqlist.num}<br>
-							<small class="readmore">
-								<a href="Rq_Content_Memeber.go?num=${rqlist.num}&cp=${cpage}&ps=${pagesize}">요청서 자세히 보기</a>
-							</small>
-						</p>
-					</div>
-				</div><!-- end col -->
-			</c:forEach>
-		</div><!-- end row -->
-	</div>
-	<!-- end container -->
-</div>
-<!-- end section -->
+		</div>
+		<div class="RQ_Detail_modal"></div>
+
+
+<script type="text/javascript">
+	$('.RQ_Detail_modal').hide();
+	$('.RQ').click(function(){
+		console.log($(this).children("p"));
+		
+		var date = $(this).children("p")[0];
+		
+		console.log(date.attributes[0].nodeValue);
+		$.ajax({
+			url:"Member_RQ_Detail", 
+			   data:date.attributes[0].nodeValue,
+			   dataType:"html",
+			   success:function(data){
+				   console.log(data);
+				   
+				   
+				   $('.RQ_Detail_modal').empty();
+				   $('.RQ_Detail_modal').append(data);
+				   $('.RQ_Detail_modal').show();
+				   
+				   
+				   $('.closeMadal').click(function(){
+						$('.RQ_Detail_modal').hide();
+						$('.RQ_Detail_modal').empty();
+					})
+			   },
+			   error:function(xhr){
+				   alert(xhr);
+			   }
+			
+		})
+	})
+	
+	
+
+</script>

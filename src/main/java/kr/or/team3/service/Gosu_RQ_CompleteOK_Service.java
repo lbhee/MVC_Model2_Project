@@ -12,6 +12,7 @@ public class Gosu_RQ_CompleteOK_Service implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response) {
 		
+		String g_email = (String)request.getSession().getAttribute("ID");
 		int num = Integer.parseInt(request.getParameter("num"));
 		int cpage = Integer.parseInt(request.getParameter("cp"));
 		int pagesize = Integer.parseInt(request.getParameter("ps"));
@@ -22,7 +23,7 @@ public class Gosu_RQ_CompleteOK_Service implements Action {
 		
 		try {
 			gosudao = new GosuDao();
-			boolean result = gosudao.complet_RQ_Gosu(num);
+			boolean result = gosudao.complet_RQ_Gosu(num, g_email);
 			
 			String msg = "";
 			String url = "";

@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- header -->
+
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+<%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
@@ -11,10 +15,9 @@
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
-    
-
+	
    </script>
-
+	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
 	<body>
 	
 	<div class="app-body">
@@ -90,17 +93,13 @@
 				<ul class="script_ul">
 					<li><a class="tab_selected" href="#" id="noticeboard">공지사항</a></li>
 					<li><a class="" href="#" id="qnaboard">자주하는 질문</a></li>
-					<li><a class="" href="#">리뷰</a></li>
+					<li><a class="" id = "reviewboard" href="#">리뷰</a></li>
 				</ul>
 		  </div>  
   		</div>  	
       </div>    
 
           
-                        
-                        
-                        
-                          
       <div class="container">       
 	       <div style="padding-bottom: 30px; padding-top: 30px">	       
 					<div class="pricingTable">
@@ -122,11 +121,14 @@
 	
     </body>
     <script type="text/javascript">
-
+	var d_code = null;
+    
     $(function(){
     	gosupage();
+
     	notice();
     	
+
     	if(email == loginemail){
     		$('#write_btn').attr('style','');
     	}
@@ -140,8 +142,15 @@
     		dataType:"JSON",
     		data: {email: email},
     		success:function(responsedata){
-    			console.log(responsedata);
+    			
+    			// 뿌려지는 화면 없으면 메인화면으로 전환
+    			if(responsedata.length == 0){
+    				location.href = "main.go";
+					return;
+				}
+    			
     			$.each(responsedata,function(index,obj){
+    				
     				$('#gosu').append("<h2>" + obj.name + "</h2><p>" + obj.s_name + "(" + obj.d_name + ") 고수");
 
     				$('#introduction').append(obj.pr);
@@ -155,11 +164,13 @@
     				$('.photo').attr('src','upload/' + obj.photo);
 
     			});
-
+    			 console.log($('#gosu >p').text());
+    			 d_code = $('#gosu >p').text();
     		}
     	});
     }
 	
+
     //탭 css
     $('.script_ul > li >a').click(function(){
 		$('.script_ul > li >a').attr('class','');
@@ -167,6 +178,7 @@
 		
 	})
 	
+
 	//공지사항
 	function notice() {
     	$.ajax({
@@ -201,6 +213,32 @@
 	
 	
     //자주하는 질문 탭
+
+	//review 계시판 글쓰기(보여주기)
+	
+	$('#reviewboard').click(function(){
+		$.ajax({
+    		url : "MemberWriteShow_Ajax",
+    		dataType:"HTML",
+			success: function(responsedata){
+			console.log(responsedata);
+			$('#boarddata').html(responsedata);
+			
+			 $('.rating > i').click(function(){
+					let clickstar = $(this).index() + 1;
+					console.log(this);
+					console.log(clickstar);
+					$('.make_star > i').css({color : '#000'});
+					console.log($('.make_star > i'));
+					$('.make_star > i:nth-child(-n +' + clickstar +')').css({color: 'white'});
+					console.log($('.make_star > i:nth-child(-n +' + clickstar +')'));
+				});
+			}    		
+    	});
+	});
+
+   //자주하는 질문
+
     $('#qnaboard').click(function(){ 
     	$.ajax({
     		url:"QnA_Ajax",
@@ -217,21 +255,44 @@
     			
     			$('#boarddata').empty();
     			$('#boarddata').append(responsedata);
+    			
+    			
+    			
     		}
     	});
     });
 
+
 	//요청서보내기
+    $('#qnaeditbtn').click(function(){
+		if(email == loginemail){
+			location.href = 'QnA_Edit.jsp';
+		}else {
+			swal('', '권한이 없습니다.', "error");
+		}
+	});
+    
+    $('#noticebtn').click(function(){
+		if(email == loginemail){
+			location.href = 'Notice_Write.jsp';
+		}else {
+			swal('', '권한이 없습니다.', "error");
+		}
+	});
+    
+
     $('.button').click(function(){
     	if(email == loginemail){
-    		alert("자기 자신에게 요청서를 보낼 수 없습니다.");
-			
+    		swal('', '자기 자신에게 요청서를 보낼 수 없습니다.', "error");
+		}else if(loginemail == 'null'){
+			swal('', '로그인 후 이용가능합니다.', "error");
 		}else {
-			location.href = 'WriteRQ.go';
+			location.href = 'WriteRQ.go?email=${gosu_email}&code=' + d_code;
 		}
     });
 
-</script>
-</html>
-   
+
+	</script>
+    </html>
+    
     
