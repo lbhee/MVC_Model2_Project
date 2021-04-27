@@ -42,6 +42,8 @@ public class Notice_Ajax extends HttpServlet {
 					JSONObject jsonobj = new JSONObject();
 					jsonobj.put("num", list.get(i).getNum());
 					jsonobj.put("title", list.get(i).getTitle());
+					jsonobj.put("writedate", list.get(i).getWritedate());
+					
 					
 					jsonarr.add(jsonobj);
 				}

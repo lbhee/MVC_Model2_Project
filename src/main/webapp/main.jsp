@@ -78,4 +78,4 @@
 	<script src="js/mainpage/searchdata.js"></script>
 	<script src="js/mainpage/main_js.js"></script>
 </body>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

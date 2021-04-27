@@ -40,37 +40,29 @@
 <c:set var="g_email" value="<%=gosudao.QnaEditSelect(id).getG_email() %>"/>
 <body>
 
-
     <div id="pageContainer">
-        <div style="padding-top: 25px; text-align: center">
+        <div class="container">
+        	<div class="Notice_Write_Box">
             <!-- form 시작 ---------->
-            <form name="bbs" action="${pageContext.request.contextPath}/QnAEditOK.go" method="POST">
-            	<input type="hidden" value="${g_email} " name="g_email">
-                <table width="95%" border="2" align="center">
+          	 <form name="bbs" action="${pageContext.request.contextPath}/QnAEditOK.go" method="POST">
+            	<div class="Notice_Write_Header"><h2><b>질문 답변 수정하기</b></h2></div>
+            	<div class="Notice_Write_Header_2"><input type="button" value="수정" onclick="check();" />
+            									<input type="button" value="취소" onclick="back();" />
+            	</div>
+                <table class="Notice_Write_main">
                     <tr>
-                        <td width="20%" align="center">제목</td>
-                        <td width="80%" align="left"><input type="text" value="${title}" name="title" size="40"></td>
+                        <td ><input type="text" class="Notice_Write_input" name="title" size="40" value="${title}" placeholder="Q. 질문을 입력하세요."></td>
+                    	
+                    </tr>
+                    
+                    <tr>
                         
-                    </tr>
-                       <tr>
-                        <td width="20%" align="center">작성날짜</td>
-                        <td width="80%" align="left"><input type="text"  value="${writedate}" name="writedate" size="40"></td>
-                        
-                    </tr>
-                    <tr>
-                        <td width="20%" align="center">글내용</td>
-                        <td width="80%" align="left"><textarea rows="10" cols="60" name="content" class="ckeditor">${content}</textarea></td>
-                    </tr>
-   
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="button" value="수정하기" onclick="check();" /> 
-                        </td>
-                    </tr>
+                        <td class="Notice_Write_Content"><textarea rows="10" cols="60" name="content" class="ckeditor" placeholder="내용을 입력해주세요.">${content}</textarea></td>
+                    </tr>   
                 </table>
               </form>
-            
+            </div>	
         </div>
     </div>
 </body>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

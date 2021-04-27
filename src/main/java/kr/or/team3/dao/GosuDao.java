@@ -1029,26 +1029,35 @@ public class GosuDao {
 	}
 	
 	//자주하는 질문 내용보기
-	public QnA_Board Qna(String Email) {
+	public List<QnA_Board> Qna(String Email) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		QnA_Board qna = null;
+		
+		List<QnA_Board> qna = null;
+		QnA_Board qnaboard = null;
 		try {
 			conn = ds.getConnection();
-			String sql= "select content from qna where g_email = ? ";
+			String sql= "select title, content from qna where g_email = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, Email);
 			
+			qna = new ArrayList<QnA_Board>();
+			
+			
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-
+			while(rs.next()) {
+				
+				String title = rs.getString("title");
 				String content = rs.getString("content");
 				
-
-				qna = new QnA_Board(content);
+					
+				qnaboard = new QnA_Board(title, content, null, null);
+				
+				qna.add(qnaboard);
+				
 			}
 			
 		} catch (Exception e) {
@@ -1228,7 +1237,7 @@ public class GosuDao {
 			
 			try {
 				conn = ds.getConnection();
-				String sql= "select num, title from notice where g_email = ? ";
+				String sql= "select num, title,WRITEDATE from notice where g_email = ? ";
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -1238,11 +1247,12 @@ public class GosuDao {
 				while(rs.next()) {
 					int num = rs.getInt("num");
 					String title = rs.getString("title");
-					Notice notice = new Notice(title, num);
+					String writedate = rs.getString("writedate");
+					
+					Notice notice = new Notice(title, num, writedate);
 				
 
 					list.add(notice);
-					System.out.println("dao"+list);
 				}
 				
 			} catch (Exception e) {

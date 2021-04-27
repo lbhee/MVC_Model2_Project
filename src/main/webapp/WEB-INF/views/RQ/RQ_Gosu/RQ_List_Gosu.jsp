@@ -51,8 +51,10 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 					</c:when>
 					<c:otherwise>
 						<h3>도착한 요청서가 <b>${totalcount}건 </b>있습니다</h3>
+						<p style="color:red">요청서는 최대 10개까지만 볼 수 있습니다.</p>
 					</c:otherwise>
 				</c:choose>
+						
 		</div>		
 	</div>	
 </div>
@@ -151,3 +153,4 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 	
 
 </script>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

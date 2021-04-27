@@ -223,7 +223,7 @@ public class gosuController extends HttpServlet {
 			action = new Notice_Edit_Service();
 			actionForward = action.excute(request, response);
 			
-		// 공지사항 삭제 
+		// 공지사항 삭제 s
 		}else if(URL.equals("/NoticeDel.go")) {
 			action = new Notice_Del_Service();
 			actionForward = action.excute(request, response);

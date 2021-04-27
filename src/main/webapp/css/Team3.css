@@ -261,17 +261,20 @@ body{
 }
 
 .map{
-	margin-top: 9.75rem;
-	border: 1px solid #00c7ae;
-	width:100%;
-	height:335px;
+	margin-top: 1.75rem;
+    border: 1px solid #00c7ae;
+    width: 100%;
+    height: 335px;
 }
 /*============================= 회원가입, 로그인 , 계정설정 =============================*/
 .loginForm{
-    padding: 4rem 0 1rem 0;
+    padding: 4rem 0 2rem 0;
    	
 }
 
+.loginBox{
+	margin-bottom: 8rem;
+}
 .regidiv{
 	width: 100%;
     max-width: 424px;
@@ -712,6 +715,171 @@ body{
     text-align: center;
 }
 
+#boarddata > li{
+    border-bottom: 1px solid #f2f2f2;;
+    color: #ff4e59 !important;
+    background: #f9f9f8;
+    cursor: pointer;
+}
+.Notice_Header{
+    border: 1px solid #ffc6c9;
+    background-color: #ffe3e4;
+    color: #ff4e59 !important;
+    width: 56px;
+    padding: 3px 7px;
+    text-align: center;
+    vertical-align: middle;
+    font-style: normal !important;
+    margin-right: 7px;
+    display: inline;
+}
+
+.Notice_Date{
+	color: #ff4e59 !important;
+    font-size: 7px;
+    text-align: right;
+    vertical-align: middle;
+    font-style: normal !important;
+    margin-right: 1%;
+    float: right;
+}
+
+.Qna_Header{
+	font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -.3px;
+    color: #323232 !important;
+    margin-bottom: 4px;
+    
+}
+#boarddata >.Qna_box{
+    padding: 8px 0 5px 0;
+    background-color: white !important;
+    border: none;
+    cursor: default;
+ 
+}
+.Notice_div{
+    width: 100%;
+    height: 93%;
+    max-width: 424px;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    /* width: 50%; */
+    margin: auto;
+    background-color: white;
+    
+}
+
+.Notice_Detail_Box{
+	border: 1px solid #f2f2f2;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    width: 45%;
+    height: 90%;
+    margin: auto;
+    background-color: white;
+    z-index: 2;
+	
+}
+.Notice_Detail_Box_nav{
+	display: inline-block;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.Qna_box >p{
+	font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -.3px;
+    color: #737373;
+    word-break: break-all;
+    margin-left: 40px;
+}
+
+
+.Notice_wrtie{
+	text-align: right;
+    color: #737373;
+    font-size: .875rem;
+}
+.Notice_Detail_Content{
+    width: 100%;
+    height: 360px;
+    text-align: left;
+}
+
+#NoticeBtn{
+	background-color: #00c7ae;
+    color: white;
+    border: 1px;
+    width: 30%;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    padding: 10px 30px 10px 30px;
+}
+
+.RQ_B > button{
+	background-color: #00c7ae;
+    color: white;
+    border: 1px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    float: left;
+    margin: 7px;
+}
+
+.Notice_Write_Box{
+    width: 80%;
+    height: 100%;
+    padding: 41px;
+    margin: 92px;
+}
+
+
+.Notice_Write_Header_2{
+	text-align: right;
+	 border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 8px;
+}
+
+
+.Notice_Write_Header_2 >input{
+    border-radius: 10px;
+    background-color: rgba(3, 199, 90, 0.12);
+    color: #009f47;
+    padding: 6px;
+    width: 54px;
+    border: 0;
+    margin-bottom: 5px;
+}
+.Notice_Write_input{
+	width: 100%;
+    height: 40px;
+    font-size: 15px;
+    padding: 11px 12px 10px;
+    border: 1px solid #ebecef;
+    margin-bottom: 10px;
+}
+.Notice_Write_main{
+	width: 100%;
+}
+
+.fileUplod{
+	float: right;
+    width: 25%;
+}
+
+
 /* ============== 요청서 ===================*/
 
 .RqListHead{
@@ -774,7 +942,7 @@ body{
     justify-content: center;
     align-items: center;
 	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 2;
+	z-index: 10000;
 }
 
 .RQ_Detail_modal_box{

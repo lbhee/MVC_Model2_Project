@@ -63,13 +63,6 @@ function goback() {
 	window.history.back();
 }
 
-function noticeEdit() {
-	location.href = "NoticeEdit.go?num="+${num};
-}
-
-function noticeDel() {
-	location.href = "NoticeDel.go?num="+${num};
-}
 
 </script>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

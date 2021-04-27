@@ -24,6 +24,11 @@
     document.bbs.submit();
  
 }
+	
+	function back(){
+		   window.history.back();
+		 
+		}
 </SCRIPT>
 
 
@@ -37,31 +42,35 @@
 <c:set var="num" value="<%=gosudao.NoticeContent(noticenum).getNum() %>"/>
 <c:set var="email" value="<%=gosudao.NoticeContent(noticenum).getEmail() %>"/>
 
-<form name="bbs" action="${pageContext.request.contextPath}/NoticeEditOK.go" method="POST" enctype="multipart/form-data">
-	<input type="hidden" value="${num} " name="num">
-	<input type="hidden" value="${email}" name="email">
-	<table width="80%" border="1">
-		<tr>
-			<td width="20%" align="center"><b>제목</b></td>
-			<td colspan="3"><input type="text" value="${title}" name="title" size="40"></td>
-		</tr>
-		<tr>
-			<td width="20%" align="center"><b>작성일</b></td>
-			<td><input type="text" value="${writedate}" name="writedate" size="40"></td>
-			<td width="20%" align="center"><b>첨부파일</b></td>
-			<td><input type="file" name="filename" value="${filename}"></td>
-		</tr>
-		<tr height="100">
-			<td width="20%" align="center"><b>글내용</b></td>
-			<td colspan="3"><textarea rows="10" cols="60" name="content" class="ckeditor">${content}</textarea></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center">
-				<a href="#">목록가기</a>
-				<a href="#" onclick="check()">수정</a>
-			</td>
-		</tr>
-	</table>
-</form>
+<div id="pageContainer">
+        <div class="container">
+        	<div class="Notice_Write_Box">
+            <!-- form 시작 ---------->
+            <form name="bbs" action="${pageContext.request.contextPath}/NoticeEditOK.go" method="POST" enctype="multipart/form-data">
+           		<input type="hidden" value="${num} " name="num">
+				<input type="hidden" value="${email}" name="email">
+            	<div class="Notice_Write_Header"><h2><b>공지사항 수정</b></h2></div>
+            	<div class="Notice_Write_Header_2"><input type="button" value="수정" onclick="check();" />
+            										<input type="button" value="취소" onclick="back();" />
+            	</div>
+                <table class="Notice_Write_main">
+                    <tr>
+                        <td ><input type="text" class="Notice_Write_input" name="title" size="40" value="${title}" placeholder="제목을 입력해주세요."></td>
+                    	
+                    </tr>
+                    
+                    <tr>
+                        <td ><input type="file" name="filename" class="fileUplod" value="${filename}"></td>
+                        
+                    </tr>
+                    <tr>
+                        
+                        <td class="Notice_Write_Content"><textarea rows="10" cols="60" name="content" class="ckeditor" placeholder="내용을 입력해주세요.">${content}</textarea></td>
+                    </tr>   
+                </table>
+              </form>
+            </div>	
+        </div>
+    </div>
 </body>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
