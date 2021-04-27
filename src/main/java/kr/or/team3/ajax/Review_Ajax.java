@@ -31,8 +31,6 @@ public class Review_Ajax extends HttpServlet {
     	PrintWriter out = response.getWriter();
     	int done = Integer.parseInt(request.getParameter("done"));
     	
-    	System.out.println(done);
-    	
     	List<RQ_Form> list = null;
     	
     	

@@ -471,8 +471,11 @@ public class GosuDao {
 					}
 					
 				} catch (Exception e) {
-
-			// TODO: handle exception
+					
+				}
+			}
+		}catch (Exception e) {		
+				// TODO: handle exception
 			e.printStackTrace();
 			e.getMessage();
 		}finally {
@@ -488,6 +491,8 @@ public class GosuDao {
 		return result;
 		
 	}
+
+	
 	public String getGosuName(int num) {
 
 		Connection conn = null;

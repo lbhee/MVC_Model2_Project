@@ -32,9 +32,10 @@
 		<h1><b style="color:#00c7ae">${ name }</b> 고수님에게 <br> 요청서를 보냈습니다!</h1>
 	</div>
 	<div class="RQ_ok_nac">
-		<p><b>같은 서비스를 제공하는 다른 고수님들의 견적도 함께 확인할 수 있습니다.</b></p>
+		<p><b>같은 서비스를 제공하는 다른 고수님들에게도 요청을 보내 비교하여 진행할 수 있습니다.</b></p>
 		<p>입력하신 번호를 통해 고수님에게 전화가 올 수 있습니다.</p>
+		<p><b><a href="RQList_Member.go">보낸 요청서 확인하기</a></b></p>
 	</div>
-	
+		
 </div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
