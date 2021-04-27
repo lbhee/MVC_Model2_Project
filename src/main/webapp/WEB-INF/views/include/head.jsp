@@ -82,8 +82,6 @@
 
 				 				<c:if test="${gosu>0}">
 				 			
-             				    <li class="nav-item active"><a class="nav-link" href="RQList_Gosu.go">도착한 요청서</a>
-				 				<li class="nav-item active"><a class="nav-link" href="">뭐넣을지 고민</a></li>
 				 				<li class="nav-item active"><a class="nav-link" href="GosuProfile.go?email=${id}">프로필</a></li>
 				 				<li class="nav-item active"><a class="nav-link" href="#" id="info">${ member.name } 고수님</a></li>
 
@@ -91,14 +89,25 @@
 				 				<c:if test="${gosu==0}">
                   
 
-				 				<li class="nav-item active"><a class="nav-link" href="RQList_Member.go">요청서리스트</a></li>
 				 				<li class="nav-item active"><a class="nav-link" id="info" href="#">${ member.name } 고객님</a></li>
                   
 				 				</c:if>
 				 				<div class="user_info" style="display:none">
 
 				 					<h4 class="head_userName">안녕하세요, ${ member.name }</h4>
-				 					<div class="mypage"><a href="${ path }/Mypage.go">마이페이지</a></div>
+				 					
+				 					<div class="mypage">
+				 					<a href="${ path }/Mypage.go">마이페이지</a>
+				 					<c:if test="${gosu==0}">
+				 						<a href="RQList_Member.go">보낸 요청서 리스트</a>
+									</c:if>
+									<c:if test="${gosu>0}">
+				 						<a href="RQList_Gosu.go">받은 요청서 리스트</a>
+									</c:if>
+				 					
+				 					
+				 					
+				 					</div>
 				 					
 				 					
 				 					<c:if test="${gosu==0}">

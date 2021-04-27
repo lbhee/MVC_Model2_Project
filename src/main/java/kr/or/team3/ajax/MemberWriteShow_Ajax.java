@@ -18,7 +18,7 @@ public class MemberWriteShow_Ajax extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("서블릿 타냐?");
+    	
     	response.setContentType("text/html;charset=UTF-8");
     	
     	PrintWriter out = response.getWriter();

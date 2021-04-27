@@ -92,8 +92,9 @@ function btnclick(){
 				   if(data == "true"){
 			   		   location.href = "main.jsp";
 				   }else{
+					   $('#pwd').blur();
 					   swal("아이디 또는 비밀번호를 확인해주세요","","error")
-					   $('.button').blur();
+					   
 					   
 				   }
 			   },

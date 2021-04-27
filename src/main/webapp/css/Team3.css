@@ -178,10 +178,14 @@ body{
     white-space: nowrap;
 }
 .mypage{
-    border-bottom: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
     margin-top: 1rem;
     margin-bottom: 1.3125rem;
     padding-bottom: 1.3125rem;
+}
+.mypage >a{
+	display: block;
+	margin: .65625rem 0;
 }
 
 .gosu_register{
@@ -257,7 +261,7 @@ body{
 }
 
 .map{
-	margin-top: 1.75rem;
+	margin-top: 9.75rem;
 	border: 1px solid #00c7ae;
 	width:100%;
 	height:335px;
@@ -514,7 +518,7 @@ body{
 
 .gosu_register{
 	width: 100%;
-    padding: 18px 0;
+    padding: 6px 0;
 }
 
 .gosu_register >p {
@@ -742,7 +746,6 @@ body{
     font-size: .875rem;
 }
 .RQ >input[type=button]{
-	margin-top: 13px;
 	background-color: #00c7ae;;
 	color: white;
 	border: 1px;
@@ -779,7 +782,7 @@ body{
     border-radius: 8px;
     padding: 2.5rem;
     text-align: center;
-    width: 40%;
+    width: 25%;
     margin: auto;
     background-color: white;
 }
@@ -787,12 +790,16 @@ body{
 	text-align: left;
 }
 
-.RQ_Detail_modal_box >p:last-child{
+.RQ_Detail_modal_box > p:last-child{
 	text-align: right;
     color: #737373;
     font-size: .875rem;
 }
-
+.RQ_last_p{
+	text-align: right !important;
+    color: #737373;
+    font-size: .875rem;
+}
 
 .RQ_Detail_modal_Header{
 	text-align: right;
@@ -827,4 +834,69 @@ body{
 	font-size: 15px;	
 	margin: 3px;
 
+}
+
+.RqListDoneBox{
+
+	text-align: center !important;
+    position: relative;
+    display: block;
+    z-index: 1;
+    height: 210px;
+    margin-top: 5px;
+    padding: 1rem;
+    border: 1px solid #e1e1e1;
+    border-radius: .25rem;
+    width: 80%;
+    margin: 0 auto 15px auto;
+    	
+}
+.RqDoneListHeaderBox{
+	text-align: right;
+    color: #737373;
+    font-size: .875rem;
+}
+
+.RqDoneListHeaderBox >p:first-child {
+	text-align: right;
+    display: table-cell;
+    color: #737373;
+    font-size: .875rem;
+    padding: .3125rem .375rem;
+    border: 1px solid #f2f2f2;
+    background: #f2f2f2;
+}
+
+.RQ_ok_Header{
+    position: relative;
+    padding-top: 3.75rem;
+    padding-bottom: 1.875rem;
+    text-align: center;
+}
+
+.RQ_ok_Header > h1{
+ 	font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -.0187rem;
+    color: #323232;
+    margin-bottom: 0;
+}
+.RQ_ok_nac{
+	padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    font-size: 1.125rem;
+    background: #fafafa;
+    text-align: center;
+   	width: 100%;
+}
+
+.Rq_boardBox{
+	text-align: right;
+    display: table-cell;
+    color: #737373;
+    font-size: .875rem;
+    padding: .3125rem .375rem;
+    border: 1px solid #f2f2f2;
+    background: #f2f2f2;
 }
