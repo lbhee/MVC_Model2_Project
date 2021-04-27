@@ -112,7 +112,7 @@
 
           
       <div class="container">       
-	       <div style="padding-bottom: 30px; padding-top: 30px">	       
+	       <div class="RQ_B" style="padding-bottom: 30px; padding-top: 5px">	       
 					<div class="pricingTable">
 						<div class="pricingContent">
 							<div class="pricingContent">
@@ -122,12 +122,14 @@
 					        </div>
 					    </div>
 					</div>
-	       
+	       	<div class="RQ_Detail_modal"></div>
+	       		<button style="display: none" id="write_btn" onclick="location.href='NoticeWrite.go'">글쓰기</button >
+		        <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
 	       </div> 
-		       <button style="display: none" id="write_btn" onclick="location.href='NoticeWrite.go'">글쓰기</button >
-		       <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
+		       
        </div>  
         
+        <div class=""></div>
 	</div>
     </body>
     <script type="text/javascript">
@@ -138,11 +140,13 @@
 
     	notice();
     	
-
+    	$('.RQ_Detail_modal').hide();
+        
+    	
     	if(email == loginemail){
     		$('#write_btn').attr('style','');
     	}
-
+    	
     });
     
     //고수정보
@@ -183,12 +187,21 @@
 
     //탭 css
     $('.script_ul > li >a').click(function(){
+    	$('.script_ul > li').animate({
+			scrollTop: 300
+		}, 500);
+    	
 		$('.script_ul > li >a').attr('class','');
 		$(this).attr('class','tab_selected');
 		
 	})
 	
 
+
+
+	
+	// 모달 숨기기
+	
 	//공지사항
 	function notice() {
     	$.ajax({
@@ -196,17 +209,67 @@
     		dataType:"JSON",
     		data: {email: email},
     		success: function(responsedata){
+    			
+
     			$.each(responsedata,function(index,obj){
-    				$('#boarddata').append("<li id='no"+obj.num+"'>" + "<i class='fas fa-check'></i>        " + obj.title + "</li>");
+    				$('#boarddata').append("<li id='no"+obj.num+"'>" + "<i class='Notice_Header'>공지</i>" + obj.title + "<i class='Notice_Date'>" + obj.writedate + "</i></li>");
     			
     			     $('#no'+obj.num).click(function(){
-    			    	 location.href = "NoticeContent.go?num="+obj.num;
+    			    	
+    			    	 
+    			    	 $.ajax({
+    	    					url:"Notice_Detail", 
+    	    					   data: {num:obj.num},
+    	    					   dataType:"html",
+    	    					   success:function(data){
+    	    						   
+    	    						   
+    	    						   $('.RQ_Detail_modal').empty();
+    	    						   $('.RQ_Detail_modal').append(data);
+    	    						   $('.RQ_Detail_modal').show();
+    	    						   
+    	    							if(email != loginemail){
+      	    						   		$('.edit_btn').attr('style','display: none');
+      	    						     	$('.delete_btn').attr('style','display: none');
+      	    						   	}
+    	    						 
+    	    						  
+    	    						   
+    	    						   $('.edit_btn').click(function(){
+    	    							   location.href = "NoticeEdit.go?num="+obj.num;
+    	    						   })  
+   	       					 			
+    	    						   $('.delete_btn').click(function(){
+    	    							   location.href = "NoticeDel.go?num="+obj.num;
+    	    						   })
+    	    						   
+    	    						   
+    	    						   
+    	    						   
+    	    						   
+    	    						   $('.closeMadal').click(function(){
+    	    								$('.RQ_Detail_modal').hide();
+    	    								$('.RQ_Detail_modal').empty();
+    	    							})
+    	    							
+    	    							
+
+    	    					
+    	    					   },
+    	    					   error:function(xhr){
+    	    						   alert(xhr);
+    	    					   }
+    	    					
+    	    				})
     			     });
     		    });
+    		
     	    }
        });
     }
 	
+    
+    
     //공지사항 탭
     $('#noticeboard').click(function(){ 
     	
@@ -231,10 +294,13 @@
 	$('#qnaboard').click(function(){ 
     	$.ajax({
     		url:"QnA_Ajax",
+    		dataType:"JSON",
     		data: {email: email},
     		success: function(responsedata){    			
     			$('#write_btn').attr('style','display: none');
     			$('#edit_btn').attr('style','display: none');
+    			
+    			console.log(responsedata);
     			
     			if(email == loginemail){
     	    		$('#write_btn').attr('style','');
@@ -245,11 +311,40 @@
     			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
     			
     			$('#boarddata').empty();
-    			$('#boarddata').append(responsedata);
+    			
+    			$.each(responsedata,function(index,obj){
+    				$('#boarddata').append("<li class='Qna_box'><i class='Qna_Header'>Q. " + obj.title + "</i>" + obj.content + "</li>");
+    	
+    		    });
     		}
     	});
     });
     
+
+    
+    
+    
+	//review 계시판 글쓰기(보여주기)
+	$('#reviewboard').click(function(){
+		$.ajax({
+    		url : "ReviewWriteShow_Ajax",
+    		dataType:"HTML",
+			success: function(responsedata){
+			console.log(responsedata);
+			$('#boarddata').empty();
+			$('#boarddata').html(responsedata);
+			
+			 $('.rating > i').click(function(){
+					let clickstar = $(this).index() + 1;
+					
+					$('.make_star > i').css({color : '#000'});
+					
+					$('.make_star > i:nth-child(-n +' + clickstar +')').css({color: '#F05522'});
+					
+				});
+			}    		
+    	});
+	});
 	//리뷰쓰기 탭
 	$('#reviewboard').click(function(){ 
     	$.ajax({
@@ -268,6 +363,7 @@
         	    		$('#write_btn').attr('style','');
         	    		$('#write_btn').attr("onclick", "location.href='ReviewWrite.go?g_email="+obj.g_email+"'");
     				}
+
 
     			});
     			
@@ -304,6 +400,7 @@
 		}
     });
 
+
     //리뷰보기
 	function review() {
     	$.ajax({
@@ -325,6 +422,5 @@
     }
 
 	</script>
-    </html>
-    
+ <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
     

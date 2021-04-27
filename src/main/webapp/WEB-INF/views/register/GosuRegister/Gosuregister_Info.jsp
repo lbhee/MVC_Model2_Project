@@ -242,4 +242,4 @@ GosuDao gosuDao = new GosuDao();
 }
 
 </script>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

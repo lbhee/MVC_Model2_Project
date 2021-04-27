@@ -48,6 +48,12 @@ public class Notice_Write_Service implements Action {
 			 
 			 String file = (String)filenames.nextElement();
 			 filename = multi.getFilesystemName(file);
+			
+			 
+			 if(filename == null) {
+				 filename = "0";
+			 }
+			 
 			 String orifilename = multi.getOriginalFileName(file);
 
 

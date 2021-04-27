@@ -125,3 +125,4 @@
 	$('#hopedate').attr("min",date()); 
 	$('#hopedate').attr("max",date2()); 
 	</script>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

@@ -2,6 +2,7 @@ package kr.or.team3.ajax;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.team3.dao.GosuDao;
 import kr.or.team3.dto.QnABoard.QnA_Board;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @WebServlet("/QnA_Ajax")
 public class QnA_Ajax extends HttpServlet {
@@ -29,14 +32,27 @@ public class QnA_Ajax extends HttpServlet {
     	//String email = (String)request.getSession().getAttribute("ID");
     	
     	PrintWriter out = response.getWriter();
-    	QnA_Board qna = new QnA_Board();
+    	List<QnA_Board> qna = null;
     	
     	try {
 			GosuDao gosudao = new GosuDao();
 			qna = gosudao.Qna(email);
 			
-			out.print(qna);
-			System.out.println("결과"+qna);
+			
+			
+			JSONArray jsonarr = new JSONArray();
+
+			for(int i=0; i < qna.size(); i++) {
+				JSONObject jsonobj = new JSONObject();
+				
+				jsonobj.put("title", qna.get(i).getTitle());
+				jsonobj.put("content", qna.get(i).getContent());
+				
+				
+				jsonarr.add(jsonobj);
+			}
+			
+			out.print(jsonarr);
 			
 		} catch (NamingException e) {
 			e.printStackTrace();

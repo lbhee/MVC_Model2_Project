@@ -18,7 +18,7 @@
 <body>
 	<div class="container loginForm">
 		<div class="loginForm">
-			<form action="" method="post" id="Login">
+			<form action="" method="post" id="Login" class="loginBox">
 				<h2 style="text-align: center"><b>로그인</b></h2>
 				
 				<div class="regidiv">
@@ -120,4 +120,4 @@ function enterkey() {
 	} 	
 }			
 </script>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

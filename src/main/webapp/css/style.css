@@ -2359,9 +2359,10 @@ select.mobile-device {
 }
 
 .footer {
-    padding: 90px 0 80px !important;
     color: #999;
-	 background:#1f1f1f url('images/world-map.png') no-repeat center; 
+    background: white;
+    font-size: 13px;
+    border-top: .0625rem solid #e1e1e1;
 }
 
 .footer .widget-title {

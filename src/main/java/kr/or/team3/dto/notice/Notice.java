@@ -24,6 +24,11 @@ public class Notice {
 		this.title = title;
 		this.num = num;
 	}
+	public Notice(String title, int num, String writedate) {
+		this.title = title;
+		this.num = num;
+		this.writedate = writedate;
+	}
 
 	
 	public Notice(int num, String title, String content, String filename) {
@@ -82,7 +87,7 @@ public class Notice {
 	}
 
 	public String getWritedate() {
-		return writedate;
+		return writedate.substring(0, 10);
 	}
 
 	public void setWritedate(String writedate) {

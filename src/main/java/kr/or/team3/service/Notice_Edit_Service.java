@@ -49,15 +49,14 @@ public class Notice_Edit_Service implements Action {
 			
 			title = multi.getParameter("title");
 			content = multi.getParameter("content");
-			num = Integer.parseInt(multi.getParameter("num").trim());
-			filename = multi.getParameter("filename");
-
+			num = Integer.parseInt(multi.getParameter("num").trim());			
+			
 			if(filename == null) {
-				notice.setFilename(gosudao.NoticeContent(num).getFilename());
-			}else {
-				notice.setFilename(filename);
-			}
-
+				 filename = "0";
+			 }
+			 
+				
+			notice.setFilename(filename);
 			notice.setNum(num);
 			notice.setContent(content);
 			notice.setTitle(title);

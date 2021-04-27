@@ -6,6 +6,7 @@
 <%
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일");
+	String date = sf.format(nowTime);
 %>
 
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
@@ -18,46 +19,48 @@
         bbs.subject.focus();
         return false;
     }
-
+	
+    
     document.bbs.submit();
  
 }
+	
+	function back(){
+	   window.history.back();
+	 
+	}
 </SCRIPT>
 </head>
 <body>
 
     <div id="pageContainer">
-        <div style="padding-top: 25px; text-align: center">
+        <div class="container">
+        	<div class="Notice_Write_Box">
             <!-- form 시작 ---------->
             <form name="bbs" action="${pageContext.request.contextPath}/NoticeWriteOK.go" method="POST" enctype="multipart/form-data">
-                <table width="95%" border="2" align="center">
+            	<div class="Notice_Write_Header"><h2><b>공지사항 글쓰기</b></h2></div>
+            	<div class="Notice_Write_Header_2"><input type="button" value="글쓰기" onclick="check();" />
+            									<input type="button" value="취소" onclick="back();" />
+            	</div>
+                <table class="Notice_Write_main">
                     <tr>
-                        <td width="20%" align="center">제목</td>
-                        <td width="80%" align="left"><input type="text"  name="title" size="40"></td>
+                        <td ><input type="text" class="Notice_Write_input" name="title" size="40" placeholder="제목을 입력해주세요."></td>
+                    	
                     </tr>
+                    
                     <tr>
-                        <td width="20%" align="center">작성날짜</td>
-                        <td width="80%" align="left"><input type="text"  value="<%= nowTime %>" name="writedate" size="40"></td>
+                        <td ><input type="file" name="filename" class="fileUplod"></td>
+                        <td ><input type="text"  value="<%= date %>" name="writedate" size="40" hidden></td>
                         
                     </tr>
                     <tr>
-                        <td width="20%" align="center">글내용</td>
-                        <td width="80%" align="left"><textarea rows="10" cols="60" name="content" class="ckeditor"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td width="20%" align="center">첨부파일</td>
-                        <td width="80%" align="left"><input type="file" name="filename"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="button" value="글쓰기" onclick="check();" /> 
-                            <input type="reset"  value="다시쓰기" />
-                        </td>
-                    </tr>
+                        
+                        <td class="Notice_Write_Content"><textarea rows="10" cols="60" name="content" class="ckeditor" placeholder="내용을 입력해주세요."></textarea></td>
+                    </tr>   
                 </table>
               </form>
-            
+            </div>	
         </div>
     </div>
 </body>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

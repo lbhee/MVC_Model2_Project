@@ -152,3 +152,4 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 	
 
 </script>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
