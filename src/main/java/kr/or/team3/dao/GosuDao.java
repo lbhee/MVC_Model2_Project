@@ -342,7 +342,7 @@ public class GosuDao {
 		return list;
 	}
 	
-	//고수가 받은 고객의 수락 및 삭제된 요청서목록 by 안승주 21.04.21
+	   //고수가 받은 고객의 수락 및 삭제된 요청서목록 by 안승주 21.04.21
 		public List<RQ_Form> get_RqDoneList_Gosu(int cpage, int pagesize, String G_email){
 			Connection conn = null;
 			PreparedStatement pstmt = null;

@@ -343,7 +343,7 @@
     
     
     
-	//review 계시판 글쓰기(보여주기)
+	/* //review 계시판 글쓰기(보여주기)
 	$('#reviewboard').click(function(){
 		$.ajax({
     		url : "ReviewWriteShow_Ajax",
@@ -363,7 +363,9 @@
 				});
 			}    		
     	});
-	});
+	}); */
+	
+	
 	//리뷰쓰기 탭
 	$('#reviewboard').click(function(){ 
     	$.ajax({
@@ -377,14 +379,14 @@
     			$('#write_btn').attr('style','display: none');
     			$('#edit_btn').attr('style','display: none');
     			
-    			$.each(responsedata,function(index,obj){
+    			/* $.each(responsedata,function(index,obj){
     				if(obj.m_email == loginemail && obj.g_email == email) {
         	    		$('#write_btn').attr('style','');
         	    		$('#write_btn').attr("onclick", "location.href='ReviewWrite.go?g_email="+obj.g_email+"'");
     				}
 
 
-    			});
+    			}); */
     			
     		}
     	});
@@ -427,10 +429,21 @@
     		dataType:"JSON",
     		data: {email: email},
     		success: function(responsedata){
+    			console.log(responsedata);
     			$.each(responsedata,function(index,obj){
     				
+    				var grade = parseFloat(obj.grade);
+    				
+    				console.log(grade);
+    				
+    				var star = "";
+    				
+    				for(var i = 0; i < grade; i++){
+    					star += "⭐";
+    				}
+    				
     				$('#boarddata').append(
-							"<li class='review_box'><i class='review_Header'><b>"+ obj.name + "</b>" + obj.writedate +
+							"<li class='review_box'><i class='review_Header'><b>"+ obj.name + "</b><b class='star'>"+ star + "</b>" + obj.writedate + 
 							"<br><p class='review_content'>" + obj.content + "</p></i></li>"
 							);
     				

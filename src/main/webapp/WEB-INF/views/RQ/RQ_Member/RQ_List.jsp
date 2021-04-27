@@ -95,7 +95,7 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 				<div class="col-md-4 col-sm-6 col-xs-12">
 					<div class='RqListDoneBox'>
 						<div class="RqDoneListHeaderBox">
-							<c:if test="${ Donelist.done == 1 }">
+							<c:if test="${ Donelist.done == 1 || Donelist.done == 4}">
 								<p>수락된 요청서</p>
 							</c:if>
 							<c:if test="${ Donelist.done == 2 }">
@@ -106,6 +106,14 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 						</div>
 						<div class="RQListMainBox">
 							<c:set var="member" value="${ dao.getContent(Donelist.g_email) }"></c:set>
+							<c:if test="${ Donelist.done == 1 }">
+								<a href="ReviewWrite.go?g_email=${Donelist.g_email}">리뷰 쓰러가기</a>
+							</c:if>
+								
+							<c:if test="${ Donelist.done == 4 }">
+								<a>리뷰 작성 완료</a>	
+							</c:if>
+							
 							<p>${member.name}고수에게 보낸요청</p>
 						</div>
 						<form action="" class="RQ">

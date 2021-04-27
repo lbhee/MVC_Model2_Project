@@ -10,7 +10,8 @@ public class Review_Board {
     private String m_email;    //요청자이메일
     private String g_email;    //고수이메일
     private int g_code;     //고수고유코드
-   
+    private String grade;
+    
 	public Review_Board() {
 	}
 
@@ -38,15 +39,31 @@ public class Review_Board {
 		this.writedate = writedate;
 	}
 
-	public Review_Board(int num, String content, String writedate, String m_email, String g_email, int g_code) {
+	public Review_Board(String name, int num, String content, String writedate, String m_email, String g_email, int g_code, String grade) {
 		super();
+		this.name = name;
 		this.num = num;
 		this.content = content;
 		this.writedate = writedate;
 		this.m_email = m_email;
 		this.g_email = g_email;
 		this.g_code = g_code;
+		this.grade = grade;
 	}
+	
+	
+
+	public String getGrade() {
+		return grade;
+	}
+
+
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+
 
 	public int getNum() {
 		return num;
