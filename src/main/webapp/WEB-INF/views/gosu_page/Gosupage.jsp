@@ -217,7 +217,29 @@
 	
 	
     //자주하는 질문 탭
-
+	$('#qnaboard').click(function(){ 
+    	$.ajax({
+    		url:"QnA_Ajax",
+    		data: {email: email},
+    		success: function(responsedata){
+    			
+    			if(email == loginemail){
+    	    		$('#write_btn').attr('style','');
+    	    		$('#edit_btn').attr('style','');
+    	    	}
+    			
+    			$('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
+    			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
+    			
+    			$('#boarddata').empty();
+    			$('#boarddata').append(responsedata);
+    		}
+    	});
+    });
+    
+    
+    
+    
 	//review 계시판 글쓰기(보여주기)
 	$('#reviewboard').click(function(){
 		$.ajax({
@@ -240,32 +262,6 @@
 			}    		
     	});
 	});
-	
-   //자주하는 질문
-
-    $('#qnaboard').click(function(){ 
-    	$.ajax({
-    		url:"QnA_Ajax",
-    		data: {email: email},
-    		success: function(responsedata){
-    			
-    			if(email == loginemail){
-    	    		$('#write_btn').attr('style','');
-    	    		$('#edit_btn').attr('style','');
-    	    	}
-    			
-    			$('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
-    			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
-    			
-    			$('#boarddata').empty();
-    			$('#boarddata').append(responsedata);
-    			
-    			
-    			
-    		}
-    	});
-    });
-
 
 	//요청서보내기
     $('#qnaeditbtn').click(function(){

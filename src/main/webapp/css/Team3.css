@@ -666,6 +666,7 @@ body{
 	margin-right: 10px;
 	float: left;
 
+}
 .RQ_writeBox{
 	position: absolute;
     bottom: 0;
@@ -679,7 +680,6 @@ body{
     font-size: 12px;
     margin-bottom: 30px;
 }
-
 .RQ_WriteImgBox{
 	height: 19.375rem;
     position: relative;
