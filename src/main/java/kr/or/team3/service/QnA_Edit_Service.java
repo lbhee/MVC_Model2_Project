@@ -31,18 +31,18 @@ public class QnA_Edit_Service implements Action {
 			GosuDao gosudao = new GosuDao();
 			int result = gosudao.QnaEdit(qnaboard);
 
-		if(result > 0) {
-			msg = "수정 완료";
-			url = "/GosuProfile.go?email=" + g_email;
-		}else {
-			msg = "수정실패";
-			url = "/GosuProfile.go?email=" + g_email;
-		}
-		
-		request.setAttribute("member_msg", msg);
-		request.setAttribute("member_url", url);
-		
-		actionForward.setPath("/WEB-INF/views/include/redirect.jsp");
+			if(result > 0) {
+				msg = "수정 완료";
+				url = "/GosuProfile.go?email=" + g_email;
+			}else {
+				msg = "수정실패";
+				url = "/GosuProfile.go?email=" + g_email;
+			}
+			
+			request.setAttribute("member_msg", msg);
+			request.setAttribute("member_url", url);
+			
+			actionForward.setPath("/WEB-INF/views/include/redirect.jsp");
 			
 			
 		} catch (NamingException e) {

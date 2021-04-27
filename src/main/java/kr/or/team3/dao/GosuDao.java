@@ -987,6 +987,7 @@ public class GosuDao {
 		
 		return qna;
 	}
+	
 	//자주하는 질문 수정하기(내용보기)
 	public QnA_Board QnaEditSelect(String email) {
 		Connection conn = null;
@@ -1034,10 +1035,6 @@ public class GosuDao {
 	
 	//자주하는 질문 수정하기
 	public int QnaEdit(QnA_Board qnaboard) {
-		//String title = qnaboard.getParameter("title");
-		//String writedate = qnaboard.getParameter("writedate");
-		
-
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -1073,7 +1070,8 @@ public class GosuDao {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			int row = 0;
-			String sql = "insert into notice(num,title,content,G_EMAIL,G_CODE,FILENAME) values (qna_num.nextval,?,?,?,10000,?)";
+			
+			String sql = "insert into notice(num,title,content,G_EMAIL,G_CODE,FILENAME) values(notice_num.nextval,?,?,?,10000,?)";
 			try {
 				conn = ds.getConnection();
 				
@@ -1082,7 +1080,7 @@ public class GosuDao {
 				pstmt.setString(1, notice.getTitle());
 				pstmt.setString(2, notice.getContent());
 				pstmt.setString(3, notice.getEmail());
-				pstmt.setString(3, notice.getFilename());
+				pstmt.setString(4, notice.getFilename());
 				
 				row = pstmt.executeUpdate();
 
@@ -1131,6 +1129,164 @@ public class GosuDao {
 			
 			return count;
 			
+		}
+		
+
+		//공지사항 내용보기
+		public List<Notice> Notice(String Email) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<Notice> list = new ArrayList<Notice>();
+			
+			
+			try {
+				conn = ds.getConnection();
+				String sql= "select num, title from notice where g_email = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, Email);
+				
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					int num = rs.getInt("num");
+					String title = rs.getString("title");
+					Notice notice = new Notice(title, num);
+				
+
+					list.add(notice);
+					System.out.println("dao"+list);
+				}
+				
+			} catch (Exception e) {
+				System.out.println("Detail Error: " + e.getMessage());
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					
+				}
+			}
+			
+			return list;
+		}
+		
+		//공지사항 상세보기 & 수정하기(내용보기)
+		public Notice NoticeContent(int num) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			Notice notice = null;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql_select = "select num, title, content, writedate, g_email, filename from notice where num = ?";
+				
+				pstmt = conn.prepareStatement(sql_select);
+				
+				pstmt.setInt(1, num);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					String title = rs.getString("title");
+					String writedate = rs.getString("writedate");
+					String content = rs.getString("content");
+					int noticenum = rs.getInt("num");
+					String filname = rs.getString("filename");
+					String g_email = rs.getString("g_email");
+					
+					notice = new Notice(noticenum, title, content, writedate, g_email, filname);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					
+				}
+			}
+			
+			
+			return notice;
+		}
+
+		//공지사항 수정하기
+		public int NoticeEdit(Notice notice) {
+			System.out.println("dao 공지수정");
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int row = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "update notice set title = ? , content = ?, filename = ? where num = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, notice.getTitle());
+				pstmt.setString(2, notice.getContent());
+				pstmt.setString(3, notice.getFilename().trim());
+				pstmt.setInt(4, notice.getNum());
+				
+				
+				System.out.println(notice.getTitle());
+				System.out.println(notice.getContent());
+				System.out.println(notice.getFilename());
+				
+				row = pstmt.executeUpdate();
+				
+				
+			} catch(Exception e) {
+				System.out.println("Detail Error: " + e.getMessage());
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					System.out.println("Detail Error: " + e2.getMessage());
+				}
+			}
+			
+			return row;
+		}
+		
+		//공지사항 삭제하기
+		public int noticeDeleteOk(int num) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			int row = 0;
+			
+			try {
+				conn = ds.getConnection();
+				String sql = "delete from notice where num = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				row = pstmt.executeUpdate();
+			
+			} catch (SQLException e) {				
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (Exception e2) {
+					e2.getMessage();
+				}
+			}
+			return row;
 		}
 		
 }

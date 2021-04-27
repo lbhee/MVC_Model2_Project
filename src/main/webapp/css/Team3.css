@@ -632,6 +632,36 @@ body{
    
 }
 
+
+.pricingContent i {
+	color: #00c7ae;
+}
+
+.pricingContent li {
+	color: black;
+}
+
+.tabs2{
+	display: flex;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-color: #fff;
+    flex: 0 0 50%;  
+    
+}
+
+.container > button{
+	background-color: #00c7ae;;
+	color: white;
+	border: 1px;
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float: left;
+
 .RQ_writeBox{
 	position: absolute;
     bottom: 0;
@@ -796,4 +826,5 @@ body{
 	height: 51px;
 	font-size: 15px;	
 	margin: 3px;
+
 }
