@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MemberWriteShow_Ajax
- */
 @WebServlet("/MemberWriteShow_Ajax")
 public class MemberWriteShow_Ajax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +20,7 @@ public class MemberWriteShow_Ajax extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	

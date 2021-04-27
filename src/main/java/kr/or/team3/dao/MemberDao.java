@@ -18,6 +18,7 @@ import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Content_Member;
 import kr.or.team3.dto.member.RQ_Edit_Member;
 import kr.or.team3.dto.member.RQ_Form;
+import kr.or.team3.dto.notice.Notice;
 import kr.or.team3.dto.review.Review_Board;
 
 public class MemberDao {
@@ -96,8 +97,8 @@ DataSource ds = null;
 			e.getMessage();
 		} finally {
 			try {
-				rs.close();
 				pstmt.close();
+				rs.close();
 				conn.close();
 			} catch(Exception e2) {
 				
@@ -204,6 +205,7 @@ DataSource ds = null;
 		}finally {
 			try {
 				pstmt.close();
+				rs.close();
 				conn.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
@@ -269,6 +271,7 @@ DataSource ds = null;
 			}finally {
 				try {
 					pstmt.close();
+					rs.close();
 					conn.close();
 				} catch (Exception e2) {
 					// TODO: handle exception
@@ -468,42 +471,6 @@ DataSource ds = null;
 			return totalrqmembercount;
 		}
 		
-		//요청서에서 고객의 이름 가져오기 by 안승주
-//		public String getMemberName(int num) {
-//			Connection conn = null;
-//			PreparedStatement pstmt = null;
-//			ResultSet rs = null;
-//			String memberName = null;
-//			
-//			try {
-//				conn = ds.getConnection();
-//				String sql = "SELECT m.NAME FROM RQ_FORM rf JOIN MEMBER m ON rf.M_EMAIL = m.EMAIL WHERE rf.num = ?";
-//				pstmt = conn.prepareStatement(sql);
-//				
-//				pstmt.setInt(1, num);
-//				
-//				rs = pstmt.executeQuery();
-//				
-//				if(rs.next()) {
-//					memberName = rs.getString("name");
-//				}
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				e.getMessage();
-//			}finally {
-//				try {
-//					pstmt.close();
-//					rs.close();
-//					conn.close();
-//					
-//				} catch (Exception e2) {
-//					// TODO: handle exception
-//					e2.getMessage();
-//				}
-//			}
-//			return memberName;
-//		}
-		
 		// 고객이 고수에게 보낸 요청서 콘텐츠 가져오기 by 안승주 21.04.23
 		@SuppressWarnings("resource")
 		public RQ_Content_Member getRQContent_Member(int num) {
@@ -596,38 +563,7 @@ DataSource ds = null;
 			
 			return row;
 		}
-		// 리뷰 게시판(원본) 쓰기 by 안승주 21.04.26
-		public int writeReviewBoard(Review_Board reviewdata) {
-			
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			int row = 0;
-			
-			try {
-				conn = ds.getConnection();
-				String sql = "insert into review (num, title, content, writedate, grade, count ,refer, m_email, g_email, g_code) "
-						+    "values ( review_num.nextval , ? , ? , sysdate, ? , 0 , ? , ? , ? , 10000)";
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, reviewdata.getTitle());
-				pstmt.setString(2, reviewdata.getContent());
-				pstmt.setInt(3, reviewdata.getGrade());
-				
-				int referMax = getMaxRefer();
-				int refer = referMax + 1;
-				
-				pstmt.setInt(4,refer);
-				pstmt.setString(5, reviewdata.getM_email());
-				pstmt.setString(6, reviewdata.getG_email());
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			
-			return row;
-		}
-		
-		
+
 		// 글쓰기 (refer) 값 생성하기 (원본글) by 안승주 21.04.26 
 		private int getMaxRefer() {
 			Connection conn = null;
@@ -659,50 +595,126 @@ DataSource ds = null;
 			return refer_max;
 		}
 		
-		public int reWirteReviewOk(Review_Board reviewdata) {
-			
+		
+		//리뷰쓰는 회원 불러오기
+		public List<RQ_Form> ReviewMember(int done) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			int result = 0;
+			RQ_Form rq_form = null;
+			List<RQ_Form> list = null;
 			
 			try {
 				conn = ds.getConnection();
 				
-				String refer_depth_step_sal = "select refer, depth, step, from review where num = ?";
+				String sql = "select m_email, g_email from rq_form where done = ?";
 				
-				String step_update_sql = "update review set step = step + 1 where step > ? and refer = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, done);
 				
-				String rewritereview = "insert into review(num, title, content, writedate, grade, count ,refer, depth, step, m_email, g_email, g_code) "
-									 + "values(review_num.nextval , ? , ? , sysdate, ? , 0 , ? , ? , ? , ? , ? , 10000)";
-				
-				pstmt = conn.prepareStatement(refer_depth_step_sal);
-				pstmt.setInt(1, reviewdata.getNum());
 				rs = pstmt.executeQuery();
+				list = new ArrayList<RQ_Form>();
 				
-				if(rs.next()) {
+				while(rs.next()) {
+
+					String m_email = rs.getString("m_email");
+					String g_email = rs.getString("g_email");
 					
+					rq_form = new RQ_Form(m_email, g_email);
+					
+					list.add(rq_form);
 				}
 				
-				
-			} catch (Exception e) {
-				// TODO: handle exception
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					
+				}
 			}
+
+			return list;
+		}
+
+		// 리뷰쓰기
+		public int ReviewWrite(Review_Board review) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int row = 0;
 			
-			return 0;
+			String sql = "insert into review(num, content, m_email, g_email, g_code) values(review_num.nextval, ?, ?, ?, 10000)";
+			try {
+				conn = ds.getConnection();
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, review.getContent());
+				pstmt.setString(2, review.getM_email());
+				pstmt.setString(3, review.getG_email());
+				
+				
+				row = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return row;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		public List<Review_Board> Reviewlist(String g_email) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<Review_Board> list = null;
+			
+			
+			try {
+				conn = ds.getConnection();
+				String sql= "select m.name, r.content, r.writedate from review r join member m on r.m_email = m.email where r.g_email = ?" ;
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, g_email);
+				
+				rs = pstmt.executeQuery();
+				list = new ArrayList<Review_Board>();
+				while(rs.next()) {
+					
+					String name  = rs.getString("name");
+					String content = rs.getString("content");
+					String writedate = rs.getString("writedate");
+					
+					Review_Board review = new Review_Board(name, content, writedate);
+				
+
+					list.add(review);
+					System.out.println("dao"+list);
+				}
+				
+			} catch (Exception e) {
+				System.out.println("Detail Error: " + e.getMessage());
+			}finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();//반환하기
+				} catch (Exception e2) {
+					
+				}
+			}
+			
+			return list;
+		}
 }

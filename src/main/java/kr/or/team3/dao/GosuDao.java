@@ -28,6 +28,7 @@ import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Content_Member;
 import kr.or.team3.dto.member.RQ_Form;
 import kr.or.team3.dto.notice.Notice;
+import kr.or.team3.dto.review.Review_Board;
 
 
 public class GosuDao {
@@ -330,6 +331,7 @@ public class GosuDao {
 
 			try {
 				pstmt.close();
+				rs.close();
 				conn.close();
 			} catch (Exception e2) {
 
@@ -391,14 +393,14 @@ public class GosuDao {
 
 			}finally {
 
-			try {
-				pstmt.close();
-				conn.close();
-			} catch (Exception e2) {
-
-				e2.printStackTrace();
-				e2.getMessage();
-			}
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					e2.getMessage();
+				}
 		}
 			return list;
 		}
@@ -469,16 +471,7 @@ public class GosuDao {
 					}
 					
 				} catch (Exception e) {
-					try {
-						pstmt.close();
-						conn.close();
-					} catch (Exception e2) {
-						// TODO: handle exception
-						e2.getMessage();
-					}
-				}
-			}
-		} catch (Exception e) {
+
 			// TODO: handle exception
 			e.printStackTrace();
 			e.getMessage();
@@ -532,37 +525,6 @@ public class GosuDao {
 		return gosuName;
 	}
 	
- // 이
-//	public List<RQ_Form> get_RQlist_Gosu(String g_email, int g_code){
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		List<RQ_Form> list = null;
-//		
-//		try {
-//			conn = ds.getConnection();
-//			String spl = "SELECT r.TITLE , r.CONTENT, r.WRITEDATE , r.HOPEDATE , r.PHONE , r.M_EMAIL , r.G_CODE ,m.NAME"
-//					+ "FROM RQ_FORM r JOIN MEMBER m ON r.m_email = m.EMAIL"
-//					+ "WHERE r.G_EMAIL = ? AND r.G_CODE = ? AND  r.done = 0"
-//					+ "ORDER BY r.num desc;";
-//			pstmt = conn.prepareStatement(spl);
-//			
-//			pstmt.setString(1, g_email);
-//			pstmt.setInt(2, g_code);
-//			
-//			rs = pstmt.executeQuery();
-//			list = new ArrayList<RQ_Form>();
-//			
-//			while(rs.next()) {
-//				RQ_Form rq_form = new RQ_Form();
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return null;
-//	}
-	
-// ------------------------------------------------------------------
 	public List<Gosu_Register> searchgosu(String d_code){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -1214,6 +1176,7 @@ public class GosuDao {
 			}finally {
 				try {
 					pstmt.close();
+					rs.close();
 					conn.close();
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -1383,39 +1346,5 @@ public class GosuDao {
 				}
 			}
 			return row;
-		}
-		
+		}	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
