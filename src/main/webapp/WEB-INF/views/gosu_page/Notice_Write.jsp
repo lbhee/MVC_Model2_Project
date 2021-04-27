@@ -1,44 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>게시판 글쓰기</title>
-	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-	<link rel="Stylesheet" href="${pageContext.request.contextPath}/style/default.css" />
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일");
+%>
+
+<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+	
 	<SCRIPT type="text/javascript">
-function check(){
-    if(!bbs.subject.value){
+	function check(){
+    if(!bbs.title.value){
         alert("제목을 입력하세요");
         bbs.subject.focus();
         return false;
     }
-    if(!bbs.writer.value){
-        
-        alert("이름을 입력하세요");
-        bbs.writer.focus();
-        return false;
-    }
-   /*  if(!bbs.content.value){            
-        alert("글 내용을 입력하세요");
-        bbs.content.focus();
-        return false;
-    } */
-    if(!bbs.pwd.value){            
-        alert("비밀번호를 입력하세요");
-        bbs.pwd.focus();
-        return false;
-    }
- 
+
     document.bbs.submit();
  
 }
 </SCRIPT>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 
     <div id="pageContainer">
         <div style="padding-top: 25px; text-align: center">
@@ -47,7 +33,12 @@ function check(){
                 <table width="95%" border="2" align="center">
                     <tr>
                         <td width="20%" align="center">제목</td>
-                        <td width="80%" align="left"><input type="text"  name="subject" size="40"></td>
+                        <td width="80%" align="left"><input type="text"  name="title" size="40"></td>
+                    </tr>
+                    <tr>
+                        <td width="20%" align="center">작성날짜</td>
+                        <td width="80%" align="left"><input type="text"  value="<%= nowTime %>" name="writedate" size="40"></td>
+                        
                     </tr>
                     <tr>
                         <td width="20%" align="center">글내용</td>

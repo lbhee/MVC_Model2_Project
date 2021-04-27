@@ -606,7 +606,7 @@ DataSource ds = null;
 			try {
 				conn = ds.getConnection();
 				String sql = "insert into review (num, title, content, writedate, grade, count ,refer, m_email, g_email, g_code) "
-						+    "values ('시퀀스', ? , ? , sysdate, ? , 0 , ? , ? , ? , 10000)";
+						+    "values ( review_num.nextval , ? , ? , sysdate, ? , 0 , ? , ? , ? , 10000)";
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setString(1, reviewdata.getTitle());
@@ -614,8 +614,9 @@ DataSource ds = null;
 				pstmt.setInt(3, reviewdata.getGrade());
 				
 				int referMax = getMaxRefer();
+				int refer = referMax + 1;
 				
-				pstmt.setInt(4,referMax);
+				pstmt.setInt(4,refer);
 				pstmt.setString(5, reviewdata.getM_email());
 				pstmt.setString(6, reviewdata.getG_email());
 				
@@ -658,6 +659,38 @@ DataSource ds = null;
 			return refer_max;
 		}
 		
+		public int reWirteReviewOk(Review_Board reviewdata) {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int result = 0;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String refer_depth_step_sal = "select refer, depth, step, from review where num = ?";
+				
+				String step_update_sql = "update review set step = step + 1 where step > ? and refer = ?";
+				
+				String rewritereview = "insert into review(num, title, content, writedate, grade, count ,refer, depth, step, m_email, g_email, g_code) "
+									 + "values(review_num.nextval , ? , ? , sysdate, ? , 0 , ? , ? , ? , ? , ? , 10000)";
+				
+				pstmt = conn.prepareStatement(refer_depth_step_sal);
+				pstmt.setInt(1, reviewdata.getNum());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+				}
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			return 0;
+		}
 		
 		
 		

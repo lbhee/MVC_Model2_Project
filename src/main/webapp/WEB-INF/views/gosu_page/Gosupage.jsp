@@ -3,25 +3,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- header -->
-
-<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <%
 	String g_email = request.getParameter("email");
 	String m_email = (String)session.getAttribute("ID");
 
 %>
+<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+
 <%@ taglib prefix= "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
-    
     var loginemail = '<%= session.getAttribute("ID")%>';
     
     if(email == 'null'){
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
-	
+
    </script>
 	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
 	<body>
@@ -94,7 +93,7 @@
       </div>      
          
       <div class="container">  
-      	<div class="tabs">   
+      	<div class="tabs2">   
 	      <div class="tab_select">
 				<ul class="script_ul">
 					<li><a class="tab_selected" href="#" id="noticeboard">공지사항</a></li>
@@ -106,7 +105,7 @@
       </div>    
 
           
-     <div class="container">       
+      <div class="container">       
 	       <div style="padding-bottom: 30px; padding-top: 30px">	       
 					<div class="pricingTable">
 						<div class="pricingContent">
@@ -122,12 +121,13 @@
 		       <button style="display: none" id="write_btn" onclick="location.href='NoticeWrite.go'">글쓰기</button >
 		       <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
        </div>  
-	
+        
+	</div>
     </body>
     <script type="text/javascript">
 	var d_code = null;
     
-	$(function(){
+    $(function(){
     	gosupage();
 
     	notice();
@@ -138,7 +138,8 @@
     	}
 
     });
-
+    
+    //고수정보
     function gosupage() {
     	$.ajax({
     		url:"Gosupage_Ajax",
@@ -164,11 +165,7 @@
     				$('#career').append("경력 " + obj.career);
     				$('#license').append(obj.license + " 보유");
 
-    				if(obj.photo == null){
-    					$('.photo').attr('src','images/default_img.svg');
-    				}else{
-    					$('.photo').attr('src','upload/' + obj.photo);
-    				}
+    				$('.photo').attr('src','upload/' + obj.photo);
 
     			});
     			 console.log($('#gosu >p').text());
@@ -177,8 +174,7 @@
     	});
     }
 	
-    
-    
+
     //탭 css
     $('.script_ul > li >a').click(function(){
 		$('.script_ul > li >a').attr('class','');
@@ -186,6 +182,7 @@
 		
 	})
 	
+
 	//공지사항
 	function notice() {
     	$.ajax({
@@ -218,29 +215,32 @@
 		notice();
     });	
 	
-
-  //자주하는 질문 탭
-    $('#qnaboard').click(function(){ 
-        $.ajax({
-           url:"QnA_Ajax",
-           data: {email: email},
-           success: function(responsedata){
-              
-              if(email == loginemail){
-                  $('#write_btn').attr('style','');
-                  $('#edit_btn').attr('style','');
-               }
-              
-              $('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
-              $('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
-              
-              $('#boarddata').empty();
-              $('#boarddata').append(responsedata);
-           }
-        });
-     });
+	
+    //자주하는 질문 탭
+	$('#qnaboard').click(function(){ 
+    	$.ajax({
+    		url:"QnA_Ajax",
+    		data: {email: email},
+    		success: function(responsedata){
+    			
+    			if(email == loginemail){
+    	    		$('#write_btn').attr('style','');
+    	    		$('#edit_btn').attr('style','');
+    	    	}
+    			
+    			$('#write_btn').attr("onclick", "location.href='QnAwrite.go'");
+    			$('#edit_btn').attr("onclick", "location.href='QnAEdit.go'");
+    			
+    			$('#boarddata').empty();
+    			$('#boarddata').append(responsedata);
+    		}
+    	});
+    });
     
-  //review 계시판 글쓰기(보여주기)
+    
+    
+    
+	//review 계시판 글쓰기(보여주기)
 	$('#reviewboard').click(function(){
 		$.ajax({
     		url : "ReviewWriteShow_Ajax",
@@ -262,7 +262,7 @@
 			}    		
     	});
 	});
-    
+
 	//요청서보내기
     $('#qnaeditbtn').click(function(){
 		if(email == loginemail){
@@ -290,6 +290,8 @@
 			location.href = 'WriteRQ.go?email=${gosu_email}&code=' + d_code;
 		}
     });
+
+
 	</script>
     </html>
     
