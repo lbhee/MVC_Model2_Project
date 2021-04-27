@@ -11,12 +11,22 @@ public class RQ_Form {
 	private Date hopedate;   //수업희망날짜
 	private int done;		 //요청완료 유무 default = 0 >> 요청미완료, 1 >> 요청완료
 	private String phone;    //핸드폰번호
-	private String m_mail;	 //고객이메일
+	private String m_email;	 //고객이메일
 	private String g_email;  //고수이메일(참조)
 	private int g_code;      //고수고유코드(참조)
 	
+	
 	public RQ_Form() {
+		
 	}
+	
+	
+	
+	public RQ_Form(String m_email, String g_email) {
+		this.m_email = m_email;
+		this.g_email = g_email;
+	}
+	
 	
 	
 	public RQ_Form(int num, String title, String content, Date writedate, Date hopedate, int done, String phone,
@@ -29,7 +39,7 @@ public class RQ_Form {
 		this.hopedate = hopedate;
 		this.done = done;
 		this.phone = phone;
-		this.m_mail = m_mail;
+		this.m_email = m_mail;
 		this.g_email = g_email;
 		this.g_code = g_code;
 	}
@@ -39,7 +49,7 @@ public class RQ_Form {
 	@Override
 	public String toString() {
 		return "RQ_Form [num=" + num + ", title=" + title + ", content=" + content + ", writedate=" + writedate
-				+ ", hopedate=" + hopedate + ", done=" + done + ", phone=" + phone + ", m_mail=" + m_mail + ", g_email="
+				+ ", hopedate=" + hopedate + ", done=" + done + ", phone=" + phone + ", m_mail=" + m_email + ", g_email="
 				+ g_email + ", g_code=" + g_code + "]";
 	}
 
@@ -100,11 +110,11 @@ public class RQ_Form {
 	}
 
 	public String getM_mail() {
-		return m_mail;
+		return m_email;
 	}
 
-	public void setM_mail(String m_mail) {
-		this.m_mail = m_mail;
+	public void setM_mail(String m_email) {
+		this.m_email = m_email;
 	}
 
 	public String getG_email() {

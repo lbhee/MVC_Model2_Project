@@ -28,6 +28,7 @@ import kr.or.team3.service.Notice_Write_Service;
 import kr.or.team3.service.QnA_Edit_Service;
 import kr.or.team3.service.QnA_Wirte_Service;
 import kr.or.team3.service.RQ_Form_WriteOk_Service;
+import kr.or.team3.service.Review_Write_Severvice;
 
 @WebServlet("*.go")
 public class gosuController extends HttpServlet {
@@ -232,7 +233,19 @@ public class gosuController extends HttpServlet {
 		} else if(URL.equals("/NoticeFileDownload.go")) {
 			action = new Notice_File_Download();
 			actionForward = action.excute(request, response);
+		
+    	// 리뷰쓰기폼으로 이동
+		}else if(URL.equals("/ReviewWrite.go")) {
+			actionForward = new ActionForward();
+			actionForward.setPath("/WEB-INF/views/gosu_page/Review_Write.jsp");
+		
+    	// 리뷰쓰기
+		} else if(URL.equals("/ReviewWriteOk.go")) {
+			action = new Review_Write_Severvice();
+			actionForward = action.excute(request, response);		
 		}
+    	
+    	
 
     	// 결과 forward
     	if(actionForward != null) {

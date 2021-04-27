@@ -1,3 +1,4 @@
+<%@page import="kr.or.team3.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,7 +7,10 @@
 <%
 	String g_email = request.getParameter("email");
 	String m_email = (String)session.getAttribute("ID");
-
+	
+	MemberDao memberdao = new MemberDao();
+	
+	
 %>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 
@@ -20,6 +24,8 @@
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
+    
+    var done = 1;
 
    </script>
 	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
@@ -203,6 +209,11 @@
 	
     //공지사항 탭
     $('#noticeboard').click(function(){ 
+    	
+    	$('#write_btn').attr('style','display: none');
+		$('#edit_btn').attr('style','display: none');
+    	
+    	
     	if(email == loginemail){
     		$('#write_btn').attr('style','');
     		$('#edit_btn').attr('style','display: none');
@@ -221,7 +232,9 @@
     	$.ajax({
     		url:"QnA_Ajax",
     		data: {email: email},
-    		success: function(responsedata){
+    		success: function(responsedata){    			
+    			$('#write_btn').attr('style','display: none');
+    			$('#edit_btn').attr('style','display: none');
     			
     			if(email == loginemail){
     	    		$('#write_btn').attr('style','');
@@ -237,32 +250,32 @@
     	});
     });
     
-    
-    
-    
-	//review 계시판 글쓰기(보여주기)
-	$('#reviewboard').click(function(){
-		$.ajax({
-    		url : "ReviewWriteShow_Ajax",
-    		dataType:"HTML",
-			success: function(responsedata){
-			console.log(responsedata);
-			$('#boarddata').empty();
-			$('#boarddata').html(responsedata);
-			
-			 $('.rating > i').click(function(){
-					let clickstar = $(this).index() + 1;
-					console.log(this);
-					console.log(clickstar);
-					$('.make_star > i').css({color : '#000'});
-					console.log($('.make_star > i'));
-					$('.make_star > i:nth-child(-n +' + clickstar +')').css({color: '#F05522'});
-					console.log($('.make_star > i:nth-child(-n + '+clickstar+')'));
-				});
-			}    		
-    	});
-	});
+	//리뷰쓰기 탭
+	$('#reviewboard').click(function(){ 
+    	$.ajax({
+    		url:"Review_Ajax",
+    		data: {done: done, email:email},
+    		dataType:"JSON",
+    		success: function(responsedata){
+    			$('#boarddata').empty();
+    			review();
+    			
+    			$('#write_btn').attr('style','display: none');
+    			$('#edit_btn').attr('style','display: none');
+    			
+    			$.each(responsedata,function(index,obj){
+    				if(obj.m_email == loginemail && obj.g_email == email) {
+        	    		$('#write_btn').attr('style','');
+        	    		$('#write_btn').attr("onclick", "location.href='ReviewWrite.go?g_email="+obj.g_email+"'");
+    				}
 
+    			});
+    			
+    		}
+    	});
+		
+    });
+    
 	//요청서보내기
     $('#qnaeditbtn').click(function(){
 		if(email == loginemail){
@@ -291,6 +304,25 @@
 		}
     });
 
+    //리뷰보기
+	function review() {
+    	$.ajax({
+    		url:"ReviewList_Ajax",
+    		dataType:"JSON",
+    		data: {email: email},
+    		success: function(responsedata){
+    			$.each(responsedata,function(index,obj){
+    				console.log(obj);
+    				$('#boarddata').append(
+							"<tr align='left'><td width='80%'><b>"+ obj.name + "</b>     " + obj.writedate +
+							"<br>" + obj.content + "</td></tr>"
+							);
+					
+    		    });
+    			
+    	    }
+       });
+    }
 
 	</script>
     </html>
