@@ -3,9 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- header -->
+<%
+	String g_email = request.getParameter("email");
+	String m_email = (String)session.getAttribute("ID");
 
+%>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
-
+<c:set var = "m_email" value = "<%=m_email%>"/>
+<c:set var = "g_email" value = "<%=g_email%>"/>
     <script type="text/javascript">
     var email = '<%=request.getParameter("email")%>';
     var loginemail = '<%=(String)session.getAttribute("ID")%>';
@@ -16,7 +21,8 @@
     	email = '<%= session.getAttribute("ID")%>';
     			
     }
-    
+    console.log(email);
+    console.log(loginemail);
 
    </script>
 
@@ -112,7 +118,6 @@
        </div>  
         
 	</div>
-	
     </body>
     <script type="text/javascript">
 
@@ -157,14 +162,15 @@
 		
 	})
 	
-	//review 계시판 글쓰기(보여주기)
+	//review 게시판 글쓰기(보여주기)
 	
 	$('#reviewboard').click(function(){
 		$.ajax({
-    		url : "MemberWriteShow_Ajax",
+    		url : "ReviewWriteShow_Ajax",
     		dataType:"HTML",
 			success: function(responsedata){
 			console.log(responsedata);
+			$('#boarddata').empty();
 			$('#boarddata').html(responsedata);
 			
 			 $('.rating > i').click(function(){
@@ -173,13 +179,13 @@
 					console.log(clickstar);
 					$('.make_star > i').css({color : '#000'});
 					console.log($('.make_star > i'));
-					$('.make_star > i:nth-child(-n +' + clickstar +')').css({color: 'white'});
-					console.log($('.make_star > i:nth-child(-n +' + clickstar +')'));
+					$('.make_star > i:nth-child(-n +' + clickstar +')').css({color: '#F05522'});
+					console.log($('.make_star > i:nth-child(-n + '+clickstar+')'));
 				});
 			}    		
     	});
 	});
-
+	
    //자주하는 질문
     $('#qnaboard').click(function(){ 
     	$.ajax({

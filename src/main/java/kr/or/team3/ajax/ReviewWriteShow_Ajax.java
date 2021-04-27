@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/MemberWriteShow_Ajax")
-public class MemberWriteShow_Ajax extends HttpServlet {
+@WebServlet("/ReviewWriteShow_Ajax")
+public class ReviewWriteShow_Ajax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MemberWriteShow_Ajax() {
+    public ReviewWriteShow_Ajax() {
     	
     }
 
@@ -32,8 +32,9 @@ public class MemberWriteShow_Ajax extends HttpServlet {
     	div += "</div></div>";
     	div += "제목: <input type = 'text' name = 'title' id = 'title' placeholder = '제목을 적어주세요'><br>";
     	div += "글 내용: <input type = 'text' name = 'content' id = 'content' placeholder = '리뷰 내용을 적어주세요'>";
-    	div += "<input type = 'hidden' name = 'm_email' id = 'm_email' value = 'loginemail'>";
-    	div += "<input type = 'hidden' name = 'm_email' id = 'g_email' value = 'email'>";
+    	div += "<input type = 'hidden' name = 'm_email' id = 'm_email' value = '${m_email}'>";
+    	div += "<input type = 'hidden' name = 'g_email' id = 'g_email' value = '${g_email}'>";
+    	div += "<input type = 'submit' value = '전송하기'";
     	div += "</form>";
     	div += "</div>";
     	
