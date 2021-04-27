@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.team3.action.Action;
 import kr.or.team3.action.ActionForward;
 import kr.or.team3.dao.MemberDao;
+import kr.or.team3.dto.member.Member;
 import kr.or.team3.dto.member.RQ_Form;
 
 public class RQ_Form_WriteOk_Service implements Action {
@@ -41,7 +42,7 @@ public class RQ_Form_WriteOk_Service implements Action {
 		String M_email = (String)request.getSession().getAttribute("ID");
 		String G_email = request.getParameter("g_email");
 		int G_code = Integer.parseInt(request.getParameter("g_code"));
-		System.out.println("요청중");
+		
 		RQ_Form rq_form = new RQ_Form(0, title, content, null, hopedate, 0, phone, M_email, G_email, G_code);
 		
 		ActionForward actionForward = new ActionForward();
@@ -49,21 +50,22 @@ public class RQ_Form_WriteOk_Service implements Action {
 		try {
 			MemberDao memberDao = new MemberDao();
 			int result = memberDao.sendRQ_Form(rq_form);
+			Member member = memberDao.getContent(G_email);
 			
-			String msg = "";
-			String url = "";
+			String name = "";
+			String check = "";
 			
 			if(result > 0) {
-				msg = "요청 완료";
-				url = "/RQList_Member.go";
+				name = member.getName();
+				check = "true";
 			}else {
-				msg = "요청실패";
-				url = "/RQList_Member.go";
+				name = "null";
+				check = "false";
 			}
-			request.setAttribute("member_msg", msg);
-			request.setAttribute("member_url", url);
+			request.setAttribute("name", name);
+			request.setAttribute("check", check);
 			
-			actionForward.setPath("/WEB-INF/views/include/redirect.jsp");
+			actionForward.setPath("/WEB-INF/views/RQ/RQ_Member_writeOk.jsp");
 			
 		}catch (Exception e2) {
 			e2.getMessage();
@@ -73,9 +75,5 @@ public class RQ_Form_WriteOk_Service implements Action {
 		return actionForward;
 	}
 
-	private Date Date(long time) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -31,7 +31,11 @@ public class Gosu_RQ_Detail_Ajax extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int cpage = Integer.parseInt(request.getParameter("cp"));
 		int pagesize = Integer.parseInt(request.getParameter("ps"));
-
+		String checkList = request.getParameter("CheckList");
+		
+		if(checkList == null) {
+			checkList = "null";
+		}
 		
 		try {
 			
@@ -48,12 +52,17 @@ public class Gosu_RQ_Detail_Ajax extends HttpServlet {
 			div += "<p>고객 이름: "  + content.getMemberName() + "</p>";
 			div += "<p>전화번호: "  + content.getPhone() + "</p>";
 			
-			div += "<p>"  + content.getWritedate() + "</p>";
-		
-			div += "<a class='Rq_btn' href = 'Gosu_RQ_CompleteOk.go?num="+ num + "&cp=" + cpage + "&ps=" + pagesize + "'>수락</a>";
-			div += "<a class='Rq_btn' href = 'Gosu_RQ_DeleteOk.go?num="+ num + "&cp=" + cpage + "&ps=" + pagesize + "'>거절</a>";
+			div += "<p class='RQ_last_p'>"  + content.getWritedate() + "</p>";
+			
+			if(checkList.equals("Done")) {
+				div += "<p>처리가 완료된 요청서입니다.</p>";
+			}else {
+				div += "<a class='Rq_btn' href = 'Gosu_RQ_CompleteOk.go?num="+ num + "&cp=" + cpage + "&ps=" + pagesize + "'>수락</a>";
+				div += "<a class='Rq_btn' href = 'Gosu_RQ_DeleteOk.go?num="+ num + "&cp=" + cpage + "&ps=" + pagesize + "'>거절</a>";	
+			}
+			
 			div += "</div>";
-				
+			
 		
 			out.print(div);
 		

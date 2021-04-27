@@ -27,11 +27,13 @@ int cpage = Integer.parseInt(cp);
 int pagesize = Integer.parseInt(ps);
 
 List<RQ_Form> list = dao.getRQ_Form_Member(cpage, pagesize, M_email);
+List<RQ_Form> Donelist = dao.getDone_RQ_Form_Member(cpage, pagesize, M_email);
 
 int totalRQcount = dao.totalRQMemberCount(M_email);
 
 %>
 <c:set var="list" value="<%=list%>"/>
+<c:set var="Donelist" value="<%=Donelist%>"/>
 <c:set var="cpage" value="<%=cpage%>" />
 <c:set var="pagesize" value="<%=pagesize%>" />
 <c:set var="conextPath" value="<%=request.getContextPath()%>" />
@@ -53,16 +55,17 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 	</div>	
 </div>	
 		<!-- end title -->
-		
+		<div class="container">
 		<div class="RQ_box">
-		
 		<h2><b>보낸 요청서</b></h2>
 		</div>
+		
 		<div class="row">
 			<c:forEach var="rqlist" items="${list}" begin="0" end="${list.size()}" step="1">
 				<div class="col-md-4 col-sm-6 col-xs-12">
 					<div class='RqListBox'>
 						<div class="RqListHeaderBox">
+							<p class="Rq_boardBox">진행중 ✉️</p>
 							${rqlist.writedate}
 							<p>요청번호: ${rqlist.num}</p>
 						</div>
@@ -80,11 +83,44 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 		</div>
 		<div class="RQ_Detail_modal"></div>
 
+		<!-- ================================================================================= -->
+		
+		
+		<div class="RQ_box">
+		<hr>
+		<h2><b>처리가 완료된 요청서</b></h2>
+		</div>
+		<div class="row">
+			<c:forEach var="Donelist" items="${Donelist}" begin="0" end="${Donelist.size()}" step="1">
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class='RqListDoneBox'>
+						<div class="RqDoneListHeaderBox">
+							<c:if test="${ Donelist.done == 1 }">
+								<p>수락된 요청서</p>
+							</c:if>
+							<c:if test="${ Donelist.done == 2 }">
+								<p>거절된 요청서</p>
+							</c:if>
+							${Donelist.writedate}
+							<p>요청번호: ${Donelist.num}</p>
+						</div>
+						<div class="RQListMainBox">
+							<c:set var="member" value="${ dao.getContent(Donelist.g_email) }"></c:set>
+							<p>${member.name}고수에게 보낸요청</p>
+						</div>
+						<form action="" class="RQ">
+						<p class="num=${Donelist.num}&cp=${cpage}&ps=${pagesize}&CheckList=Done" hidden"></p>
+						<input type="button" value="자세히 보기" class="button">
+						</form>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>	
 
 <script type="text/javascript">
 	$('.RQ_Detail_modal').hide();
 	$('.RQ').click(function(){
-		console.log($(this).children("p"));
 		
 		var date = $(this).children("p")[0];
 		
@@ -94,7 +130,6 @@ int totalRQcount = dao.totalRQMemberCount(M_email);
 			   data:date.attributes[0].nodeValue,
 			   dataType:"html",
 			   success:function(data){
-				   console.log(data);
 				   
 				   
 				   $('.RQ_Detail_modal').empty();

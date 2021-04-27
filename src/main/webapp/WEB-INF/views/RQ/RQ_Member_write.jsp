@@ -32,19 +32,19 @@
 				<div class="RQ_writeBox">
 				<div class="regidiv">
 				<p>제목</p>
-					<input type = "text" class = "form-control" id = "title" name = "title" placeholder="요청서 제목을 입력해주세요.">
+					<input type = "text" class = "form-control" id="title" name = "title" placeholder="요청서 제목을 입력해주세요.">
 				<p class="tdname"></p>
 				
 				<p>내용</p>
-					<input type = "text" class = "form-control" id = "content" name = "content" placeholder="요청서 내용을 입력해주세요.">
+					<input type = "text" class = "form-control" id="content" name = "content" placeholder="요청서 내용을 입력해주세요.">
 				<p></p>
 				
 				<p>요청날짜</p>
-					<input type = "date" class = "form-control" id = "hopedate" name = "hopedate">
+					<input type = "date" class = "form-control" id="hopedate" name = "hopedate" min="2021-4-27">
 				<p></p>
 				
 				<p>전화번호</p>
-					<input type = "text" class = "form-control" id = "phone" name = "phone" placeholder="연락받을 번호를 입력해주세요.">
+					<input type = "text" class = "form-control" id="phone" name = "phone" placeholder="연락받을 번호를 입력해주세요.">
 				<p></p>
 				
 				
@@ -78,7 +78,50 @@
 	<script type="text/javascript">
 	
 		$('.button').click(function(){
-			$('.checkdomain').submit();
+			
+			if ($('#title').val() == '' || $('#content').val() == '' || $('#hopedate').val() == '' || $('#phone').val() == '') {
+				swal("빈칸을 모두 채워주세요." , "", "error");
+				return;
+			} else {
+				confirm('',"요청 하시겠습니까?");
+			}
+			
 		})
+		
+		
+		var confirm = function(msg, title, resvNum) {
+			swal({
+				title : title,
+				text : msg,
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonClass : "btn-danger",
+				confirmButtonText : "예",
+				cancelButtonText : "아니오",
+				closeOnConfirm : false,
+				closeOnCancel : true
+			}, function(isConfirm) {
+				if (isConfirm) {
+					$('.checkdomain').submit();
+					
+				}else{
+					return false;
+				}
+
+	});
+}
+
 	
+	function date(){
+		var date = new Date();
+		return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+	};
+	
+	function date2(){
+		var date = new Date();
+		return date.getFullYear() + "-" + (date.getMonth()+2) + "-" + date.getDate();
+	};
+	
+	$('#hopedate').attr("min",date()); 
+	$('#hopedate').attr("max",date2()); 
 	</script>
