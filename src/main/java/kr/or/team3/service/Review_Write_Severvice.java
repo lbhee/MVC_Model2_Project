@@ -18,17 +18,21 @@ public class Review_Write_Severvice implements Action {
 		String g_email = request.getParameter("g_email");
 		String m_email = request.getParameter("m_email");
 		// String writer = request.getParameter("writer");
+		
 		String content = request.getParameter("content");
 		String writedate = request.getParameter("writedate");
+		String grade = request.getParameter("grade");
 		
 		ActionForward actionForward = new ActionForward();
 		
-		Review_Board review = new Review_Board(g_email , m_email, content, writedate);
+		Review_Board review = new Review_Board(null,0,content,writedate,m_email,g_email,0,grade);
+		
 		System.out.println(g_email);
 		try {
 			
 			MemberDao memberdao = new MemberDao();
 			int row = memberdao.ReviewWrite(review);
+			int row2 = memberdao.ReviewWrite_RQ_Update(review);
 			
 			String msg = "";
 			String url = "";

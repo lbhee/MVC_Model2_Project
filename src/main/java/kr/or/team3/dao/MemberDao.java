@@ -646,7 +646,7 @@ DataSource ds = null;
 			PreparedStatement pstmt = null;
 			int row = 0;
 			
-			String sql = "insert into review(num, content, m_email, g_email, g_code) values(review_num.nextval, ?, ?, ?, 10000)";
+			String sql = "insert into review(num, content, m_email, g_email, g_code, grade) values(review_num.nextval, ?, ?, ?, 10000, ?)";
 			try {
 				conn = ds.getConnection();
 				
@@ -655,7 +655,39 @@ DataSource ds = null;
 				pstmt.setString(1, review.getContent());
 				pstmt.setString(2, review.getM_email());
 				pstmt.setString(3, review.getG_email());
+				pstmt.setString(4, review.getGrade());
 				
+				row = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return row;
+		}
+		
+		
+		// 리뷰쓰면 요청서 done 4로 증가
+		public int ReviewWrite_RQ_Update(Review_Board review) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			int row = 0;
+			
+			String sql = "UPDATE RQ_FORM SET DONE = 4 WHERE M_EMAIL = ?";
+			try {
+				conn = ds.getConnection();
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, review.getM_email());
 				
 				row = pstmt.executeUpdate();
 
@@ -683,7 +715,7 @@ DataSource ds = null;
 			
 			try {
 				conn = ds.getConnection();
-				String sql= "select m.name, r.content, r.writedate from review r join member m on r.m_email = m.email where r.g_email = ?" ;
+				String sql= "select m.name, r.content, r.writedate, r.grade from review r join member m on r.m_email = m.email where r.g_email = ?" ;
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, g_email);
@@ -695,9 +727,9 @@ DataSource ds = null;
 					String name  = rs.getString("name");
 					String content = rs.getString("content");
 					String writedate = rs.getString("writedate");
+					String grade = rs.getString("grade");
 					
-					Review_Board review = new Review_Board(name, content, writedate);
-				
+					Review_Board review = new Review_Board(name, 0, content, writedate, name, g_email, 10000, grade);
 
 					list.add(review);
 					

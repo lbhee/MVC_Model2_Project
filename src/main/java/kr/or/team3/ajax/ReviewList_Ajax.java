@@ -42,6 +42,7 @@ public class ReviewList_Ajax extends HttpServlet {
 				jsonobj.put("name", list.get(i).getName());
 				jsonobj.put("content", list.get(i).getContent());
 				jsonobj.put("writedate", list.get(i).getWritedate());
+				jsonobj.put("grade", list.get(i).getGrade());
 				
 				jsonarr.add(jsonobj);
 				

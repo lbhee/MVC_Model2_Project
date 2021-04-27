@@ -89,6 +89,7 @@ function btnclick(){
 			   },
 			   dataType:"html",
 			   success:function(data){
+				   console.log(data);
 				   if(data == "true"){
 			   		   location.href = "main.jsp";
 				   }else{

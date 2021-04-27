@@ -51,6 +51,7 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 					</c:when>
 					<c:otherwise>
 						<h3>도착한 요청서가 <b>${totalcount}건 </b>있습니다</h3>
+						
 						<p style="color:red">요청서는 최대 10개까지만 볼 수 있습니다.</p>
 					</c:otherwise>
 				</c:choose>
@@ -96,7 +97,7 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 				<div class="col-md-4 col-sm-6 col-xs-12">
 					<div class='RqListDoneBox'>
 						<div class="RqDoneListHeaderBox">
-							<c:if test="${ Donelist.done == 1 }">
+							<c:if test="${ Donelist.done == 1 || Donelist.done == 4}">
 								<p>수락한 요청서 ✅</p>
 							</c:if>
 							<c:if test="${ Donelist.done == 2 }">
@@ -150,7 +151,9 @@ int totalRQcount = dao.totalRQMemberCount(G_email);
 		})
 	})
 	
-	
+	if(${totalcount} > 0){
+		swal("📩" , "요청서가 도착했습니다" ,"");
+	}
 
 </script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
