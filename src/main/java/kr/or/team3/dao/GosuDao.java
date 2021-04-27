@@ -326,6 +326,14 @@ public class GosuDao {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				e2.getMessage();
+			}
 		}
 		return list;
 	}
@@ -379,6 +387,14 @@ public class GosuDao {
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					e2.getMessage();
+				}
 			}
 			return list;
 		}
@@ -1175,6 +1191,14 @@ public class GosuDao {
 				
 			} catch (Exception e) {
 				// TODO: handle exception
+			}finally {
+				try {
+					pstmt.close();
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					e2.getMessage();
+				}
 			}
 			
 			
