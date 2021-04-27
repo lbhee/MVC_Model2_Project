@@ -1,3 +1,4 @@
+<%@page import="kr.or.team3.dao.ChartDao"%>
 <%@page import="kr.or.team3.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +10,10 @@
 	String m_email = (String)session.getAttribute("ID");
 	
 	MemberDao memberdao = new MemberDao();
+	ChartDao dao = new ChartDao();
 	
+	int totalGosuRQCount = dao.totalGosuRQCount(g_email);
+	int totalHireCount = dao.totalHireCount(g_email);
 	
 %>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
@@ -29,6 +33,8 @@
 
    </script>
 	<c:set var="gosu_email" value='<%=request.getParameter("email")%>'></c:set>
+	<c:set var = 'totalrq' value = '<%=totalGosuRQCount%>'/>
+	<c:set var = 'totalhire' value = '<%=totalHireCount%>'/>
 	<body>
 	
 	<div class="app-body">
@@ -46,7 +52,13 @@
 					<p class="RQ_Header">고수에게 원하는 서비스의 견적을 받아보세요.</p>
 					<input type="button" value="견적 요청하기" class="button"> 
 				</div>
-				
+		       <div class="chart_box"> 
+		       <div class="container">
+		       <div class = "chart">
+		  			<canvas id="myChart"></canvas>
+				</div> 
+		       </div>
+		       </div>
 			</div>
 	</div>
 
@@ -127,11 +139,13 @@
 		        <button style="display: none"  id="edit_btn" onclick="location.href='#'">수정하기</button >
 	       </div> 
 		       
-       </div>  
-        
-        <div class=""></div>
+       </div> 
+  
 	</div>
     </body>
+    
+    <!— chart.js —>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript">
 	var d_code = null;
     
@@ -174,11 +188,16 @@
     				$('#hire_num').append(obj.hire_num +"회 고용됨");
     				$('#career').append("경력 " + obj.career);
     				$('#license').append(obj.license + " 보유");
-
-    				$('.photo').attr('src','upload/' + obj.photo);
+					
+    				if(obj.photo == null){
+    					$('.photo').attr('src','images/default_img.svg');
+    				}else {
+    					$('.photo').attr('src','upload/' + obj.photo);
+    				}
+    				
 
     			});
-    			 console.log($('#gosu >p').text());
+    			 
     			 d_code = $('#gosu >p').text();
     		}
     	});
@@ -300,7 +319,7 @@
     			$('#write_btn').attr('style','display: none');
     			$('#edit_btn').attr('style','display: none');
     			
-    			console.log(responsedata);
+    			
     			
     			if(email == loginemail){
     	    		$('#write_btn').attr('style','');
@@ -330,7 +349,7 @@
     		url : "ReviewWriteShow_Ajax",
     		dataType:"HTML",
 			success: function(responsedata){
-			console.log(responsedata);
+	
 			$('#boarddata').empty();
 			$('#boarddata').html(responsedata);
 			
@@ -409,18 +428,55 @@
     		data: {email: email},
     		success: function(responsedata){
     			$.each(responsedata,function(index,obj){
-    				console.log(obj);
+    				
     				$('#boarddata').append(
-							"<tr align='left'><td width='80%'><b>"+ obj.name + "</b>     " + obj.writedate +
-							"<br>" + obj.content + "</td></tr>"
+							"<li class='review_box'><i class='review_Header'><b>"+ obj.name + "</b>" + obj.writedate +
+							"<br><p class='review_content'>" + obj.content + "</p></i></li>"
 							);
-					
+    				
     		    });
     			
     	    }
        });
     }
+	
+	//차트
+    const labels = ['고수가 받은 누적 요청서', '총 고용 휫수'];
+    const data = {
+      labels: labels,
+      datasets: [{
+    	label: '',
+        data: [${totalrq} ,${totalhire}],
+        backgroundColor: [
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)'
+        ],
+        borderWidth: 1
+      }]
+    };
 
+    const config = {
+    		  type: 'bar',
+    		  data: data,
+    		  options: {
+    		    scales: {
+    		      y: {
+    		        beginAtZero: true
+    		      }
+    		    }
+    		  },
+    		};
+    		
+    var myChart = new Chart(
+    	    document.getElementById('myChart'),
+    	    config
+    	  );
+
+    
 	</script>
  <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
     

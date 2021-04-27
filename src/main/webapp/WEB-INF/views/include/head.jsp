@@ -57,7 +57,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="main.jsp">
+				<a class="navbar-brand" href="main.go">
 
 					<img src="images/logo.jpg" alt="" />
 
@@ -103,6 +103,7 @@
 									</c:if>
 									<c:if test="${gosu>0}">
 				 						<a href="RQList_Gosu.go">받은 요청서 리스트</a>
+				 						<a href="RQList_Member.go">보낸 요청서 리스트</a>
 									</c:if>
 				 					
 				 					

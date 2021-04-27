@@ -487,7 +487,7 @@ DataSource ds = null;
 				String sql3 = "SELECT gs.S_NAME ,gd.D_NAME FROM RQ_FORM rf JOIN G_REGISTER gr ON rf.G_EMAIL = gr.EMAIL JOIN G_DETAIL gd ON gr.D_CODE = gd.D_CODE JOIN G_SERVICE gs ON gd.S_CODE = gs.S_CODE WHERE rf.num = ?";
 				pstmt = conn.prepareStatement(sql1);
 				pstmt.setInt(1,num);
-				System.out.println("4");
+				
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					content.setNum(rs.getInt("num"));
@@ -502,7 +502,7 @@ DataSource ds = null;
 				pstmt.setInt(1, num);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
-					System.out.println(rs.getString("name"));
+					
 					content.setGosuName(rs.getString("name"));
 					content.setAdr(rs.getString("adr"));
 				}
@@ -700,7 +700,7 @@ DataSource ds = null;
 				
 
 					list.add(review);
-					System.out.println("dao"+list);
+					
 				}
 				
 			} catch (Exception e) {
