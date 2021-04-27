@@ -469,16 +469,7 @@ public class GosuDao {
 					}
 					
 				} catch (Exception e) {
-					try {
-						pstmt.close();
-						conn.close();
-					} catch (Exception e2) {
-						// TODO: handle exception
-						e2.getMessage();
-					}
-				}
-			}
-		} catch (Exception e) {
+
 			// TODO: handle exception
 			e.printStackTrace();
 			e.getMessage();
