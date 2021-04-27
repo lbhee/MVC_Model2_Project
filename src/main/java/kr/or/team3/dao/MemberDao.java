@@ -505,6 +505,7 @@ DataSource ds = null;
 //		}
 		
 		// 고객이 고수에게 보낸 요청서 콘텐츠 가져오기 by 안승주 21.04.23
+		@SuppressWarnings("resource")
 		public RQ_Content_Member getRQContent_Member(int num) {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
