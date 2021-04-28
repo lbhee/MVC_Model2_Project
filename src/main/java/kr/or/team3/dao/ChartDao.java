@@ -161,7 +161,7 @@ public class ChartDao {
 				
 		try {
 			conn = ds.getConnection();
-			String sql = "select count(*) cnt from ( SELECT * FROM  RQ_Form WHERE G_EMAIL = ?) where done = 0 or done = 1 OR done = 2";
+			String sql = "select count(*) cnt from ( SELECT * FROM  RQ_Form WHERE G_EMAIL = ?) where done = 0 or done = 1 OR done = 2 OR done = 4";
 					
 			pstmt  = conn.prepareStatement(sql);
 			pstmt.setString(1, g_email);
