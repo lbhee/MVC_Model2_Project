@@ -39,13 +39,16 @@ public class SearchGosu_A extends HttpServlet {
 			List<Gosu_Register> gosulist = gosudao.searchgosu(d_code);
 			
 			
+			
 			String div ="<div class='row'>";
 			for(Gosu_Register list : gosulist ) {
+			
 				
-				div += "<div class='col-md-4 col-sm-6 col-xs-12' >";
+				div += "<div class='col-md-4 col-sm-6 col-xs-12'>";
 				div += "<div class='icon-wrapper wow fadeIn'>";
 				div += "<a href ='GosuProfile.go?email="+list.getEmail()+"'>";
-				if(list.getPhoto().equals("null")) {
+				// null 일시 
+				if(list.getPhoto()  == null ) {
 					div += "<img class='search_gosuImg' src='images/default_img.svg'>";
 				}else {
 					div += "<img class='search_gosuImg' src='upload/" + list.getPhoto() + "'>";

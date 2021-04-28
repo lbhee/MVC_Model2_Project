@@ -535,15 +535,20 @@ public class GosuDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Gosu_Register> gosulist = null;
-	    Member member = new Member();
+	    
+	    String D_Code = d_code + "%";
+	    
 		try {
 			conn = ds.getConnection();
 			String sql = "select g_register.pr, member.name, member.email, gb.PHOTO from member join g_register on g_register.email = member.email" 
-					    + " JOIN G_INFO_BASIC gb ON MEMBER.EMAIL = gb.EMAIL where d_code like '" + d_code + "%'";
+					    +" JOIN G_INFO_BASIC gb ON MEMBER.EMAIL = gb.EMAIL where d_code like ?";
 			
 			pstmt = conn.prepareStatement(sql);
-
+		
+			pstmt.setString(1, D_Code);
+			
 			rs = pstmt.executeQuery();
+			
 			gosulist = new ArrayList<Gosu_Register>();
 
 			while(rs.next()) {
@@ -552,12 +557,12 @@ public class GosuDao {
 				String email = rs.getString("email");
 				String photo = rs.getString("photo");
 				
-				Gosu_Register gosuregister = new Gosu_Register(email, 0, pr, 0, name, photo);
+				Gosu_Register gosuregister = new Gosu_Register(email,0,pr,0,name,photo);
 				
 				gosulist.add(gosuregister);
-		}
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} finally {
 			try {
 				pstmt.close();

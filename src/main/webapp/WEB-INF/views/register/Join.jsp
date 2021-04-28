@@ -50,7 +50,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 //이름 체크
-var namecheck = /^[가-힣]{1,5}$/;
+var namecheck = /^[가-힣]{1,9}$/;
 var nameck = false;
 $('#name').blur(function() {
 	if (namecheck.test($('#name').val())) {
