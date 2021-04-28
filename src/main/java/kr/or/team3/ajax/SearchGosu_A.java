@@ -47,6 +47,7 @@ public class SearchGosu_A extends HttpServlet {
 				div += "<div class='col-md-4 col-sm-6 col-xs-12'>";
 				div += "<div class='icon-wrapper wow fadeIn'>";
 				div += "<a href ='GosuProfile.go?email="+list.getEmail()+"'>";
+				// null 일시 
 				if(list.getPhoto()  == null ) {
 					div += "<img class='search_gosuImg' src='images/default_img.svg'>";
 				}else {
