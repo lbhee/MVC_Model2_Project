@@ -1,8 +1,12 @@
 
 #ㄱㅅㅊㄱ - 숨은 고수 찾기
+ㄱㅅㅊㄱ는 약 2주간 걸쳐 진행된 비트캠프2조의 2차 토이 프로젝트입니다.
+JAVA와 JavaScript, JSP만을 이용하여 MVC패턴의 Model 2방식으로 프로젝트를 진행하였고,
+자바의 FrameWork인 Spring을 배우기 전 복습 삼아 진행항 토이 프로젝트입니다.
 
+* 이미 상용화 되고있는 "숨고"라는 사이트를 벤치마킹하여 제작하였음을 알립니다.
 
-### 프로젝트 소개
+### 프로젝트 개요
 
 남녀노소를 가리지 않고 많은 사람들은 각자 무언가를 배우고 싶은 욕심이 있습니다. <br>
 그 욕심의 방향이 다르고 크기가 다를 뿐 모두 공통된 생각을 가지고 있을 겁니다. <br>
@@ -17,5 +21,6 @@
 Programming Language - Java 1.8
 IDE - Eclipse
 DB - OracleDB 
-JAVA MVC 패턴
+SERVER - Apache TomCat v9.0
+MVC_MODEL2 패턴
 ```
