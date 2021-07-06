@@ -65,12 +65,11 @@ Controller와 View를 같은 영역에서 구현하는 Model1 방식은 개발�
 <br>
 <br>
 
-# 협업툴
+# 형상관리
 GIT - <br>
 팀원들 모두 Git에 익숙하지 않은 상태로 프로젝트를 진행하여 Git에 대한 트러블슈팅이 많았습니다. <br>
 하지만 팀원 모두 트러블을 해결하기위해 많은 시행착오가 존재하였고, 그 시행착오로 Git에 한걸음 더 가까워지게 되는 계기가 되었습니다. <br>
 <img src="https://user-images.githubusercontent.com/76239872/124552999-2cd7ac00-de6f-11eb-8ec3-2c7e65013b1e.png">
-<img src="https://user-images.githubusercontent.com/76239872/124553719-0a925e00-de70-11eb-9b6e-ff6d3c6fa762.png">
 <br>
 <br>
 
