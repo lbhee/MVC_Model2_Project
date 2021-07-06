@@ -54,7 +54,10 @@ Controller와 View를 같은 영역에서 구현하는 Model1 방식은 개발�
 팀원들과 역활을 나누어 BACK 작업과 FRONT 작업을 분업하여 프로젝트를 진행 하였습니다. <br>
 <br>
 
-### 작업에 사용된 패턴
+### MVC 패턴
+<img src="https://user-images.githubusercontent.com/76239872/124560293-9956a900-de77-11eb-912b-c8e561cd47e3.png">
+<br>
+<br>
 
 
 # DATABASE ERD 
