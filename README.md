@@ -53,7 +53,9 @@ Controller와 View를 같은 영역에서 구현하는 Model1 방식은 개발�
 그래서 저희는 Model2 방식으로 View와 Controller를 분리하여 <br>
 팀원들과 역활을 나누어 BACK 작업과 FRONT 작업을 분업하여 프로젝트를 진행 하였습니다. <br>
 <br>
-<br>
+
+### 작업에 사용된 패턴
+
 
 # DATABASE ERD 
 <img src="https://user-images.githubusercontent.com/76239872/124551498-2d6f4300-de6d-11eb-92d8-3b6f15f79480.png">
