@@ -42,6 +42,7 @@ DB : Oracle11g
 <br>
 
 # 프로젝트 구성
+MVC Model2 방식
 <img src="https://user-images.githubusercontent.com/76239872/124549561-475b5680-de6a-11eb-9329-8869b24fb1c4.png">
 <br>
 <br>
