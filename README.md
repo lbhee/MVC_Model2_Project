@@ -46,14 +46,14 @@ DB : Oracle11g
 MVC Model2 방식
 <img src="https://user-images.githubusercontent.com/76239872/124549561-475b5680-de6a-11eb-9329-8869b24fb1c4.png">
 <br>
-<br>
 
 ### Model2 방식 사용이유
 Controller와 View를 같은 영역에서 구현하는 Model1 방식은 개발기간에는 다소 짧은 기간이 소요 되겠지만, <br>
 유지보수가 어렵다는 단점이 있고, 분업에 어려움이 있습니다. <br>
 그래서 저희는 Model2 방식으로 View와 Controller를 분리하여 <br>
 팀원들과 역활을 나누어 BACK 작업과 FRONT 작업을 분업하여 프로젝트를 진행 하였습니다. <br>
-
+<br>
+<br>
 
 # DATABASE ERD 
 <img src="https://user-images.githubusercontent.com/76239872/124551498-2d6f4300-de6d-11eb-92d8-3b6f15f79480.png">
@@ -72,5 +72,7 @@ GIT - <br>
 <img src="https://user-images.githubusercontent.com/76239872/124552999-2cd7ac00-de6f-11eb-8ec3-2c7e65013b1e.png">
 <br>
 <br>
+
+<hr>
 
 
