@@ -26,7 +26,7 @@ JAVA와 JavaScript, JSP만을 이용하여 MVC패턴의 Model 2방식으로 프�
 # 프로젝트 기본 설정
 * Main Color : #00c7ae(Caribbean Green)
 * 기본 폰트 : font-family : Noto Sans, apple-system
-* 제목용 텍스트 크기는 21px
+* 제목용 텍스트 크기는 17px
 * 본문 텍스트 크기는 13px
 <br>
 <br>
