@@ -28,7 +28,8 @@ JAVA와 JavaScript, JSP만을 이용하여 MVC패턴의 Model 2방식으로 프�
 * 기본 폰트 : font-family : Noto Sans, apple-system
 * 제목용 텍스트 크기는 21px
 * 본문 텍스트 크기는 13px
-
+<br>
+<br>
 
 # 개발 환경
 ```
